@@ -1,0 +1,7 @@
+<select [(ngModel)]="selectedCity" (ngModelChange)="selectCity($event)">
+    <option *ngFor="let city of cities" [ngValue]="city.name">
+        {{ city.name }}
+    </option>
+</select>
+
+<div id="canvas"></div>

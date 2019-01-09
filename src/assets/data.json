@@ -1,0 +1,693 @@
+[
+    {
+        "name": "Rome",
+        "lines": [
+            {
+                "name": "MA",
+                "color": "#ff0000",
+                "stations": [
+                    {
+                        "name": "Battistini",
+                        "x": 50,
+                        "y": 100,
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Cornelia",
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Baldo\n degli Ubaldi",
+                        "links": [
+                            {
+                                "direction": "East"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Valle\n Aurelia",
+                        "links": [
+                            {
+                                "direction": "East"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Cipro",
+                        "links": [
+                            {
+                                "direction": "East"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Ottaviano",
+                        "links": [
+                            {
+                                "direction": "East"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Lepanto",
+                        "links": [
+                            {
+                                "direction": "East"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Flaminio",
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Spagna",
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Barberini",
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Repubblica",
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Termini",
+                        "proxy": [
+                            {
+                                "line": "MB",
+                                "stations": [
+                                    "Termini"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Vittorio Emanuele",
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Manzoni",
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "S. Giovanni",
+                        "proxy": [
+                            {
+                                "line": "MC",
+                                "stations": [
+                                    "S.Giovanni"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Re di Roma",
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Ponte Lungo",
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Furio Camillo",
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Colli Albani",
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Arco di Travertino",
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Porta Furba",
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Numidio Quadrato",
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Lucio Sesto",
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Giulio Agricola",
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Subaugusta",
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Cinecitta",
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Anagnina",
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "MB",
+                "color": "#0000FF",
+                "stations": [
+                    {
+                        "name": "Laurentina",
+                        "x": 348,
+                        "y": 433,
+                        "links": [
+                            {
+                                "direction": "West"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "EUR\n Fermi",
+                        "links": [
+                            {
+                                "direction": "West"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "EUR\n Palasport",
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "EUR Magliana",
+                        "links": [
+                            {
+                                "direction": "North"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Marconi",
+                        "links": [
+                            {
+                                "direction": "North"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Basilica S. Paolo",
+                        "links": [
+                            {
+                                "direction": "North"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Garbatella",
+                        "links": [
+                            {
+                                "direction": "North"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Piramide",
+                        "links": [
+                            {
+                                "direction": "NorthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Circo Massimo",
+                        "links": [
+                            {
+                                "direction": "NorthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Colosseo",
+                        "links": [
+                            {
+                                "direction": "NorthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Carvour",
+                        "links": [
+                            {
+                                "direction": "NorthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Termini",
+                        "proxy": [
+                            {
+                                "line": "MA",
+                                "stations": [
+                                    "Termini"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "NorthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Castro Pretorio",
+                        "links": [
+                            {
+                                "direction": "NorthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Policlinico",
+                        "links": [
+                            {
+                                "direction": "NorthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Bologna",
+                        "proxy": [
+                            {
+                                "line": "MB",
+                                "stations": [
+                                    "Tiburtina",
+                                    "S. Agnese/\nAnnibiliano"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "station": "Tiburtina",
+                                "direction": "NorthEast"
+                            },
+                            {
+                                "station": "S. Agnese/\nAnnibiliano",
+                                "direction": "North"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Tiburtina",
+                        "parents": [
+                            "Bologna"
+                        ],
+                        "links": [
+                            {
+                                "direction": "East"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Quintiliani",
+                        "links": [
+                            {
+                                "direction": "East"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Monti\n Tiburtini",
+                        "links": [
+                            {
+                                "direction": "East"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Pietralata",
+                        "links": [
+                            {
+                                "direction": "NorthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "S. Maria del Soccorso",
+                        "links": [
+                            {
+                                "direction": "NorthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Ponte Mammolo",
+                        "links": [
+                            {
+                                "direction": "NorthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Rebibbia"
+                    },
+                    {
+                        "name": "S. Agnese/\nAnnibiliano",
+                        "parents": [
+                            "Bologna"
+                        ],
+                        "links": [
+                            {
+                                "direction": "North"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Libia",
+                        "links": [
+                            {
+                                "direction": "NorthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Conca d'Oro",
+                        "links": [
+                            {
+                                "direction": "NorthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Jonio"
+                    }
+                ]
+            },
+            {
+                "name": "MC",
+                "color": "#00FF00",
+                "stations": [
+                    {
+                        "name": "Monte Compatri-Pantano",
+                        "x": 890,
+                        "y": 620,
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Graniti",
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Finocchio",
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Bolognetta",
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Borghesiana",
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Due Leoni/Fontana Candida",
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Grotte Celoni",
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Torre Gaia",
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Torre Angela",
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Torrenova",
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Giardinetti",
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Torre Maura",
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Torre Spaccata",
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Alessandrino",
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Parco di Centocelle",
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Mirti",
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Cardenie",
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Teano",
+                        "links": [
+                            {
+                                "direction": "West"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Malatesta",
+                        "links": [
+                            {
+                                "direction": "West"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Pigneto",
+                        "links": [
+                            {
+                                "direction": "West"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Lodi",
+                        "links": [
+                            {
+                                "direction": "West"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "S. Giovani",
+                        "links": [
+                            {
+                                "direction": "West"
+                            }
+                        ],
+                        "proxy": [
+                            {
+                                "line": "MA",
+                                "stations": [
+                                    "S. Giovani"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Amba\n Aradam",
+                        "under_construction": true,
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Colosseo",
+                        "proxy": [
+                            {
+                                "line": "MB",
+                                "stations": [
+                                    "Colosseo"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

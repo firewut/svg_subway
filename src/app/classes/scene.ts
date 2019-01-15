@@ -1,6 +1,6 @@
 /// <reference path ="../../../node_modules/@types/jquery/index.d.ts"/>
 
-import * as SVG from "svg.js";
+import * as SVG from 'svg.js';
 
 import {
     Element,
@@ -46,7 +46,7 @@ export class Scene {
             callback(this);
         } else {
             $(() => {
-                let canvas = SVG(this.container_id).size(this.width, this.height);
+                const canvas = SVG(this.container_id).size(this.width, this.height);
                 this.canvas = canvas;
                 callback(this);
             });
@@ -54,7 +54,7 @@ export class Scene {
     }
 
     addElements(params: ElementParams[]) {
-        for (let param of params) {
+        for (const param of params) {
             this.addElement(param);
         }
     }
@@ -76,16 +76,16 @@ export class Scene {
                 element = new RectElement(params);
                 break;
             default:
-                console.log(params)
+                console.log(params);
         }
 
-        this.elements.push(element)
+        this.elements.push(element);
 
         return element;
     }
 
     cleanup() {
-        for (let element of this.elements) {
+        for (const element of this.elements) {
             element.svg_element.remove();
         }
         this.elements = [];
@@ -96,7 +96,7 @@ export class Scene {
     }
 
     drawElements() {
-        for (let element of this.elements) {
+        for (const element of this.elements) {
             element.draw(this.canvas);
         }
     }

@@ -13,13 +13,14 @@ export class Line {
         this.color = json.color;
         this.stations = [];
 
-        for (let station_json of json.stations) {
-            let station = new Station(this, station_json);
-            this.stations.push(station);
+        for (const station_json of json.stations) {
+            this.stations.push(
+                new Station(this, station_json)
+            );
         }
 
         var prev_station: Station;
-        for (let station of this.stations) {
+        for (const station of this.stations) {
             station.parse_parents();
 
             if (station.parents.length === 0) {
@@ -32,10 +33,10 @@ export class Line {
         // Set Children
         var next_station: Station;
         var i = 1;
-        for (let station of this.stations) {
-            next_station = this.stations[i]
+        for (const station of this.stations) {
+            next_station = this.stations[i];
             if (next_station) {
-                for (let parent of next_station.parents) {
+                for (const parent of next_station.parents) {
                     if (parent.name === station.name) {
                         station.add_children(next_station);
                     }
@@ -46,7 +47,7 @@ export class Line {
     }
 
     set_proxies() {
-        for (let station of this.stations) {
+        for (const station of this.stations) {
             if (station.has_proxy) {
                 station.set_proxy();
             }

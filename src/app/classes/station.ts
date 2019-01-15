@@ -14,14 +14,14 @@ export class StationProxy {
 }
 
 export enum StationLinkDirection {
-    NorthWest = "NorthWest",
-    North = "North",
-    NorthEast = "NorthEast",
-    West = "West",
-    East = "East",
-    SouthWest = "SouthWest",
-    South = "South",
-    SouthEast = "SouthEast",
+    NorthWest = 'NorthWest',
+    North = 'North',
+    NorthEast = 'NorthEast',
+    West = 'West',
+    East = 'East',
+    SouthWest = 'SouthWest',
+    South = 'South',
+    SouthEast = 'SouthEast',
 }
 
 export interface StationLink {
@@ -45,6 +45,8 @@ export class Station {
     proxy?: StationProxy[];
 
     under_construction: boolean = false;
+    private station_margin = 35;
+    private text_size = 10;
 
     constructor(line: Line, json: any) {
         this.line = line;
@@ -54,7 +56,7 @@ export class Station {
         this.position = new Point2D(json.x, json.y);
 
         if ('under_construction' in json) {
-            this.under_construction = json.under_construction
+            this.under_construction = json.under_construction;
         }
 
         if ('proxy' in json) {
@@ -68,11 +70,11 @@ export class Station {
 
     parse_parents() {
         if (this._parents) {
-            for (let parent of this._parents) {
-                for (let _station of this.line.stations) {
+            for (const parent of this._parents) {
+                for (const _station of this.line.stations) {
                     if (parent === _station.name) {
-                        this.add_parent(_station)
-                        _station.add_children(this)
+                        this.add_parent(_station);
+                        _station.add_children(this);
                     }
                 }
             }
@@ -82,7 +84,7 @@ export class Station {
     has_link_to(station: Station) {
         var link: StationLink;
 
-        for (let _link of this.links) {
+        for (const _link of this.links) {
             if (_link.station === station.name) {
                 link = _link;
                 break;
@@ -108,31 +110,31 @@ export class Station {
                 case StationLinkDirection.NorthWest:
                     position.x -= this.station_margin / 2;
                     position.y -= this.station_margin / 2;
-                    break
+                    break;
                 case StationLinkDirection.North:
                     position.y -= this.station_margin;
-                    break
+                    break;
                 case StationLinkDirection.NorthEast:
                     position.x += this.station_margin / 2;
                     position.y -= this.station_margin / 2;
-                    break
+                    break;
                 case StationLinkDirection.West:
                     position.x -= this.station_margin;
-                    break
+                    break;
                 case StationLinkDirection.East:
                     position.x += this.station_margin;
-                    break
+                    break;
                 case StationLinkDirection.SouthWest:
                     position.x -= this.station_margin / 2;
                     position.y += this.station_margin / 2;
-                    break
+                    break;
                 case StationLinkDirection.South:
                     position.y += this.station_margin;
-                    break
+                    break;
                 case StationLinkDirection.SouthEast:
                     position.x += this.station_margin / 2;
                     position.y += this.station_margin / 2;
-                    break
+                    break;
             }
         }
 
@@ -140,12 +142,12 @@ export class Station {
     }
 
     set_proxy() {
-        for (let _proxy of this.raw_proxy) {
-            for (let line of this.line.city.lines) {
-                if (line.name == _proxy.line) {
+        for (const _proxy of this.raw_proxy) {
+            for (const line of this.line.city.lines) {
+                if (line.name === _proxy.line) {
                     var stations: Station[] = [];
-                    for (let _station of _proxy.stations) {
-                        for (let station of line.stations) {
+                    for (const _station of _proxy.stations) {
+                        for (const station of line.stations) {
                             if (station.name === _station) {
                                 stations.push(station);
                             }
@@ -153,7 +155,7 @@ export class Station {
                     }
                     this.proxy.push(
                         new StationProxy(line, stations)
-                    )
+                    );
                     break;
                 }
             }
@@ -195,8 +197,6 @@ export class Station {
     //     return can_connect;
     // }
 
-    private station_margin = 35;
-    private text_size = 10;
     generate_element_params(): ElementParams[] {
         var elements: ElementParams[] = [];
 
@@ -204,11 +204,11 @@ export class Station {
         var station_label_margin = {
             'x': this.text_size,
             'y': -this.text_size / 2
-        }
+        };
         var station_label_position = {
             'x': this.position.x,
             'y': this.position.y,
-        }
+        };
 
         // Label
         var label_element_params: ElementParams = {
@@ -241,21 +241,34 @@ export class Station {
                 'attr': {
                     'fill': this.line.color
                 }
+            },
+            {
+                'type': ElementType.Circle,
+                'properties': {
+                    'radius': this.text_size / 2,
+                    'position': {
+                        'x': this.position.x,
+                        'y': this.position.y,
+                    }
+                },
+                'attr': {
+                    'fill': '#000'
+                }
             }
         ];
 
         // Proxy Layer
         if (this.has_proxy) {
             var proxy_stations: Station[] = [];
-            for (let _proxy of this.proxy) {
-                for (let _station of _proxy.stations) {
+            for (const _proxy of this.proxy) {
+                for (const _station of _proxy.stations) {
                     if (_station.name === this.name) {
                         proxy_stations.push(_station);
                     }
                 }
             }
 
-            for (let proxy_station of proxy_stations) {
+            for (const proxy_station of proxy_stations) {
                 // station_element_params.push(
                 //     {
                 //         'type': ElementType.Line,
@@ -275,22 +288,22 @@ export class Station {
             }
         }
 
-        for (let station_element_param of station_element_params) {
+        for (const station_element_param of station_element_params) {
             elements.push(station_element_param);
         }
 
 
         // Next Station Connector
         if (this.children.length > 0) {
-            for (let child of this.children) {
-                var connector_color: string;
+            for (const child of this.children) {
+                let connector_color: string;
                 if (this.under_construction) {
                     connector_color = '#ccc';
                 } else {
                     connector_color = this.line.color;
                 }
 
-                var child_connector: ElementParams = {
+                const child_connector: ElementParams = {
                     'type': ElementType.Line,
                     'properties': {
                         'position': {
@@ -303,8 +316,12 @@ export class Station {
                     'attr': {
                         'color': connector_color,
                         'width': line_margin / 2,
-                    }
-                }
+                        'html_class': 'Line',
+                    },
+                    'draw_callback': (el: svgjs.Container) => {
+                        el.back();
+                    },
+                };
                 elements.push(child_connector);
             }
         }

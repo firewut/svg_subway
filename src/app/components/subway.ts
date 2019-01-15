@@ -19,10 +19,10 @@ export class SubwayComponent implements OnInit, AfterViewInit {
     cities: City[] = [];
 
     ngOnInit() {
-        for (let city of Data.default) {
+        for (const city of Data.default) {
             this.cities.push(
                 new City(city)
-            )
+            );
         }
         this.selectedCity = this.cities[0].name;
     }
@@ -38,7 +38,7 @@ export class SubwayComponent implements OnInit, AfterViewInit {
     }
 
     selectCity(event: any) {
-        for (let city of this.cities) {
+        for (const city of this.cities) {
             if (event === city.name) {
                 this.draw(city);
                 break;
@@ -55,11 +55,11 @@ export class SubwayComponent implements OnInit, AfterViewInit {
                 scene.addElement(cityElementParams);
 
                 // City Subway Lines
-                for (let line of city.lines) {
-                    for (let station of line.stations) {
+                for (const line of city.lines) {
+                    for (const station of line.stations) {
                         let stationElementParams = station.generate_element_params();
                         scene.addElements(stationElementParams);
-                    };
+                    }
                 }
 
                 scene.draw();

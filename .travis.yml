@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+  - "10"
+
+branches:
+  only:
+    - master
+
+before_script:
+  - npm install -g @angular/cli
+  - npm install .
+
+script:
+  - ng build --prod --aot
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: dist/svg_subway
+  target_branch: gh-pages
+  on:
+    branch: master

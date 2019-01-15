@@ -2,10 +2,9 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 import { City } from '../classes/city';
 import { Scene } from '../classes/scene';
-import { ElementType } from '../classes/element';
 
 // Replace by API Call
-import * as Data from '../../assets/data.json';
+import data from '../../assets/data.json';
 
 @Component({
     selector: 'app-subway',
@@ -19,7 +18,7 @@ export class SubwayComponent implements OnInit, AfterViewInit {
     cities: City[] = [];
 
     ngOnInit() {
-        for (const city of Data.default) {
+        for (const city of data as any[]) {
             this.cities.push(
                 new City(city)
             );

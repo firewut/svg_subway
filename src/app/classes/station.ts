@@ -40,11 +40,12 @@ export class Station {
     _children?: string[] = [];
     children: Station[] = [];
 
-    has_proxy: boolean = false;
+    has_proxy = false;
     raw_proxy?: any;
     proxy?: StationProxy[];
 
-    under_construction: boolean = false;
+    text_position: Point2D;
+    under_construction = false;
     private station_margin = 35;
     private text_size = 10;
 
@@ -54,6 +55,7 @@ export class Station {
         this.name = json.name;
         this.links = json.links;
         this.position = new Point2D(json.x, json.y);
+        this.text_position = new Point2D(this.position.x, this.position.y);
 
         if ('under_construction' in json) {
             this.under_construction = json.under_construction;
@@ -82,7 +84,7 @@ export class Station {
     }
 
     has_link_to(station: Station) {
-        var link: StationLink;
+        let link: StationLink;
 
         for (const _link of this.links) {
             if (_link.station === station.name) {
@@ -94,14 +96,52 @@ export class Station {
         return link;
     }
 
-    get_position_by_parents() {
-        let prev = this.parents[0];
-        let position = new Point2D(
-            prev.position.x,
-            prev.position.y,
-        );
+    get_text_position_by_parents() {
+        const prev = this.parents[0];
+        const position = new Point2D(this.position.x, this.position.y);
 
-        var link = prev.has_link_to(this);
+        if (prev) {
+            let link = prev.has_link_to(this);
+            if (link === undefined && prev.links.length === 1) {
+                link = prev.links[0];
+            }
+            if (link) {
+                switch (link.direction) {
+                    case StationLinkDirection.North:
+                        position.x = 0;
+                        break;
+                    case StationLinkDirection.NorthEast:
+                        position.x = 0;
+                        break;
+                    case StationLinkDirection.West:
+                        position.x = 0;
+                        break;
+                    case StationLinkDirection.East:
+                        position.x = 0;
+                        break;
+                    case StationLinkDirection.SouthWest:
+                        position.x = 0;
+                        break;
+                    case StationLinkDirection.South:
+                        position.x = 0;
+                        break;
+                    case StationLinkDirection.NorthWest:
+                    case StationLinkDirection.SouthEast:
+                        position.x -= this.name.length * (this.text_size / 2);
+                        position.y -= this.text_size / 2;
+                        break;
+                }
+            }
+        }
+
+        return position;
+    }
+
+    get_position_by_parents() {
+        const prev = this.parents[0];
+        const position = new Point2D(prev.position.x, prev.position.y);
+
+        let link = prev.has_link_to(this);
         if (link === undefined && prev.links.length === 1) {
             link = prev.links[0];
         }
@@ -145,7 +185,7 @@ export class Station {
         for (const _proxy of this.raw_proxy) {
             for (const line of this.line.city.lines) {
                 if (line.name === _proxy.line) {
-                    var stations: Station[] = [];
+                    const stations: Station[] = [];
                     for (const _station of _proxy.stations) {
                         for (const station of line.stations) {
                             if (station.name === _station) {
@@ -169,9 +209,10 @@ export class Station {
     add_parent(station?: Station) {
         if (station) {
             this.parents.push(station);
-            let first_parent = this.parents[0];
+            const first_parent = this.parents[0];
             if (first_parent.links) {
                 this.position = this.get_position_by_parents();
+                this.text_position = this.get_text_position_by_parents();
             }
         }
     }
@@ -198,27 +239,18 @@ export class Station {
     // }
 
     generate_element_params(): ElementParams[] {
-        var elements: ElementParams[] = [];
+        const elements: ElementParams[] = [];
 
-        let line_margin = this.text_size / 2;
-        var station_label_margin = {
-            'x': this.text_size,
-            'y': -this.text_size / 2
-        };
-        var station_label_position = {
-            'x': this.position.x,
-            'y': this.position.y,
-        };
+        const line_margin = this.text_size / 2;
 
-        // Label
-        var label_element_params: ElementParams = {
+        const label_element_params: ElementParams = {
             'type': ElementType.Text,
             'properties': {
                 'text': this.name,
                 'size': this.text_size,
                 'position': {
-                    'x': station_label_position['x'] + station_label_margin['x'],
-                    'y': station_label_position['y'] + station_label_margin['y'],
+                    'x': this.text_position.x,
+                    'y': this.text_position.y,
                 }
             },
             'attr': {
@@ -228,7 +260,7 @@ export class Station {
         elements.push(label_element_params);
 
         // Station Marker
-        var station_element_params: ElementParams[] = [
+        const station_element_params: ElementParams[] = [
             {
                 'type': ElementType.Circle,
                 'properties': {
@@ -259,7 +291,7 @@ export class Station {
 
         // Proxy Layer
         if (this.has_proxy) {
-            var proxy_stations: Station[] = [];
+            const proxy_stations: Station[] = [];
             for (const _proxy of this.proxy) {
                 for (const _station of _proxy.stations) {
                     if (_station.name === this.name) {

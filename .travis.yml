@@ -15,7 +15,7 @@ before_script:
   - npm install .
 
 script:
-  - ng build --prod --aot --base-href "https://firewut.github.io/svg_subway/" --deploy-url="https://firewut.github.io/svg_subway/"
+  - ng build --prod --aot --base-href="https://firewut.github.io/svg_subway/" --deploy-url="https://firewut.github.io/svg_subway/"
 
 deploy:
   provider: pages

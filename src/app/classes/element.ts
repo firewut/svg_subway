@@ -34,8 +34,8 @@ export class TextElement {
     attr: any;
 
     text: string;
-    family: string = 'Inconsolata';
-    size: number = 15;
+    family = 'Inconsolata';
+    size = 15;
 
     constructor(params: ElementParams) {
         this.id = makeid();

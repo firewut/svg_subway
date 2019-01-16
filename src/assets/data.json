@@ -7,7 +7,10 @@
                 "color": "#ff0000",
                 "stations": [
                     {
-                        "name": "Battistini",
+                        "name": {
+                            "value": "Battistini",
+                            "location": "West"
+                        },
                         "x": 50,
                         "y": 100,
                         "links": [
@@ -17,7 +20,10 @@
                         ]
                     },
                     {
-                        "name": "Cornelia",
+                        "name": {
+                            "value": "Cornelia",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -25,7 +31,10 @@
                         ]
                     },
                     {
-                        "name": "Baldo\n degli Ubaldi",
+                        "name": {
+                            "value": "Baldo\n degli Ubaldi",
+                            "location": "South"
+                        },
                         "links": [
                             {
                                 "direction": "East"
@@ -33,7 +42,10 @@
                         ]
                     },
                     {
-                        "name": "Valle\n Aurelia",
+                        "name": {
+                            "value": "Valle\n Aurelia",
+                            "location": "North"
+                        },
                         "links": [
                             {
                                 "direction": "East"
@@ -41,7 +53,10 @@
                         ]
                     },
                     {
-                        "name": "Cipro",
+                        "name": {
+                            "value": "Cipro",
+                            "location": "South"
+                        },
                         "links": [
                             {
                                 "direction": "East"
@@ -49,7 +64,10 @@
                         ]
                     },
                     {
-                        "name": "Ottaviano",
+                        "name": {
+                            "value": "Ottaviano",
+                            "location": "North"
+                        },
                         "links": [
                             {
                                 "direction": "East"
@@ -57,7 +75,10 @@
                         ]
                     },
                     {
-                        "name": "Lepanto",
+                        "name": {
+                            "value": "Lepanto",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "East"
@@ -65,7 +86,10 @@
                         ]
                     },
                     {
-                        "name": "Flaminio",
+                        "name": {
+                            "value": "Flaminio",
+                            "location": "North"
+                        },
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -73,7 +97,10 @@
                         ]
                     },
                     {
-                        "name": "Spagna",
+                        "name": {
+                            "value": "Spagna",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -81,7 +108,10 @@
                         ]
                     },
                     {
-                        "name": "Barberini",
+                        "name": {
+                            "value": "Barberini",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -89,7 +119,10 @@
                         ]
                     },
                     {
-                        "name": "Repubblica",
+                        "name": {
+                            "value": "Repubblica",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -97,7 +130,10 @@
                         ]
                     },
                     {
-                        "name": "Termini",
+                        "name": {
+                            "value": "Termini",
+                            "location": "West"
+                        },
                         "proxy": [
                             {
                                 "line": "MB",
@@ -113,7 +149,10 @@
                         ]
                     },
                     {
-                        "name": "Vittorio Emanuele",
+                        "name": {
+                            "value": "Vittorio Emanuele",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -121,7 +160,10 @@
                         ]
                     },
                     {
-                        "name": "Manzoni",
+                        "name": {
+                            "value": "Manzoni",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -129,7 +171,10 @@
                         ]
                     },
                     {
-                        "name": "S. Giovanni",
+                        "name": {
+                            "value": "S. Giovanni",
+                            "location": "West"
+                        },
                         "proxy": [
                             {
                                 "line": "MC",
@@ -145,7 +190,10 @@
                         ]
                     },
                     {
-                        "name": "Re di Roma",
+                        "name": {
+                            "value": "Re di Roma",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -153,7 +201,10 @@
                         ]
                     },
                     {
-                        "name": "Ponte Lungo",
+                        "name": {
+                            "value": "Ponte Lungo",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -161,7 +212,10 @@
                         ]
                     },
                     {
-                        "name": "Furio Camillo",
+                        "name": {
+                            "value": "Furio Camillo",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -169,7 +223,10 @@
                         ]
                     },
                     {
-                        "name": "Colli Albani",
+                        "name": {
+                            "value": "Colli Albani",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -177,7 +234,10 @@
                         ]
                     },
                     {
-                        "name": "Arco di Travertino",
+                        "name": {
+                            "value": "Arco di Travertino",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -185,7 +245,10 @@
                         ]
                     },
                     {
-                        "name": "Porta Furba",
+                        "name": {
+                            "value": "Porta Furba",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -193,7 +256,10 @@
                         ]
                     },
                     {
-                        "name": "Numidio Quadrato",
+                        "name": {
+                            "value": "Numidio Quadrato",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -201,7 +267,10 @@
                         ]
                     },
                     {
-                        "name": "Lucio Sesto",
+                        "name": {
+                            "value": "Lucio Sesto",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -209,7 +278,10 @@
                         ]
                     },
                     {
-                        "name": "Giulio Agricola",
+                        "name": {
+                            "value": "Giulio Agricola",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -217,7 +289,10 @@
                         ]
                     },
                     {
-                        "name": "Subaugusta",
+                        "name": {
+                            "value": "Subaugusta",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -225,7 +300,10 @@
                         ]
                     },
                     {
-                        "name": "Cinecitta",
+                        "name": {
+                            "value": "Cinecitta",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -233,7 +311,10 @@
                         ]
                     },
                     {
-                        "name": "Anagnina",
+                        "name": {
+                            "value": "Anagnina",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -247,7 +328,10 @@
                 "color": "#0000FF",
                 "stations": [
                     {
-                        "name": "Laurentina",
+                        "name": {
+                            "value": "Laurentina",
+                            "location": "West"
+                        },
                         "x": 348,
                         "y": 433,
                         "links": [
@@ -257,7 +341,10 @@
                         ]
                     },
                     {
-                        "name": "EUR\n Fermi",
+                        "name": {
+                            "value": "EUR\n Fermi",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "West"
@@ -265,7 +352,10 @@
                         ]
                     },
                     {
-                        "name": "EUR\n Palasport",
+                        "name": {
+                            "value": "EUR\n Palasport",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthWest"
@@ -273,7 +363,10 @@
                         ]
                     },
                     {
-                        "name": "EUR Magliana",
+                        "name": {
+                            "value": "EUR Magliana",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "North"
@@ -281,7 +374,10 @@
                         ]
                     },
                     {
-                        "name": "Marconi",
+                        "name": {
+                            "value": "Marconi",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "North"
@@ -289,7 +385,10 @@
                         ]
                     },
                     {
-                        "name": "Basilica S. Paolo",
+                        "name": {
+                            "value": "Basilica S. Paolo",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "North"
@@ -297,7 +396,10 @@
                         ]
                     },
                     {
-                        "name": "Garbatella",
+                        "name": {
+                            "value": "Garbatella",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "North"
@@ -305,7 +407,10 @@
                         ]
                     },
                     {
-                        "name": "Piramide",
+                        "name": {
+                            "value": "Piramide",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthEast"
@@ -313,7 +418,10 @@
                         ]
                     },
                     {
-                        "name": "Circo Massimo",
+                        "name": {
+                            "value": "Circo Massimo",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthEast"
@@ -321,7 +429,10 @@
                         ]
                     },
                     {
-                        "name": "Colosseo",
+                        "name": {
+                            "value": "Colosseo",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthEast"
@@ -329,7 +440,10 @@
                         ]
                     },
                     {
-                        "name": "Carvour",
+                        "name": {
+                            "value": "Carvour",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthEast"
@@ -337,7 +451,10 @@
                         ]
                     },
                     {
-                        "name": "Termini",
+                        "name": {
+                            "value": "Termini",
+                            "location": "West"
+                        },
                         "proxy": [
                             {
                                 "line": "MA",
@@ -353,7 +470,10 @@
                         ]
                     },
                     {
-                        "name": "Castro Pretorio",
+                        "name": {
+                            "value": "Castro Pretorio",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthEast"
@@ -361,7 +481,10 @@
                         ]
                     },
                     {
-                        "name": "Policlinico",
+                        "name": {
+                            "value": "Policlinico",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthEast"
@@ -369,7 +492,10 @@
                         ]
                     },
                     {
-                        "name": "Bologna",
+                        "name": {
+                            "value": "Bologna",
+                            "location": "West"
+                        },
                         "proxy": [
                             {
                                 "line": "MB",
@@ -391,7 +517,10 @@
                         ]
                     },
                     {
-                        "name": "Tiburtina",
+                        "name": {
+                            "value": "Tiburtina",
+                            "location": "West"
+                        },
                         "parents": [
                             "Bologna"
                         ],
@@ -402,7 +531,10 @@
                         ]
                     },
                     {
-                        "name": "Quintiliani",
+                        "name": {
+                            "value": "Quintiliani",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "East"
@@ -410,7 +542,10 @@
                         ]
                     },
                     {
-                        "name": "Monti\n Tiburtini",
+                        "name": {
+                            "value": "Monti\n Tiburtini",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "East"
@@ -418,7 +553,10 @@
                         ]
                     },
                     {
-                        "name": "Pietralata",
+                        "name": {
+                            "value": "Pietralata",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthEast"
@@ -426,7 +564,10 @@
                         ]
                     },
                     {
-                        "name": "S. Maria del Soccorso",
+                        "name": {
+                            "value": "S. Maria del Soccorso",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthEast"
@@ -434,7 +575,10 @@
                         ]
                     },
                     {
-                        "name": "Ponte Mammolo",
+                        "name": {
+                            "value": "Ponte Mammolo",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthEast"
@@ -442,10 +586,16 @@
                         ]
                     },
                     {
-                        "name": "Rebibbia"
+                        "name": {
+                            "value": "Rebibbia",
+                            "location": "West"
+                        }
                     },
                     {
-                        "name": "S. Agnese/\nAnnibiliano",
+                        "name": {
+                            "value": "S. Agnese/\nAnnibiliano",
+                            "location": "West"
+                        },
                         "parents": [
                             "Bologna"
                         ],
@@ -456,7 +606,10 @@
                         ]
                     },
                     {
-                        "name": "Libia",
+                        "name": {
+                            "value": "Libia",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthEast"
@@ -464,7 +617,10 @@
                         ]
                     },
                     {
-                        "name": "Conca d'Oro",
+                        "name": {
+                            "value": "Conca d'Oro",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthEast"
@@ -472,7 +628,10 @@
                         ]
                     },
                     {
-                        "name": "Jonio"
+                        "name": {
+                            "value": "Jonio",
+                            "location": "West"
+                        }
                     }
                 ]
             },
@@ -481,7 +640,10 @@
                 "color": "#00FF00",
                 "stations": [
                     {
-                        "name": "Monte Compatri-Pantano",
+                        "name": {
+                            "value": "Monte Compatri-Pantano",
+                            "location": "West"
+                        },
                         "x": 890,
                         "y": 620,
                         "links": [
@@ -491,7 +653,10 @@
                         ]
                     },
                     {
-                        "name": "Graniti",
+                        "name": {
+                            "value": "Graniti",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthWest"
@@ -499,7 +664,10 @@
                         ]
                     },
                     {
-                        "name": "Finocchio",
+                        "name": {
+                            "value": "Finocchio",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthWest"
@@ -507,7 +675,10 @@
                         ]
                     },
                     {
-                        "name": "Bolognetta",
+                        "name": {
+                            "value": "Bolognetta",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthWest"
@@ -515,7 +686,10 @@
                         ]
                     },
                     {
-                        "name": "Borghesiana",
+                        "name": {
+                            "value": "Borghesiana",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthWest"
@@ -523,7 +697,10 @@
                         ]
                     },
                     {
-                        "name": "Due Leoni/Fontana Candida",
+                        "name": {
+                            "value": "Due Leoni/Fontana Candida",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthWest"
@@ -531,7 +708,10 @@
                         ]
                     },
                     {
-                        "name": "Grotte Celoni",
+                        "name": {
+                            "value": "Grotte Celoni",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthWest"
@@ -539,7 +719,10 @@
                         ]
                     },
                     {
-                        "name": "Torre Gaia",
+                        "name": {
+                            "value": "Torre Gaia",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthWest"
@@ -547,7 +730,10 @@
                         ]
                     },
                     {
-                        "name": "Torre Angela",
+                        "name": {
+                            "value": "Torre Angela",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthWest"
@@ -555,7 +741,10 @@
                         ]
                     },
                     {
-                        "name": "Torrenova",
+                        "name": {
+                            "value": "Torrenova",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthWest"
@@ -563,7 +752,10 @@
                         ]
                     },
                     {
-                        "name": "Giardinetti",
+                        "name": {
+                            "value": "Giardinetti",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthWest"
@@ -571,7 +763,10 @@
                         ]
                     },
                     {
-                        "name": "Torre Maura",
+                        "name": {
+                            "value": "Torre Maura",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthWest"
@@ -579,7 +774,10 @@
                         ]
                     },
                     {
-                        "name": "Torre Spaccata",
+                        "name": {
+                            "value": "Torre Spaccata",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthWest"
@@ -587,7 +785,10 @@
                         ]
                     },
                     {
-                        "name": "Alessandrino",
+                        "name": {
+                            "value": "Alessandrino",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthWest"
@@ -595,7 +796,10 @@
                         ]
                     },
                     {
-                        "name": "Parco di Centocelle",
+                        "name": {
+                            "value": "Parco di Centocelle",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthWest"
@@ -603,7 +807,10 @@
                         ]
                     },
                     {
-                        "name": "Mirti",
+                        "name": {
+                            "value": "Mirti",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthWest"
@@ -611,7 +818,10 @@
                         ]
                     },
                     {
-                        "name": "Cardenie",
+                        "name": {
+                            "value": "Cardenie",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "NorthWest"
@@ -619,7 +829,10 @@
                         ]
                     },
                     {
-                        "name": "Teano",
+                        "name": {
+                            "value": "Teano",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "West"
@@ -627,7 +840,10 @@
                         ]
                     },
                     {
-                        "name": "Malatesta",
+                        "name": {
+                            "value": "Malatesta",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "West"
@@ -635,7 +851,10 @@
                         ]
                     },
                     {
-                        "name": "Pigneto",
+                        "name": {
+                            "value": "Pigneto",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "West"
@@ -643,7 +862,10 @@
                         ]
                     },
                     {
-                        "name": "Lodi",
+                        "name": {
+                            "value": "Lodi",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "West"
@@ -651,7 +873,10 @@
                         ]
                     },
                     {
-                        "name": "S. Giovani",
+                        "name": {
+                            "value": "S. Giovani",
+                            "location": "West"
+                        },
                         "links": [
                             {
                                 "direction": "West"
@@ -667,7 +892,10 @@
                         ]
                     },
                     {
-                        "name": "Amba\n Aradam",
+                        "name": {
+                            "value": "Amba\n Aradam",
+                            "location": "West"
+                        },
                         "under_construction": true,
                         "links": [
                             {
@@ -676,7 +904,10 @@
                         ]
                     },
                     {
-                        "name": "Colosseo",
+                        "name": {
+                            "value": "Colosseo",
+                            "location": "West"
+                        },
                         "proxy": [
                             {
                                 "line": "MB",

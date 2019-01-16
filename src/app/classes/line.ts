@@ -19,31 +19,52 @@ export class Line {
             );
         }
 
-        var prev_station: Station;
-        for (const station of this.stations) {
-            station.parse_parents();
-
-            if (station.parents.length === 0) {
-                station.add_parent(prev_station);
-            }
-
-            prev_station = station;
-        }
-
         // Set Children
-        var next_station: Station;
-        var i = 1;
+        let next_station: Station;
+        let i = 1;
         for (const station of this.stations) {
             next_station = this.stations[i];
             if (next_station) {
-                for (const parent of next_station.parents) {
-                    if (parent.name === station.name) {
-                        station.add_children(next_station);
-                    }
-                }
-                i += 1;
+                station.add_children(next_station);
             }
+
+            i += 1;
         }
+
+        for (const station of this.stations) {
+            station.set_params();
+        }
+
+        // // Set Parents
+        // let prev_station: Station;
+        // for (const station of this.stations) {
+        //     station.parse_parents();
+
+        //     if (station.parents.length === 0) {
+        //         station.add_parent(prev_station);
+        //     }
+
+        //     prev_station = station;
+        // }
+
+        // // Set Children
+        // let next_station: Station;
+        // let i = 1;
+        // for (const station of this.stations) {
+        //     next_station = this.stations[i];
+        //     if (next_station) {
+        //         for (const parent of next_station.parents) {
+        //             if (parent.name === station.name) {
+        //                 station.add_children(next_station);
+        //             }
+        //         }
+        //         i += 1;
+        //     }
+        // }
+
+        // for (const station of this.stations) {
+        //     station.set_params();
+        // }
     }
 
     set_proxies() {

@@ -60,7 +60,7 @@ export class Scene {
     }
 
     addElement(params: ElementParams) {
-        var element: Element;
+        let element: Element;
 
         switch (params.type) {
             case ElementType.Text:

@@ -1,7 +1,5 @@
 import { ElementType, ElementParams, Point2D } from './element';
 import { Line } from './line';
-import { isNull } from 'util';
-import { not } from '@angular/compiler/src/output/output_ast';
 
 export class StationProxy {
     line: Line;
@@ -31,7 +29,7 @@ export interface StationLink {
 
 export class Station {
     name: string;
-    name_location: Direction;
+    name_location: Direction = Direction.West;
     position?: Point2D;
     links: StationLink[];
 
@@ -45,7 +43,9 @@ export class Station {
     raw_proxy?: any;
     proxy?: StationProxy[];
 
-    text_anchor: string;
+    // start, middle, end
+    text_anchor = 'middle';
+
     text_position: Point2D;
     under_construction = false;
     private station_margin = 35;
@@ -55,11 +55,13 @@ export class Station {
         this.line = line;
 
         this.name = json.name.value;
-        this.name_location = json.name.location;
+
+        if ('location' in json.name) {
+            this.name_location = json.name.location;
+        }
         this.links = json.links || [];
         this.position = new Point2D(json.x, json.y);
         this.text_position = new Point2D(this.position.x, this.position.y);
-        this.text_anchor = 'end'; // start, middle, end
 
         if ('under_construction' in json) {
             this.under_construction = json.under_construction;
@@ -131,65 +133,49 @@ export class Station {
     get_text_position() {
         const position = new Point2D(this.position.x, this.position.y);
 
-        let dx = this.text_size / 1.3;
-        let dy = this.text_size / 2.3;
+        let max_length = 0;
+        let lines_count = 0;
 
-        const lines_count = this.name.split('\n').length;
+        // for (const line of this.name.split('\n')) {
+        //     lines_count += 1;
+        //     if (line.length > max_length) {
+        //         max_length = line.length;
+        //     }
+        // }
 
-        switch (this.name_location) {
-            case Direction.West:
-                dx *= -1;
-                dy *= -1;
-                break;
-            case Direction.East:
-                break;
-            case Direction.North:
-                dy *= -2;
-                break;
-            case Direction.South:
-                break;
-            case Direction.NorthWest:
-                break;
-            case Direction.SouthEast:
-                break;
-            case Direction.NorthEast:
-                break;
-            case Direction.SouthWest:
-                break;
-        }
+        // if (max_length === 0) {
+        //     max_length = this.name.length;
+        // }
 
-        position.x += dx;
-        position.y += dy;
+        // let dx = this.text_size / 1.5;
+        // let dy = this.text_size / 1.75;
+
+        // switch (this.name_location) {
+        //     case Direction.West:
+        //         dx *= -1;
+        //         dy *= -1;
+        //         break;
+        //     case Direction.East:
+        //         dy *= -1;
+        //         break;
+        //     case Direction.North:
+        //         // dx -= this.text_size;
+        //         dy -= this.text_size * lines_count;
+        //         break;
+        //     case Direction.South:
+        //         dx -= max_length / 4 * this.text_size;
+        //         break;
+        //     case Direction.NorthWest:
+        //     case Direction.SouthEast:
+        //     case Direction.NorthEast:
+        //     case Direction.SouthWest:
+        //         break;
+        // }
+
+        // position.x += dx;
+        // position.y += dy;
 
         return position;
-    }
-
-    get_text_anchor() {
-        let anchor = 'end';
-
-        const link = this.get_parent_link();
-        if (link) {
-            switch (link.direction) {
-                case Direction.West:
-                case Direction.East:
-                    anchor = 'middle';
-                    break;
-                case Direction.North:
-                case Direction.South:
-                    anchor = 'end';
-                    break;
-                case Direction.NorthWest:
-                case Direction.SouthEast:
-                    anchor = 'end';
-                    break;
-                case Direction.NorthEast:
-                case Direction.SouthWest:
-                    anchor = 'start';
-                    break;
-            }
-        }
-
-        return anchor;
     }
 
     get_position_by_parents() {
@@ -259,7 +245,7 @@ export class Station {
 
     add_children(station?: Station) {
         this.children.push(station);
-        station.parents.push(this);
+        // station.parents.push(this);
     }
 
     add_parent(station?: Station) {
@@ -275,7 +261,6 @@ export class Station {
 
     set_params() {
         this.position = this.get_position_by_parents();
-        this.text_anchor = this.get_text_anchor();
         this.text_position = this.get_text_position();
     }
 

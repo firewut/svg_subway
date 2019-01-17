@@ -1,6 +1,7 @@
 import * as SVG from 'svg.js';
 
 import { makeid } from './helper';
+import { environment } from '../../environments/environment';
 
 export enum ElementType {
     Text,
@@ -72,6 +73,40 @@ export class TextElement {
         this.draw_callback(svg_element);
 
         this.svg_element = svg_element;
+
+        if (environment.hasOwnProperty('debug')) {
+            if (environment.debug === true) {
+                const b = svg_element.bbox();
+                canvas.rect(b.width, b.height).opacity(0.5).move(b.x, b.y);
+
+                const min_text_size = Math.min(5, this.size / 2);
+                // Mark with Size
+                canvas.text(
+                    `${b.width}`
+                ).font(
+                    {
+                        size: min_text_size
+                    }
+                ).attr(
+                    {
+                        fill: '#fff'
+                    }
+                ).move(b.x, b.y);
+                canvas.text(
+                    `${b.height}`
+                ).font(
+                    {
+                        size: min_text_size
+                    }
+                ).attr(
+                    {
+                        fill: '#fff'
+                    }
+                ).move(b.x, b.y + min_text_size);
+            }
+        }
+
+
         return this.svg_element;
     }
 }

@@ -1,6 +1,7 @@
 /// <reference path ="../../../node_modules/@types/jquery/index.d.ts"/>
 
 import * as SVG from 'svg.js';
+import { PolyLineElement } from './element';
 
 import {
     Element,
@@ -74,6 +75,9 @@ export class Scene {
                 break;
             case ElementType.Rect:
                 element = new RectElement(params);
+                break;
+            case ElementType.PolyLineElement:
+                element = new PolyLineElement(params);
                 break;
             default:
                 console.log(params);

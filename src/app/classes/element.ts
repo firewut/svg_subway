@@ -8,6 +8,7 @@ export enum ElementType {
     Circle,
     Line,
     Rect,
+    PolyLineElement,
 }
 
 export interface Element {
@@ -139,6 +140,50 @@ export class CircleElement {
 
         svg_element.center(this.position.x, this.position.y);
         svg_element.attr(this.attr);
+
+        this.draw_callback(svg_element);
+
+        this.svg_element = svg_element;
+        return svg_element;
+    }
+}
+
+export class PolyLineElement {
+    id: string;
+    position: Point2D;
+    svg_element: SVG.Shape;
+    attr: any;
+
+    points: number[][] = [];
+
+    constructor(params: ElementParams) {
+        this.id = makeid();
+        this.attr = params.attr;
+        for (const _point of params.properties['points']) {
+            this.points.push(_point);
+        }
+
+        if (params.draw_callback) {
+            this.draw_callback = params.draw_callback;
+        }
+    }
+
+    draw_callback(element: svgjs.Shape) {
+
+    }
+
+    draw(canvas: svgjs.Container) {
+        const points_array: number[][] = [];
+
+        for (const point of this.points) {
+            points_array.push(
+                point
+            );
+        }
+
+        const svg_element: SVG.PolyLine = canvas.polyline(points_array);
+
+        svg_element.stroke(this.attr);
 
         this.draw_callback(svg_element);
 

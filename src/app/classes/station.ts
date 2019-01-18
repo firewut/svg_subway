@@ -1,15 +1,6 @@
 import { ElementType, ElementParams, Point2D } from './element';
 import { Line } from './line';
-
-export class StationProxy {
-    line: Line;
-    stations: Station[];
-
-    constructor(line: Line, stations: Station[]) {
-        this.line = line;
-        this.stations = stations;
-    }
-}
+import { StationTransfer } from './transfer';
 
 export enum Direction {
     NorthWest = 'NorthWest',
@@ -39,17 +30,17 @@ export class Station {
     _children?: string[] = [];
     children: Station[] = [];
 
-    has_proxy = false;
-    raw_proxy?: any;
-    proxy?: StationProxy[];
+    has_transfers = false;
+    raw_transfers?: any;
+    transfers?: StationTransfer[];
 
     // start, middle, end
     text_anchor = 'middle';
 
     text_position: Point2D;
     under_construction = false;
-    private station_margin = 35;
-    private text_size = 10;
+    station_margin = 35;
+    text_size = 10;
 
     constructor(line: Line, json: any) {
         this.line = line;
@@ -67,10 +58,10 @@ export class Station {
             this.under_construction = json.under_construction;
         }
 
-        if ('proxy' in json) {
-            this.has_proxy = true;
-            this.raw_proxy = json.proxy;
-            this.proxy = [];
+        if ('transfers' in json) {
+            this.has_transfers = true;
+            this.raw_transfers = json.transfers;
+            this.transfers = [];
         }
 
         this._parents = json.parents;
@@ -163,9 +154,11 @@ export class Station {
                 dy -= text_margin * magic_lines_multiplier;
                 break;
             case Direction.North:
+                this.text_anchor = 'middle';
                 dy -= text_margin + (this.text_size * lines_count) * magic_lines_multiplier;
                 break;
             case Direction.South:
+                this.text_anchor = 'middle';
                 dy += text_margin;
                 break;
             case Direction.NorthWest:
@@ -225,30 +218,12 @@ export class Station {
         return position;
     }
 
-    set_proxy() {
-        for (const _proxy of this.raw_proxy) {
-            for (const line of this.line.city.lines) {
-                if (line.name === _proxy.line) {
-                    const stations: Station[] = [];
-                    for (const _station of _proxy.stations) {
-                        for (const station of line.stations) {
-                            if (station.name === _station) {
-                                stations.push(station);
-                            }
-                        }
-                    }
-                    this.proxy.push(
-                        new StationProxy(line, stations)
-                    );
-                    break;
-                }
-            }
-        }
+    add_transfer(transfer: StationTransfer) {
+        this.transfers.push(transfer);
     }
 
     add_children(station?: Station) {
         this.children.push(station);
-        // station.parents.push(this);
     }
 
     add_parent(station?: Station) {
@@ -266,27 +241,6 @@ export class Station {
         this.position = this.get_position_by_parents();
         this.text_position = this.get_text_position();
     }
-
-    // private can_connect_one_line(next: Station) {
-    //     var can_connect: boolean = false;
-
-    //     // Check if can be connected with ONE Line
-    //     let this_position = new Point2D(this.x, this.y);
-    //     let next_position = new Point2D(next.x, next.y);
-    //     let next_station_degrees: number = this_position.degrees(next_position);
-
-    //     if (next_station_degrees % this.one_line_connectable_degrees === 0) {
-    //         can_connect = true;
-    //     } else {
-    //         console.log(
-    //             this.name,
-    //             next_station_degrees
-    //         )
-    //         can_connect = false;
-    //     }
-
-    //     return can_connect;
-    // }
 
     generate_element_params(): ElementParams[] {
         const elements: ElementParams[] = [];
@@ -306,7 +260,10 @@ export class Station {
             },
             'attr': {
                 'fill': '#000'
-            }
+            },
+            'draw_callback': (el: svgjs.Container) => {
+                el.front();
+            },
         };
 
 
@@ -341,37 +298,6 @@ export class Station {
                 }
             }
         ];
-
-        // Proxy Layer
-        if (this.has_proxy) {
-            const proxy_stations: Station[] = [];
-            for (const _proxy of this.proxy) {
-                for (const _station of _proxy.stations) {
-                    if (_station.name === this.name) {
-                        proxy_stations.push(_station);
-                    }
-                }
-            }
-
-            for (const proxy_station of proxy_stations) {
-                // station_element_params.push(
-                //     {
-                //         'type': ElementType.Line,
-                //         'properties': {
-                //             'position': {
-                //                 'x1': this.x,
-                //                 'y1': this.y,
-                //                 'x2': proxy_station.x,
-                //                 'y2': proxy_station.y,
-                //             }
-                //         },
-                //         'attr': {
-                //             'color': this.line.color,
-                //         }
-                //     }
-                // )
-            }
-        }
 
         for (const station_element_param of station_element_params) {
             elements.push(station_element_param);

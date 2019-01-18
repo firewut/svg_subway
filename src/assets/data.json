@@ -128,9 +128,10 @@
                         "name": {
                             "value": "Termini"
                         },
-                        "proxy": [
+                        "transfers": [
                             {
                                 "line": "MB",
+                                "type": "Underground",
                                 "stations": [
                                     "Termini"
                                 ]
@@ -144,7 +145,8 @@
                     },
                     {
                         "name": {
-                            "value": "Vittorio Emanuele"
+                            "value": "Vittorio Emanuele",
+                            "location": "East"
                         },
                         "links": [
                             {
@@ -154,7 +156,8 @@
                     },
                     {
                         "name": {
-                            "value": "Manzoni"
+                            "value": "Manzoni",
+                            "location": "East"
                         },
                         "links": [
                             {
@@ -164,13 +167,14 @@
                     },
                     {
                         "name": {
-                            "value": "S. Giovanni"
+                            "value": "S. Giovanni",
+                            "location": "East"
                         },
-                        "proxy": [
+                        "transfers": [
                             {
                                 "line": "MC",
                                 "stations": [
-                                    "S.Giovanni"
+                                    "S. Giovanni"
                                 ]
                             }
                         ],
@@ -311,8 +315,8 @@
                             "value": "Laurentina",
                             "location": "South"
                         },
-                        "x": 348,
-                        "y": 433,
+                        "x": 360,
+                        "y": 432,
                         "links": [
                             {
                                 "direction": "West"
@@ -426,7 +430,7 @@
                             "value": "Termini",
                             "location": "East"
                         },
-                        "proxy": [
+                        "transfers": [
                             {
                                 "line": "MA",
                                 "stations": [
@@ -466,15 +470,6 @@
                         "name": {
                             "value": "Bologna"
                         },
-                        "proxy": [
-                            {
-                                "line": "MB",
-                                "stations": [
-                                    "Tiburtina",
-                                    "S. Agnese/\nAnnibiliano"
-                                ]
-                            }
-                        ],
                         "links": [
                             {
                                 "station": "Tiburtina",
@@ -825,7 +820,7 @@
                     },
                     {
                         "name": {
-                            "value": "S. Giovani",
+                            "value": "S. Giovanni",
                             "location": "North"
                         },
                         "links": [
@@ -833,11 +828,11 @@
                                 "direction": "West"
                             }
                         ],
-                        "proxy": [
+                        "transfers": [
                             {
                                 "line": "MA",
                                 "stations": [
-                                    "S. Giovani"
+                                    "S. Giovanni"
                                 ]
                             }
                         ]
@@ -858,7 +853,7 @@
                         "name": {
                             "value": "Colosseo"
                         },
-                        "proxy": [
+                        "transfers": [
                             {
                                 "line": "MB",
                                 "stations": [

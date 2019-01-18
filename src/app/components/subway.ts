@@ -49,17 +49,9 @@ export class SubwayComponent implements OnInit, AfterViewInit {
         this.scene.cleanup();
         this.scene.prepare(
             (scene: Scene) => {
-                // City Name
-                let cityElementParams = city.generate_element_params();
-                scene.addElement(cityElementParams);
-
-                // City Subway Lines
-                for (const line of city.lines) {
-                    for (const station of line.stations) {
-                        let stationElementParams = station.generate_element_params();
-                        scene.addElements(stationElementParams);
-                    }
-                }
+                scene.addElements(
+                    city.generate_element_params()
+                );
 
                 scene.draw();
             }

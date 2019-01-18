@@ -19,22 +19,6 @@ export class Line {
             );
         }
 
-        // // Set Children
-        // let next_station: Station;
-        // let i = 1;
-        // for (const station of this.stations) {
-        //     next_station = this.stations[i];
-        //     if (next_station) {
-        //         station.add_children(next_station);
-        //     }
-
-        //     i += 1;
-        // }
-
-        // for (const station of this.stations) {
-        //     station.set_params();
-        // }
-
         // Set Parents
         let prev_station: Station;
         for (const station of this.stations) {

@@ -133,47 +133,50 @@ export class Station {
     get_text_position() {
         const position = new Point2D(this.position.x, this.position.y);
 
-        let max_length = 0;
         let lines_count = 0;
+        let max_length = 0;
+        for (const line of this.name.split('\n')) {
+            lines_count += 1;
+            if (line.length > max_length) {
+                max_length = line.length;
+            }
+        }
 
-        // for (const line of this.name.split('\n')) {
-        //     lines_count += 1;
-        //     if (line.length > max_length) {
-        //         max_length = line.length;
-        //     }
-        // }
+        if (max_length === 0) {
+            max_length = this.name.length;
+        }
+        const text_margin = this.text_size / 2;
+        const magic_lines_multiplier = 1.3;
 
-        // if (max_length === 0) {
-        //     max_length = this.name.length;
-        // }
+        let dx = 1;
+        let dy = 1;
 
-        // let dx = this.text_size / 1.5;
-        // let dy = this.text_size / 1.75;
+        switch (this.name_location) {
+            case Direction.West:
+                this.text_anchor = 'end';
+                dx -= text_margin * magic_lines_multiplier;
+                dy -= text_margin * magic_lines_multiplier;
+                break;
+            case Direction.East:
+                this.text_anchor = 'start';
+                dx += text_margin * magic_lines_multiplier;
+                dy -= text_margin * magic_lines_multiplier;
+                break;
+            case Direction.North:
+                dy -= text_margin + (this.text_size * lines_count) * magic_lines_multiplier;
+                break;
+            case Direction.South:
+                dy += text_margin;
+                break;
+            case Direction.NorthWest:
+            case Direction.SouthEast:
+            case Direction.NorthEast:
+            case Direction.SouthWest:
+                break;
+        }
 
-        // switch (this.name_location) {
-        //     case Direction.West:
-        //         dx *= -1;
-        //         dy *= -1;
-        //         break;
-        //     case Direction.East:
-        //         dy *= -1;
-        //         break;
-        //     case Direction.North:
-        //         // dx -= this.text_size;
-        //         dy -= this.text_size * lines_count;
-        //         break;
-        //     case Direction.South:
-        //         dx -= max_length / 4 * this.text_size;
-        //         break;
-        //     case Direction.NorthWest:
-        //     case Direction.SouthEast:
-        //     case Direction.NorthEast:
-        //     case Direction.SouthWest:
-        //         break;
-        // }
-
-        // position.x += dx;
-        // position.y += dy;
+        position.x += dx;
+        position.y += dy;
 
         return position;
     }
@@ -397,7 +400,7 @@ export class Station {
                     },
                     'attr': {
                         'color': connector_color,
-                        'width': line_margin / 2,
+                        'width': line_margin,
                         'html_class': 'Line',
                     },
                     'draw_callback': (el: svgjs.Container) => {

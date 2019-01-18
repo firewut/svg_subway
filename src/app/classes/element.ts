@@ -77,32 +77,26 @@ export class TextElement {
         if (environment.hasOwnProperty('debug')) {
             if (environment.debug === true) {
                 const b = svg_element.bbox();
-                canvas.rect(b.width, b.height).opacity(0.5).move(b.x, b.y);
+                canvas.rect(b.width, b.height).opacity(0.25).move(b.x, b.y);
 
                 const min_text_size = Math.min(5, this.size / 2);
+                const size_margin = min_text_size + min_text_size / 2;
                 // Mark with Size
                 canvas.text(
-                    `${b.width}`
+                    `${b.width.toPrecision(2)}`
                 ).font(
-                    {
-                        size: min_text_size
-                    }
+                    {size: min_text_size}
                 ).attr(
-                    {
-                        fill: '#fff'
-                    }
-                ).move(b.x, b.y);
+                    {fill: '#fff'}
+                ).move(b.x - size_margin, b.y);
+
                 canvas.text(
-                    `${b.height}`
+                    `${b.height.toPrecision(2)}`
                 ).font(
-                    {
-                        size: min_text_size
-                    }
+                    {size: min_text_size}
                 ).attr(
-                    {
-                        fill: '#fff'
-                    }
-                ).move(b.x, b.y + min_text_size);
+                    {fill: '#fff'}
+                ).move(b.x - size_margin, b.y + min_text_size);
             }
         }
 

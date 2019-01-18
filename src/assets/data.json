@@ -308,7 +308,8 @@
                 "stations": [
                     {
                         "name": {
-                            "value": "Laurentina"
+                            "value": "Laurentina",
+                            "location": "South"
                         },
                         "x": 348,
                         "y": 433,
@@ -320,7 +321,8 @@
                     },
                     {
                         "name": {
-                            "value": "EUR\n Fermi"
+                            "value": "EUR\n Fermi",
+                            "location": "North"
                         },
                         "links": [
                             {
@@ -330,7 +332,8 @@
                     },
                     {
                         "name": {
-                            "value": "EUR\n Palasport"
+                            "value": "EUR\n Palasport",
+                            "location": "South"
                         },
                         "links": [
                             {

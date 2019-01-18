@@ -316,7 +316,7 @@
                             "location": "South"
                         },
                         "x": 360,
-                        "y": 432,
+                        "y": 468,
                         "links": [
                             {
                                 "direction": "West"
@@ -605,8 +605,8 @@
                         "name": {
                             "value": "Monte Compatri-Pantano"
                         },
-                        "x": 890,
-                        "y": 620,
+                        "x": 840,
+                        "y": 590,
                         "links": [
                             {
                                 "direction": "NorthWest"

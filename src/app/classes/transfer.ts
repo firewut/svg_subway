@@ -1,6 +1,7 @@
 import { Line } from './line';
 import { Station } from './station';
 import { ElementParams, ElementType } from './element';
+import { environment } from '../../environments/environment';
 
 export enum StationTransferType {
     Underground = 'Underground',
@@ -52,7 +53,7 @@ export class StationTransfer {
                 },
                 'attr': {
                     'color': '#fff',
-                    'width': this.source.text_size * 1.25,
+                    'width': environment.station_marker_outer_radius * 1.25,
                     'html_class': 'Transfer',
                     'linecap': 'round',
                     'linejoin': 'round',
@@ -75,7 +76,7 @@ export class StationTransfer {
                 },
                 'attr': {
                     'color': '#000',
-                    'width': this.source.text_size,
+                    'width': environment.station_marker_inner_radius,
                     'html_class': 'Transfer',
                     'linecap': 'round',
                     'linejoin': 'round',

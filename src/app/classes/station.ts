@@ -1,6 +1,7 @@
 import { ElementType, ElementParams, Point2D } from './element';
 import { Line } from './line';
 import { StationTransfer } from './transfer';
+import { environment } from '../../environments/environment';
 
 export enum Direction {
     NorthWest = 'NorthWest',
@@ -39,8 +40,6 @@ export class Station {
 
     text_position: Point2D;
     under_construction = false;
-    station_margin = 35;
-    text_size = 10;
 
     constructor(line: Line, json: any) {
         this.line = line;
@@ -136,7 +135,7 @@ export class Station {
         if (max_length === 0) {
             max_length = this.name.length;
         }
-        const text_margin = this.text_size / 2;
+        const text_margin = environment.station_font_size / 2;
         const magic_lines_multiplier = 1.3;
 
         let dx = 1;
@@ -145,7 +144,7 @@ export class Station {
         switch (this.name_location) {
             case Direction.West:
                 this.text_anchor = 'end';
-                dx -= text_margin * magic_lines_multiplier;
+                dx -= environment.station_font_size * 0.8;
                 dy -= text_margin * magic_lines_multiplier;
                 break;
             case Direction.East:
@@ -155,7 +154,7 @@ export class Station {
                 break;
             case Direction.North:
                 this.text_anchor = 'middle';
-                dy -= text_margin + (this.text_size * lines_count) * magic_lines_multiplier;
+                dy -= text_margin + (environment.station_font_size * lines_count) * magic_lines_multiplier;
                 break;
             case Direction.South:
                 this.text_anchor = 'middle';
@@ -183,34 +182,35 @@ export class Station {
         const position = new Point2D(prev.position.x, prev.position.y);
         const link = this.get_parent_link();
         if (link) {
+            const _station_margin = environment.station_margin;
             switch (link.direction) {
                 case Direction.NorthWest:
-                    position.x -= this.station_margin / 2;
-                    position.y -= this.station_margin / 2;
+                    position.x -= _station_margin / 2;
+                    position.y -= _station_margin / 2;
                     break;
                 case Direction.North:
-                    position.y -= this.station_margin;
+                    position.y -= _station_margin;
                     break;
                 case Direction.NorthEast:
-                    position.x += this.station_margin / 2;
-                    position.y -= this.station_margin / 2;
+                    position.x += _station_margin / 2;
+                    position.y -= _station_margin / 2;
                     break;
                 case Direction.West:
-                    position.x -= this.station_margin;
+                    position.x -= _station_margin;
                     break;
                 case Direction.East:
-                    position.x += this.station_margin;
+                    position.x += _station_margin;
                     break;
                 case Direction.SouthWest:
-                    position.x -= this.station_margin / 2;
-                    position.y += this.station_margin / 2;
+                    position.x -= _station_margin / 2;
+                    position.y += _station_margin / 2;
                     break;
                 case Direction.South:
-                    position.y += this.station_margin;
+                    position.y += _station_margin;
                     break;
                 case Direction.SouthEast:
-                    position.x += this.station_margin / 2;
-                    position.y += this.station_margin / 2;
+                    position.x += _station_margin / 2;
+                    position.y += _station_margin / 2;
                     break;
             }
         }
@@ -245,13 +245,11 @@ export class Station {
     generate_element_params(): ElementParams[] {
         const elements: ElementParams[] = [];
 
-        const line_margin = this.text_size / 2;
-
         const label_element_params: ElementParams = {
             'type': ElementType.Text,
             'properties': {
                 'text': this.name,
-                'size': this.text_size,
+                'size': environment.station_font_size,
                 'position': {
                     'x': this.text_position.x,
                     'y': this.text_position.y,
@@ -274,7 +272,7 @@ export class Station {
             {
                 'type': ElementType.Circle,
                 'properties': {
-                    'radius': this.text_size,
+                    'radius': environment.station_marker_outer_radius,
                     'position': {
                         'x': this.position.x,
                         'y': this.position.y,
@@ -287,7 +285,7 @@ export class Station {
             {
                 'type': ElementType.Circle,
                 'properties': {
-                    'radius': this.text_size / 2,
+                    'radius': environment.station_marker_inner_radius,
                     'position': {
                         'x': this.position.x,
                         'y': this.position.y,
@@ -302,7 +300,6 @@ export class Station {
         for (const station_element_param of station_element_params) {
             elements.push(station_element_param);
         }
-
 
         // Next Station Connector
         if (this.children.length > 0) {
@@ -326,7 +323,7 @@ export class Station {
                     },
                     'attr': {
                         'color': connector_color,
-                        'width': line_margin,
+                        'width': environment.line_width,
                         'html_class': 'Line',
                     },
                     'draw_callback': (el: svgjs.Container) => {

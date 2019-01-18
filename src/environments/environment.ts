@@ -5,6 +5,11 @@
 export const environment = {
   production: false,
   debug: true,
+  line_width: 5,
+  station_margin: 35,
+  station_font_size: 10,
+  station_marker_outer_radius: 10,
+  station_marker_inner_radius: 5,
 };
 
 /*

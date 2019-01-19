@@ -1,7 +1,10 @@
 /// <reference path ="../../../node_modules/@types/jquery/index.d.ts"/>
 
 import * as SVG from 'svg.js';
+
 import { PolyLineElement } from './element';
+import { environment } from '../../environments/environment';
+import { Theme } from './theme';
 
 import {
     Element,
@@ -15,31 +18,33 @@ import {
 
 export class Scene {
     container_id: string;
-    width: number;
-    height: number;
-
     canvas: svgjs.Container;
 
-    center = [0, 0];
-    min_side: number;
+    theme: Theme;
     elements: Element[];
 
-    constructor(container_id: string, width: number, height: number, callback?: (_: Scene) => any) {
-        this.min_side = Math.min(width, height);
+    constructor(container_id: string, theme: Theme, callback?: (_: Scene) => any) {
         this.elements = [];
 
-        this.center = [
-            this.min_side / 2,
-            this.min_side / 2,
-        ];
-
         this.container_id = container_id;
-        this.width = this.min_side - 50;
-        this.height = this.min_side - 50;
+        this.theme = theme;
 
         if (callback) {
             this.prepare(callback);
         }
+    }
+
+    resize(grid_size: number[]) {
+        this.canvas.size(
+            (
+                environment.grid_width 
+            ) *
+            grid_size[0],
+            (
+                environment.grid_height
+            ) *
+            grid_size[1],
+        )
     }
 
     prepare(callback: (_: Scene) => any) {
@@ -47,7 +52,7 @@ export class Scene {
             callback(this);
         } else {
             $(() => {
-                const canvas = SVG(this.container_id).size(this.width, this.height);
+                const canvas = SVG(this.container_id);
                 this.canvas = canvas;
                 callback(this);
             });

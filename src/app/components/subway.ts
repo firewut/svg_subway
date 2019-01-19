@@ -2,9 +2,11 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 import { City } from '../classes/city';
 import { Scene } from '../classes/scene';
+import { Theme } from '../classes/theme';
 
 // Replace by API Call
 import data from '../../assets/data.json';
+import { environment } from '../../environments/environment';
 
 @Component({
     selector: 'app-subway',
@@ -14,10 +16,16 @@ import data from '../../assets/data.json';
 export class SubwayComponent implements OnInit, AfterViewInit {
     scene: Scene;
 
+    theme: Theme;
     selectedCity: string;
     cities: City[] = [];
 
+    background_color: string;
+
     ngOnInit() {
+        this.theme = environment.themes[0];
+        this.background_color = this.theme.settings.background_color;
+
         for (const city of data as any[]) {
             this.cities.push(
                 new City(city)
@@ -27,11 +35,7 @@ export class SubwayComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.scene = new Scene(
-            'canvas',
-            window.innerWidth,
-            window.innerHeight,
-        );
+        this.scene = new Scene('canvas', this.theme);
 
         this.selectCity(this.selectedCity);
     }
@@ -49,8 +53,9 @@ export class SubwayComponent implements OnInit, AfterViewInit {
         this.scene.cleanup();
         this.scene.prepare(
             (scene: Scene) => {
+                this.scene.resize(city.size);
                 scene.addElements(
-                    city.generate_element_params()
+                    city.generate_element_params(scene.theme)
                 );
 
                 scene.draw();

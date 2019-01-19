@@ -2,6 +2,8 @@ import { ElementType, ElementParams, Point2D } from './element';
 import { Line } from './line';
 import { StationTransfer } from './transfer';
 import { environment } from '../../environments/environment';
+import { Theme } from './theme';
+import { shadeHexColor } from './helper';
 
 export enum Direction {
     NorthWest = 'NorthWest',
@@ -16,6 +18,7 @@ export enum Direction {
 
 export interface StationLink {
     direction: Direction;
+    length: number;
     station?: string;
 }
 
@@ -43,20 +46,20 @@ export class Station {
 
     constructor(line: Line, json: any) {
         this.line = line;
-
-        this.name = json.name.value;
-
-        if ('location' in json.name) {
-            this.name_location = json.name.location;
-        }
         this.links = json.links || [];
-        this.position = new Point2D(json.x, json.y);
-        this.text_position = new Point2D(this.position.x, this.position.y);
 
+        // Position is a Relative GRID coordinate
+        this.position = new Point2D(
+            json.x * environment.grid_width,
+            json.y * environment.grid_height,
+        );
+        this.text_position = new Point2D(
+            this.position.x,
+            this.position.y
+        );
         if ('under_construction' in json) {
             this.under_construction = json.under_construction;
         }
-
         if ('transfers' in json) {
             this.has_transfers = true;
             this.raw_transfers = json.transfers;
@@ -64,6 +67,14 @@ export class Station {
         }
 
         this._parents = json.parents;
+
+        if ('name' in json) {
+            this.name = json.name.value;
+            if ('location' in json.name) {
+                this.name_location = json.name.location;
+            }
+        }
+
     }
 
     parse_parents() {
@@ -182,35 +193,38 @@ export class Station {
         const position = new Point2D(prev.position.x, prev.position.y);
         const link = this.get_parent_link();
         if (link) {
-            const _station_margin = environment.station_margin;
+            let distance = environment.station_grid_distance;
+            if (link.length) {
+                distance *= link.length;
+            }
             switch (link.direction) {
                 case Direction.NorthWest:
-                    position.x -= _station_margin / 2;
-                    position.y -= _station_margin / 2;
+                    position.x -= distance / 2;
+                    position.y -= distance / 2;
                     break;
                 case Direction.North:
-                    position.y -= _station_margin;
+                    position.y -= distance;
                     break;
                 case Direction.NorthEast:
-                    position.x += _station_margin / 2;
-                    position.y -= _station_margin / 2;
+                    position.x += distance / 2;
+                    position.y -= distance / 2;
                     break;
                 case Direction.West:
-                    position.x -= _station_margin;
+                    position.x -= distance;
                     break;
                 case Direction.East:
-                    position.x += _station_margin;
+                    position.x += distance;
                     break;
                 case Direction.SouthWest:
-                    position.x -= _station_margin / 2;
-                    position.y += _station_margin / 2;
+                    position.x -= distance / 2;
+                    position.y += distance / 2;
                     break;
                 case Direction.South:
-                    position.y += _station_margin;
+                    position.y += distance;
                     break;
                 case Direction.SouthEast:
-                    position.x += _station_margin / 2;
-                    position.y += _station_margin / 2;
+                    position.x += distance / 2;
+                    position.y += distance / 2;
                     break;
             }
         }
@@ -232,6 +246,14 @@ export class Station {
             const first_parent = this.parents[0];
             if (first_parent.links) {
                 // Order MATTERS
+                if (this.links.length === 0) {
+                    this.links = [
+                        {
+                            direction: first_parent.links[0].direction,
+                            length: first_parent.links[0].length,
+                        }
+                    ];
+                }
                 this.position = this.get_position_by_parents();
             }
         }
@@ -242,7 +264,7 @@ export class Station {
         this.text_position = this.get_text_position();
     }
 
-    generate_element_params(): ElementParams[] {
+    generate_element_params(theme: Theme): ElementParams[] {
         const elements: ElementParams[] = [];
 
         const label_element_params: ElementParams = {
@@ -257,7 +279,7 @@ export class Station {
                 'anchor': this.text_anchor,
             },
             'attr': {
-                'fill': '#000'
+                'fill': theme.settings.station_font_color,
             },
             'draw_callback': (el: svgjs.Container) => {
                 el.front();
@@ -279,7 +301,9 @@ export class Station {
                     }
                 },
                 'attr': {
-                    'fill': this.line.color
+                    'fill': shadeHexColor(
+                        this.line.color, 0.5
+                    )
                 }
             },
             {
@@ -292,7 +316,7 @@ export class Station {
                     }
                 },
                 'attr': {
-                    'fill': '#000'
+                    'fill': theme.settings.station_marker_inner_color
                 }
             }
         ];
@@ -306,7 +330,7 @@ export class Station {
             for (const child of this.children) {
                 let connector_color: string;
                 if (this.under_construction) {
-                    connector_color = '#ccc';
+                    connector_color = theme.settings.station_under_construction_color;
                 } else {
                     connector_color = this.line.color;
                 }
@@ -323,7 +347,7 @@ export class Station {
                     },
                     'attr': {
                         'color': connector_color,
-                        'width': environment.line_width,
+                        'width': environment.station_line_width,
                         'html_class': 'Line',
                     },
                     'draw_callback': (el: svgjs.Container) => {

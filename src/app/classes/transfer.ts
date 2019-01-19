@@ -2,6 +2,7 @@ import { Line } from './line';
 import { Station } from './station';
 import { ElementParams, ElementType } from './element';
 import { environment } from '../../environments/environment';
+import { Theme } from './theme';
 
 export enum StationTransferType {
     Underground = 'Underground',
@@ -26,7 +27,7 @@ export class StationTransfer {
         this.type = type || StationTransferType.Underground;
     }
 
-    generate_element_params(): ElementParams[] {
+    generate_element_params(theme: Theme): ElementParams[] {
         const elements: ElementParams[] = [];
 
         const destinations_points: number[][] = [];
@@ -52,7 +53,7 @@ export class StationTransfer {
                     ]
                 },
                 'attr': {
-                    'color': '#fff',
+                    'color': theme.settings.transfer_outer_color,
                     'width': environment.station_marker_outer_radius * 1.25,
                     'html_class': 'Transfer',
                     'linecap': 'round',
@@ -60,7 +61,7 @@ export class StationTransfer {
                     'opacity': 0.75,
                 },
                 'draw_callback': (el: svgjs.Container) => {
-                    el.forward();
+                    el.back();
                 },
             },
             {
@@ -75,7 +76,7 @@ export class StationTransfer {
                     ]
                 },
                 'attr': {
-                    'color': '#000',
+                    'color': theme.settings.transfer_inner_color,
                     'width': environment.station_marker_inner_radius,
                     'html_class': 'Transfer',
                     'linecap': 'round',
@@ -83,7 +84,7 @@ export class StationTransfer {
                     'opacity': 0.25,
                 },
                 'draw_callback': (el: svgjs.Container) => {
-                    el.forward();
+                    el.back();
                 },
             }
         );

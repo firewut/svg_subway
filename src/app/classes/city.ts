@@ -1,20 +1,22 @@
 import { Line } from './line';
-import { ElementType, ElementParams } from './element';
-import { Station } from './station';
-import { StationTransfer } from './transfer';
+import { ElementParams, ElementType } from './element';
+import { environment } from '../../environments/environment';
+import { Theme } from './theme';
 
 export class City {
     name: string;
     logo: string;
+    size: number[];
     lines: Line[];
 
     constructor(json: any) {
         this.name = json.name;
         this.lines = [];
-        for (const line of json.lines) {
-            this.lines.push(
-                new Line(this, line)
-            );
+        this.size = json.size;
+
+        for (const line_json of json.lines) {
+            const line = new Line(this, line_json);
+            this.lines.push(line);
         }
 
         for (const line of this.lines) {
@@ -22,39 +24,79 @@ export class City {
         }
     }
 
-    generate_element_params(): ElementParams[] {
+    generate_element_params(theme: Theme): ElementParams[] {
         const element_params: ElementParams[] = [];
 
-        // City Name
-        element_params.push(
-            {
-                'type': ElementType.Text,
-                'properties': {
-                    'text': this.name,
-                    'size': 50,
-                    'position': {
-                        'x': 0,
-                        'y': 0
-                    }
-                },
-                'attr': {
-                    'fill': '#000'
-                }
-            }
-        );
+        // // City Name
+        // element_params.push(
+        //     {
+        //         'type': ElementType.Text,
+        //         'properties': {
+        //             'text': this.name,
+        //             'size': 50,
+        //             'position': {
+        //                 'x': 0,
+        //                 'y': 0
+        //             }
+        //         },
+        //         'attr': {
+        //             'fill': '#000'
+        //         }
+        //     }
+        // );
 
         for (const line of this.lines) {
             // City Subway Lines
             for (const station of line.stations) {
-                for (const station_element_param of station.generate_element_params()) {
+                for (const station_element_param of station.generate_element_params(
+                    theme
+                )) {
                     element_params.push(station_element_param);
                 }
             }
 
             // City Subway transfers
             for (const transfer of line.transfers) {
-                for (const transfer_element of transfer.generate_element_params()) {
+                for (const transfer_element of transfer.generate_element_params(
+                    theme
+                )) {
                     element_params.push(transfer_element);
+                }
+            }
+        }
+
+
+        if (environment.hasOwnProperty('debug')) {
+            if (environment.debug === true) {
+                for (var i = 0; i < this.size[0]; i++) {
+                    for (var j = 0; j < this.size[1]; j++) {
+                        const x0 = i * environment.grid_width;
+                        const y0 = j * environment.grid_height;
+                        const x1 = x0 + environment.grid_width;
+                        const y1 = y0 + environment.grid_height;
+                        
+                        element_params.push(
+                            {
+                                'type': ElementType.Rect,
+                                'properties': {
+                                    'position': {
+                                        'x1': x0,
+                                        'y1': y0,
+                                        'x2': x1-1,
+                                        'y2': y1-1,
+                                    }
+                                },
+                                'attr': {
+                                    'fill': theme.settings.debug_grid_color,
+                                    'html_class': 'Rect',
+                                    'opacity': 0.05
+                                },
+                                'draw_callback': (el: svgjs.Container) => {
+                                    el.back();
+                                },
+                            }
+                        )
+                    }
                 }
             }
         }

@@ -4,12 +4,30 @@
 
 export const environment = {
   production: false,
-  debug: true,
-  line_width: 5,
-  station_margin: 35,
+  debug: false,
+  grid_width: 20,
+  grid_height: 20,
+
+  station_grid_distance: 40,
+  station_line_width: 5,
   station_font_size: 10,
   station_marker_outer_radius: 10,
   station_marker_inner_radius: 5,
+
+  themes: [
+    {
+      name: 'dark',
+      settings: {
+        background_color: '#3a3939',
+        debug_grid_color: '#fff',
+        transfer_outer_color: '#fff',
+        transfer_inner_color: '#000',
+        station_under_construction_color: '#eee',
+        station_font_color: '#fff',
+        station_marker_inner_color: '#fff',
+      }
+    }
+  ]
 };
 
 /*

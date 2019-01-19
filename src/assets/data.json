@@ -1,17 +1,20 @@
 [
     {
         "name": "Rome",
+        "size": [
+            48, 35
+        ],
         "lines": [
             {
                 "name": "MA",
-                "color": "#ff0000",
+                "color": "#f36d21",
                 "stations": [
                     {
                         "name": {
                             "value": "Battistini"
                         },
-                        "x": 50,
-                        "y": 100,
+                        "x": 3,
+                        "y": 6,
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -21,12 +24,7 @@
                     {
                         "name": {
                             "value": "Cornelia"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
@@ -43,45 +41,25 @@
                         "name": {
                             "value": "Valle\n Aurelia",
                             "location": "North"
-                        },
-                        "links": [
-                            {
-                                "direction": "East"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Cipro",
                             "location": "South"
-                        },
-                        "links": [
-                            {
-                                "direction": "East"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Ottaviano",
                             "location": "North"
-                        },
-                        "links": [
-                            {
-                                "direction": "East"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Lepanto",
                             "location": "South"
-                        },
-                        "links": [
-                            {
-                                "direction": "East"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
@@ -97,32 +75,17 @@
                     {
                         "name": {
                             "value": "Spagna"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Barberini"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Repubblica"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
@@ -136,34 +99,19 @@
                                     "Termini"
                                 ]
                             }
-                        ],
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
                         ]
                     },
                     {
                         "name": {
                             "value": "Vittorio Emanuele",
                             "location": "East"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Manzoni",
                             "location": "East"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
@@ -177,146 +125,81 @@
                                     "S. Giovanni"
                                 ]
                             }
-                        ],
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
                         ]
                     },
                     {
                         "name": {
                             "value": "Re di Roma"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Ponte Lungo"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Furio Camillo"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Colli Albani"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Arco di Travertino"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Porta Furba"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Numidio Quadrato"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Lucio Sesto"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Giulio Agricola"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Subaugusta"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Cinecitta"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Anagnina"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
+                        }
                     }
                 ]
             },
             {
                 "name": "MB",
-                "color": "#0000FF",
+                "color": "#0071bb",
                 "stations": [
                     {
                         "name": {
                             "value": "Laurentina",
                             "location": "South"
                         },
-                        "x": 360,
-                        "y": 468,
+                        "x": 20,
+                        "y": 25,
                         "links": [
                             {
                                 "direction": "West"
@@ -327,12 +210,7 @@
                         "name": {
                             "value": "EUR\n Fermi",
                             "location": "North"
-                        },
-                        "links": [
-                            {
-                                "direction": "West"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
@@ -358,32 +236,17 @@
                     {
                         "name": {
                             "value": "Marconi"
-                        },
-                        "links": [
-                            {
-                                "direction": "North"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Basilica S. Paolo"
-                        },
-                        "links": [
-                            {
-                                "direction": "North"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Garbatella"
-                        },
-                        "links": [
-                            {
-                                "direction": "North"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
@@ -398,32 +261,17 @@
                     {
                         "name": {
                             "value": "Circo Massimo"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Colosseo"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Carvour"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
@@ -437,34 +285,19 @@
                                     "Termini"
                                 ]
                             }
-                        ],
-                        "links": [
-                            {
-                                "direction": "NorthEast"
-                            }
                         ]
                     },
                     {
                         "name": {
                             "value": "Castro Pretorio",
                             "location": "East"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Policlinico",
                             "location": "East"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
@@ -499,23 +332,13 @@
                         "name": {
                             "value": "Quintiliani",
                             "location": "South"
-                        },
-                        "links": [
-                            {
-                                "direction": "East"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Monti\n Tiburtini",
                             "location": "North"
-                        },
-                        "links": [
-                            {
-                                "direction": "East"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
@@ -532,23 +355,13 @@
                         "name": {
                             "value": "S. Maria del Soccorso",
                             "location": "East"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Ponte Mammolo",
                             "location": "East"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
@@ -583,12 +396,7 @@
                         "name": {
                             "value": "Conca d'Oro",
                             "location": "West"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
@@ -599,14 +407,14 @@
             },
             {
                 "name": "MC",
-                "color": "#00FF00",
+                "color": "#007352",
                 "stations": [
                     {
                         "name": {
                             "value": "Monte Compatri-Pantano"
                         },
-                        "x": 840,
-                        "y": 590,
+                        "x": 47,
+                        "y": 32,
                         "links": [
                             {
                                 "direction": "NorthWest"
@@ -616,163 +424,83 @@
                     {
                         "name": {
                             "value": "Graniti"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthWest"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Finocchio"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthWest"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Bolognetta"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthWest"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Borghesiana"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthWest"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Due Leoni/Fontana Candida"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthWest"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Grotte Celoni"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthWest"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Torre Gaia"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthWest"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Torre Angela"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthWest"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Torrenova"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthWest"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Giardinetti"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthWest"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Torre Maura"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthWest"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Torre Spaccata"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthWest"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Alessandrino"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthWest"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Parco di Centocelle"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthWest"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Mirti"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthWest"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Gardenie",
                             "location": "West"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthWest"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
@@ -789,34 +517,19 @@
                         "name": {
                             "value": "Malatesta",
                             "location": "South"
-                        },
-                        "links": [
-                            {
-                                "direction": "West"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Pigneto",
                             "location": "North"
-                        },
-                        "links": [
-                            {
-                                "direction": "West"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Lodi",
                             "location": "South"
-                        },
-                        "links": [
-                            {
-                                "direction": "West"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
@@ -825,7 +538,8 @@
                         },
                         "links": [
                             {
-                                "direction": "West"
+                                "direction": "West",
+                                "length": 2
                             }
                         ],
                         "transfers": [

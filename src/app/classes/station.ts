@@ -277,6 +277,7 @@ export class Station {
                     'y': this.text_position.y,
                 },
                 'anchor': this.text_anchor,
+                'weight': environment.station_font_weight,
             },
             'attr': {
                 'fill': theme.settings.station_font_color,

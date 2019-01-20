@@ -74,12 +74,14 @@
                     },
                     {
                         "name": {
-                            "value": "Spagna"
+                            "value": "Spagna",
+                            "location": "East"
                         }
                     },
                     {
                         "name": {
-                            "value": "Barberini"
+                            "value": "Barberini",
+                            "location": "East"
                         }
                     },
                     {

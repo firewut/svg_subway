@@ -4,15 +4,16 @@
 
 export const environment = {
   production: false,
-  debug: false,
-  grid_width: 20,
-  grid_height: 20,
+  debug: true,
+  grid_width: 30,
+  grid_height: 30,
 
-  station_grid_distance: 40,
+  station_grid_distance: 60,
   station_line_width: 5,
-  station_font_size: 10,
-  station_marker_outer_radius: 10,
-  station_marker_inner_radius: 5,
+  station_font_size: 15,
+  station_font_weight: '1.5em',
+  station_marker_outer_radius: 15,
+  station_marker_inner_radius: 7,
 
   themes: [
     {
@@ -22,7 +23,7 @@ export const environment = {
         debug_grid_color: '#fff',
         transfer_outer_color: '#fff',
         transfer_inner_color: '#000',
-        station_under_construction_color: '#eee',
+        station_under_construction_color: '#000',
         station_font_color: '#fff',
         station_marker_inner_color: '#fff',
       }

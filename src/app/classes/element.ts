@@ -39,6 +39,7 @@ export class TextElement {
     family = 'Inconsolata';
     size = 15;
     anchor = 'left';
+    weight = '1em';
 
     constructor(params: ElementParams) {
         this.id = makeid();
@@ -55,6 +56,10 @@ export class TextElement {
             this.draw_callback = params.draw_callback;
         }
 
+        if ('weight' in params.properties) {
+            this.weight = params.properties['weight'];
+        }
+
         if ('anchor' in params.properties) {
             this.anchor = params.properties['anchor'];
         }
@@ -67,7 +72,7 @@ export class TextElement {
     draw(canvas: svgjs.Container) {
         const svg_element: SVG.Text = canvas.text(this.text);
 
-        svg_element.font({ family: this.family, size: this.size, anchor: this.anchor });
+        svg_element.font({ family: this.family, size: this.size, anchor: this.anchor, weight: this.weight });
         svg_element.attr(this.attr);
         svg_element.move(this.position.x, this.position.y);
 

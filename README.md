@@ -1,4 +1,18 @@
+[![Build Status](https://travis-ci.com/firewut/svg_subway.svg)](https://travis-ci.com/firewut/svg_subway)
+
 # SvgSubway
+
+[Demo](https://firewut.github.io/svg_subway/)
+
+Subway Schema powered by SVG. 
+
+TODO:
+
+  * Station Selection
+  * Routes from A to B
+  * More Cities
+
+# Angular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
 

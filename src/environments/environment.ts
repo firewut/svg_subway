@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   debug: false,
+
   grid_width: 40,
   grid_height: 40,
 

@@ -43,6 +43,7 @@ export class Station {
 
     text_position: Point2D;
     under_construction = false;
+    is_name_hidden = false;
 
     constructor(line: Line, json: any) {
         this.line = line;
@@ -74,7 +75,10 @@ export class Station {
                 this.name_location = json.name.location;
             }
         }
+    }
 
+    hide_name() {
+        this.is_name_hidden = true;
     }
 
     parse_parents() {
@@ -172,8 +176,14 @@ export class Station {
                 dy += text_margin;
                 break;
             case Direction.NorthWest:
+                break;
             case Direction.SouthEast:
+                break;
             case Direction.NorthEast:
+                this.text_anchor = 'start';
+                dx += text_margin * magic_lines_multiplier;
+                dy -= text_margin + (environment.station_font_size * lines_count) * magic_lines_multiplier;
+                break;
             case Direction.SouthWest:
                 break;
         }
@@ -250,7 +260,8 @@ export class Station {
                     this.links = [
                         {
                             direction: first_parent.links[0].direction,
-                            length: first_parent.links[0].length,
+                            // length: first_parent.links[0].length,
+                            length: 1
                         }
                     ];
                 }
@@ -267,28 +278,28 @@ export class Station {
     generate_element_params(theme: Theme): ElementParams[] {
         const elements: ElementParams[] = [];
 
-        const label_element_params: ElementParams = {
-            'type': ElementType.Text,
-            'properties': {
-                'text': this.name,
-                'size': environment.station_font_size,
-                'position': {
-                    'x': this.text_position.x,
-                    'y': this.text_position.y,
+        if (!this.is_name_hidden) {
+            const label_element_params: ElementParams = {
+                'type': ElementType.Text,
+                'properties': {
+                    'text': this.name,
+                    'size': environment.station_font_size,
+                    'position': {
+                        'x': this.text_position.x,
+                        'y': this.text_position.y,
+                    },
+                    'anchor': this.text_anchor,
+                    'weight': environment.station_font_weight,
                 },
-                'anchor': this.text_anchor,
-                'weight': environment.station_font_weight,
-            },
-            'attr': {
-                'fill': theme.settings.station_font_color,
-            },
-            'draw_callback': (el: svgjs.Container) => {
-                el.front();
-            },
-        };
-
-
-        elements.push(label_element_params);
+                'attr': {
+                    'fill': theme.settings.station_font_color,
+                },
+                'draw_callback': (el: svgjs.Container) => {
+                    el.front();
+                },
+            };
+            elements.push(label_element_params);
+        }
 
         // Station Marker
         const station_element_params: ElementParams[] = [
@@ -348,7 +359,7 @@ export class Station {
                     },
                     'attr': {
                         'color': connector_color,
-                        'width': environment.station_line_width,
+                        'width': environment.station_line_height,
                         'html_class': 'Line',
                     },
                     'draw_callback': (el: svgjs.Container) => {

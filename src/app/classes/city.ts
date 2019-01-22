@@ -68,13 +68,13 @@ export class City {
 
         if (environment.hasOwnProperty('debug')) {
             if (environment.debug === true) {
-                for (var i = 0; i < this.size[0]; i++) {
-                    for (var j = 0; j < this.size[1]; j++) {
+                for (let i = 0; i < this.size[0]; i++) {
+                    for (let j = 0; j < this.size[1]; j++) {
                         const x0 = i * environment.grid_width;
                         const y0 = j * environment.grid_height;
                         const x1 = x0 + environment.grid_width;
                         const y1 = y0 + environment.grid_height;
-                        
+
                         element_params.push(
                             {
                                 'type': ElementType.Rect,
@@ -82,8 +82,8 @@ export class City {
                                     'position': {
                                         'x1': x0,
                                         'y1': y0,
-                                        'x2': x1-1,
-                                        'y2': y1-1,
+                                        'x2': x1 - 1,
+                                        'y2': y1 - 1,
                                     }
                                 },
                                 'attr': {
@@ -95,13 +95,11 @@ export class City {
                                     el.back();
                                 },
                             }
-                        )
+                        );
                     }
                 }
             }
         }
-
-
         return element_params;
     }
 }

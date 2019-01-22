@@ -2,7 +2,8 @@
     {
         "name": "Rome",
         "size": [
-            48, 35
+            48,
+            35
         ],
         "lines": [
             {
@@ -91,7 +92,8 @@
                     },
                     {
                         "name": {
-                            "value": "Termini"
+                            "value": "Termini",
+                            "location": "East"
                         },
                         "transfers": [
                             {
@@ -118,7 +120,7 @@
                     {
                         "name": {
                             "value": "S. Giovanni",
-                            "location": "East"
+                            "location": "NorthEast"
                         },
                         "transfers": [
                             {
@@ -268,7 +270,15 @@
                     {
                         "name": {
                             "value": "Colosseo"
-                        }
+                        },
+                        "transfers": [
+                            {
+                                "line": "MC",
+                                "stations": [
+                                    "Colosseo"
+                                ]
+                            }
+                        ]
                     },
                     {
                         "name": {
@@ -279,15 +289,7 @@
                         "name": {
                             "value": "Termini",
                             "location": "East"
-                        },
-                        "transfers": [
-                            {
-                                "line": "MA",
-                                "stations": [
-                                    "Termini"
-                                ]
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
@@ -567,7 +569,8 @@
                     },
                     {
                         "name": {
-                            "value": "Colosseo"
+                            "value": "Colosseo",
+                            "location": "East"
                         },
                         "transfers": [
                             {

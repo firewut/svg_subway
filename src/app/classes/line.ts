@@ -75,8 +75,7 @@ export class Line {
                                 );
                             }
 
-                            // TODO: Check if this is necessary
-                            break;
+                            // break;
                         }
                     }
                 }

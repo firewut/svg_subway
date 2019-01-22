@@ -89,7 +89,7 @@ export class TextElement {
                 const size_margin = min_text_size + min_text_size / 2;
                 // Mark with Size
                 canvas.text(
-                    `${b.width.toPrecision(2)}`
+                    `${b.width.toFixed(0)}`
                 ).font(
                     {size: min_text_size}
                 ).attr(
@@ -97,7 +97,7 @@ export class TextElement {
                 ).move(b.x - size_margin, b.y);
 
                 canvas.text(
-                    `${b.height.toPrecision(2)}`
+                    `${b.height.toFixed(2)}`
                 ).font(
                     {size: min_text_size}
                 ).attr(

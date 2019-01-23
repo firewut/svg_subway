@@ -9,17 +9,17 @@ import { AppComponent } from './app.component';
 import { SubwayComponent } from './components/subway';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        SubwayComponent,
-    ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        BrowserModule,
-        AppRoutingModule,
-    ],
-    providers: [],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    SubwayComponent,
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    BrowserModule,
+    AppRoutingModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

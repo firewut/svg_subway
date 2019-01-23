@@ -37,14 +37,14 @@ export class Scene {
     resize(grid_size: number[]) {
         this.canvas.size(
             (
-                environment.grid_width 
+                environment.grid_width
             ) *
             grid_size[0],
             (
                 environment.grid_height
             ) *
             grid_size[1],
-        )
+        );
     }
 
     prepare(callback: (_: Scene) => any) {

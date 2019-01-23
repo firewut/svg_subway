@@ -2,8 +2,8 @@
     {
         "name": "Rome",
         "size": [
-            48,
-            35
+            50,
+            33
         ],
         "lines": [
             {
@@ -15,7 +15,7 @@
                             "value": "Battistini"
                         },
                         "x": 3,
-                        "y": 6,
+                        "y": 4,
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -203,7 +203,7 @@
                             "location": "South"
                         },
                         "x": 20,
-                        "y": 25,
+                        "y": 23,
                         "links": [
                             {
                                 "direction": "West"
@@ -418,7 +418,7 @@
                             "value": "Monte Compatri-Pantano"
                         },
                         "x": 47,
-                        "y": 32,
+                        "y": 30,
                         "links": [
                             {
                                 "direction": "NorthWest"

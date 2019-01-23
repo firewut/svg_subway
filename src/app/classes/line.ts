@@ -1,7 +1,8 @@
 import { Station } from './station';
+import { Direction, VectorDirection } from './direction';
 import { City } from './city';
 import { StationTransfer } from './transfer';
-import { ElementParams, ElementType } from './element';
+import { ElementParams, ElementType, Point2D } from './element';
 import { Theme } from './theme';
 import { environment } from '../../environments/environment';
 
@@ -12,8 +13,10 @@ export class Line {
   stations: Station[];
   transfers: StationTransfer[];
 
-  start: Station[] = [];
-  end: Station[] = [];
+  terminations: Station[] = [];
+
+  // start, middle, end
+  text_anchor = 'middle';
 
   constructor(city: City, json: any) {
     this.city = city;
@@ -61,11 +64,11 @@ export class Line {
 
     // Set Start and End Stations
     for (const station of this.stations) {
-      if (station.parents.length === 0) {
-        this.start.push(station);
-      }
-      if (station.children.length === 0) {
-        this.end.push(station);
+      if (
+        station.parents.length === 0 ||
+        station.children.length === 0
+      ) {
+        this.terminations.push(station);
       }
     }
   }
@@ -153,11 +156,8 @@ export class Line {
         }
       }
 
-      if (
-        this.start.includes(station) ||
-        this.end.includes(station)
-      ) {
-        const line_text_position = station.get_line_text_position();
+      if (this.terminations.includes(station)) {
+        const line_text_position = this.get_line_text_position(station);
 
         elements.push({
           'type': ElementType.Text,
@@ -166,9 +166,9 @@ export class Line {
             'size': environment.line_name_font_size,
             'position': {
               'x': line_text_position.x,
-              'y': line_text_position.y
+              'y': line_text_position.y,
             },
-            'anchor': 'middle',
+            'anchor': this.text_anchor,
             'weight': environment.line_name_font_weight
           },
           'attr': {
@@ -185,5 +185,63 @@ export class Line {
     }
 
     return elements;
+  }
+
+  get_line_text_position(station: Station) {
+    let opposite_direction: Direction;
+
+    if (station.parents.length === 0) {
+      if (station.children.length > 0) {
+        const link = station.get_next_link();
+        if (link) {
+          const vector = new VectorDirection(link.direction);
+          opposite_direction = vector.get_opposite_direction();
+        }
+      }
+    } else if (station.children.length === 0) {
+      if (station.parents.length > 0) {
+        const link = station.get_parent_link();
+        opposite_direction = link.direction;
+      }
+    }
+
+    switch (opposite_direction) {
+      case Direction.NorthWest:
+        this.text_anchor = 'start';
+        break;
+      case Direction.North:
+        break;
+      case Direction.NorthEast:
+        this.text_anchor = 'end';
+        break;
+      case Direction.West:
+        this.text_anchor = 'start';
+        break;
+      case Direction.East:
+        this.text_anchor = 'end';
+        break;
+      case Direction.SouthWest:
+        this.text_anchor = 'start';
+        break;
+      case Direction.South:
+        break;
+      case Direction.SouthEast:
+        this.text_anchor = 'start';
+        break;
+    }
+
+    return this.get_position_by_station_direction(
+      station,
+      opposite_direction,
+      environment.line_name_grid_distance,
+    );
+  }
+
+  get_position_by_station_direction(
+    station: Station,
+    direction: Direction,
+    distance?: Number
+  ) {
+    return station.position;
   }
 }

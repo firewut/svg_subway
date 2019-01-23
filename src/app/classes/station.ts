@@ -4,22 +4,24 @@ import { StationTransfer } from './transfer';
 import { environment } from '../../environments/environment';
 import { Theme } from './theme';
 import { shadeHexColor, makeid } from './helper';
+import { Direction, VectorDirection } from './direction';
 
-export enum Direction {
-  NorthWest = 'NorthWest',
-  North = 'North',
-  NorthEast = 'NorthEast',
-  West = 'West',
-  East = 'East',
-  SouthWest = 'SouthWest',
-  South = 'South',
-  SouthEast = 'SouthEast',
-}
-
-export interface StationLink {
+export class StationLink {
   direction: Direction;
   length: number;
   station?: string;
+
+  get_opposite_link(link: StationLink) {
+    const vector = new VectorDirection(link.direction);
+
+    const opposite_link = {
+      direction: vector.get_opposite_direction(),
+      length: link.length,
+    };
+
+    return opposite_link;
+  }
+
 }
 
 export class Station {
@@ -196,72 +198,6 @@ export class Station {
     return position;
   }
 
-  get_line_text_position() {
-    let opposite_direction: Direction;
-
-    if (this.parents.length === 0) {
-      if (this.children.length > 0) {
-        const link = this.get_next_link();
-        opposite_direction = this.get_opposite_link_direction(
-          link.direction
-        );
-      }
-    } else if (this.children.length === 0) {
-      if (this.parents.length > 0) {
-        const link = this.get_parent_link();
-        opposite_direction = link.direction;
-      }
-    }
-
-    return this.get_position_by_direction(
-      this.position,
-      opposite_direction,
-      environment.line_name_grid_distance,
-    );
-  }
-
-  get_opposite_link(link: StationLink) {
-    const opposite_link = {
-      direction: this.get_opposite_link_direction(link.direction),
-      length: link.length,
-    };
-
-    return opposite_link;
-  }
-
-  get_opposite_link_direction(direction: Direction) {
-    let opposite_direction: Direction;
-
-    switch (direction) {
-      case Direction.NorthWest:
-        opposite_direction = Direction.SouthEast;
-        break;
-      case Direction.North:
-        opposite_direction = Direction.South;
-        break;
-      case Direction.NorthEast:
-        opposite_direction = Direction.SouthWest;
-        break;
-      case Direction.West:
-        opposite_direction = Direction.East;
-        break;
-      case Direction.East:
-        opposite_direction = Direction.West;
-        break;
-      case Direction.SouthWest:
-        opposite_direction = Direction.NorthEast;
-        break;
-      case Direction.South:
-        opposite_direction = Direction.North;
-        break;
-      case Direction.SouthEast:
-        opposite_direction = Direction.NorthWest;
-        break;
-    }
-
-    return opposite_direction;
-  }
-
   get_position_by_direction(
     prev_position: Point2D,
     direction: Direction,
@@ -343,13 +279,10 @@ export class Station {
       if (first_parent.links) {
         // Order MATTERS
         if (this.links.length === 0) {
-          this.links = [
-            {
-              direction: first_parent.links[0].direction,
-              // length: first_parent.links[0].length,
-              length: 1
-            }
-          ];
+          const link = new StationLink();
+          link.direction = first_parent.links[0].direction;
+          link.length = 1;
+          this.links = [link];
         }
         this.position = this.get_position_by_parents();
       }
@@ -395,7 +328,7 @@ export class Station {
         'classes': [
           'Station',
           'Name',
-          this.id
+          this.id,
         ]
       };
       elements.push(label_element_params);

@@ -63,6 +63,13 @@ export class City {
 
     for (const line of this.lines) {
       // City Subway Lines
+      for (const line_element_param of line.generate_element_params(
+        theme
+      )) {
+        element_params.push(line_element_param);
+      }
+
+      // City Subway Stations
       for (const station of line.stations) {
         for (const station_element_param of station.generate_element_params(
           theme

@@ -29,6 +29,7 @@ export const environment = {
         transfer_inner_color: '#666',
         link_under_construction_color: '#aaa',
         link_under_construction_opacity: 0.75,
+        line_name_font_color: '#fff',
         station_font_color: '#fff',
         station_marker_inner_color: '#fff',
       }

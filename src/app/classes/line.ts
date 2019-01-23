@@ -1,6 +1,9 @@
 import { Station } from './station';
 import { City } from './city';
 import { StationTransfer } from './transfer';
+import { ElementParams, ElementType } from './element';
+import { Theme } from './theme';
+import { environment } from '../../environments/environment';
 
 export class Line {
   city: City;
@@ -8,6 +11,9 @@ export class Line {
   color: string;
   stations: Station[];
   transfers: StationTransfer[];
+
+  start: Station[] = [];
+  end: Station[] = [];
 
   constructor(city: City, json: any) {
     this.city = city;
@@ -52,6 +58,16 @@ export class Line {
     for (const station of this.stations) {
       station.set_params();
     }
+
+    // Set Start and End Stations
+    for (const station of this.stations) {
+      if (station.parents.length === 0) {
+        this.start.push(station);
+      }
+      if (station.children.length === 0) {
+        this.end.push(station);
+      }
+    }
   }
 
   set_transfers() {
@@ -91,5 +107,83 @@ export class Line {
       }
     }
     return station;
+  }
+
+  generate_element_params(theme: Theme): ElementParams[] {
+    const elements: ElementParams[] = [];
+
+    for (const station of this.stations) {
+      if (station.children.length > 0) {
+        for (const child of station.children) {
+          let connector_color: string;
+          let connector_opacity = 1;
+          if (station.under_construction || child.under_construction) {
+            connector_color = theme.settings.link_under_construction_color;
+            connector_opacity = theme.settings.link_under_construction_opacity;
+          } else {
+            connector_color = this.color;
+          }
+
+          const child_connector: ElementParams = {
+            'type': ElementType.Line,
+            'properties': {
+              'position': {
+                'x1': station.position.x,
+                'y1': station.position.y,
+                'x2': child.position.x,
+                'y2': child.position.y,
+              }
+            },
+            'attr': {
+              'color': connector_color,
+              'width': environment.station_line_height,
+              'html_class': 'Line',
+              'opacity': connector_opacity,
+            },
+            'draw_callback': (el: svgjs.Container) => {
+              el.back();
+            },
+            'classes': [
+              'Station',
+              'Connector',
+              station.id
+            ]
+          };
+          elements.push(child_connector);
+        }
+      }
+
+      if (
+        this.start.includes(station) ||
+        this.end.includes(station)
+      ) {
+        const line_text_position = station.get_line_text_position();
+
+        elements.push({
+          'type': ElementType.Text,
+          'properties': {
+            'text': this.name,
+            'size': environment.line_name_font_size,
+            'position': {
+              'x': line_text_position.x,
+              'y': line_text_position.y
+            },
+            'anchor': 'middle',
+            'weight': environment.line_name_font_weight
+          },
+          'attr': {
+            'fill': theme.settings.line_name_font_color,
+          },
+          'draw_callback': (el: svgjs.Container) => {
+            el.front();
+          },
+          'classes': [
+            'Line', 'Name', this.name
+          ]
+        });
+      }
+    }
+
+    return elements;
   }
 }

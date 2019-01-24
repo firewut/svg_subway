@@ -294,6 +294,8 @@ export class RectElement {
   x2: number;
   y2: number;
 
+  radius = 0;
+
   constructor(params: ElementParams) {
     this.id = makeid();
     this.attr = params.attr;
@@ -308,6 +310,10 @@ export class RectElement {
     this.y1 = params.properties['position']['y1'];
     this.x2 = params.properties['position']['x2'];
     this.y2 = params.properties['position']['y2'];
+
+    if ('radius' in params.properties) {
+      this.radius = params['properties']['radius'];
+    }
 
     if (params.draw_callback) {
       this.draw_callback = params.draw_callback;
@@ -324,6 +330,7 @@ export class RectElement {
       Math.abs(this.y1 - this.y2),
     );
 
+    svg_element.radius(this.radius);
     svg_element.move(this.position.x, this.position.y);
     svg_element.attr(this.attr);
 

@@ -158,33 +158,87 @@ export class Line {
 
       if (this.terminations.includes(station)) {
         const line_text_position = this.get_line_text_position(station);
+        const line_text_bbox_coordinates = this.get_line_text_bbox_coordiantes(
+          line_text_position
+        );
 
-        elements.push({
-          'type': ElementType.Text,
-          'properties': {
-            'text': this.name,
-            'size': environment.line_name_font_size,
-            'position': {
-              'x': line_text_position.x,
-              'y': line_text_position.y,
+        elements.push(
+          ...[
+            {
+              'type': ElementType.Text,
+              'properties': {
+                'text': this.name,
+                'size': environment.line_name_font_size,
+                'position': {
+                  'x': line_text_position.x,
+                  'y': line_text_position.y,
+                },
+                'anchor': this.text_anchor,
+                'weight': environment.line_name_font_weight,
+              },
+              'attr': {
+                'fill': theme.settings.line_name_font_color,
+              },
+              'draw_callback': (el: svgjs.Container) => {
+                el.front();
+              },
+              'classes': [
+                'Line', 'Name', this.name
+              ]
             },
-            'anchor': this.text_anchor,
-            'weight': environment.line_name_font_weight
-          },
-          'attr': {
-            'fill': theme.settings.line_name_font_color,
-          },
-          'draw_callback': (el: svgjs.Container) => {
-            el.front();
-          },
-          'classes': [
-            'Line', 'Name', this.name
+            {
+              'type': ElementType.Rect,
+              'properties': {
+                'position': line_text_bbox_coordinates,
+                'radius': environment.line_name_font_size / 5,
+              },
+              'attr': {
+                'fill': this.color,
+              },
+              'draw_callback': (el: svgjs.Container) => {
+                el.back();
+              },
+              'classes': [
+                'Line', 'BBox', this.name
+              ]
+            }
           ]
-        });
+        );
       }
     }
 
     return elements;
+  }
+
+  get_line_text_bbox_coordiantes(line_text_position: Point2D) {
+    const x1 = line_text_position.x;
+    const y1 = line_text_position.y;
+    const x2 = line_text_position.x;
+    const y2 = line_text_position.y;
+
+    let lines_count = 0;
+    let max_length = 0;
+    for (const line of this.name.split('\n')) {
+      lines_count += 1;
+      if (line.length > max_length) {
+        max_length = line.length;
+      }
+    }
+    if (max_length === 0) {
+      max_length = this.name.length;
+    }
+
+    const magic_lines_multiplier = 1.3;
+    const font_size = environment.line_name_font_size;
+
+    const height = font_size * lines_count * magic_lines_multiplier;
+    const width = font_size / 2 * max_length + font_size;
+    return {
+      'x1': x1 - width / 2,
+      'y1': y1 - font_size / 6,
+      'x2': x2 + width / 2,
+      'y2': y2 + height,
+    };
   }
 
   get_line_text_position(station: Station) {
@@ -205,43 +259,53 @@ export class Line {
       }
     }
 
-    switch (opposite_direction) {
-      case Direction.NorthWest:
-        this.text_anchor = 'start';
-        break;
-      case Direction.North:
-        break;
-      case Direction.NorthEast:
-        this.text_anchor = 'end';
-        break;
-      case Direction.West:
-        this.text_anchor = 'start';
-        break;
-      case Direction.East:
-        this.text_anchor = 'end';
-        break;
-      case Direction.SouthWest:
-        this.text_anchor = 'start';
-        break;
-      case Direction.South:
-        break;
-      case Direction.SouthEast:
-        this.text_anchor = 'start';
-        break;
-    }
-
-    return this.get_position_by_station_direction(
+    return this.get_position_by_direction(
       station,
       opposite_direction,
       environment.line_name_grid_distance,
     );
   }
 
-  get_position_by_station_direction(
+  get_position_by_direction(
     station: Station,
     direction: Direction,
-    distance?: Number
+    distance?: number
   ) {
-    return station.position;
+    const position = new Point2D(
+      station.position.x,
+      station.position.y
+    );
+
+    switch (direction) {
+      case Direction.NorthWest:
+        position.y -= distance;
+        position.x -= distance / 2;
+        break;
+      case Direction.North:
+        position.y -= distance;
+        break;
+      case Direction.NorthEast:
+        position.y -= distance;
+        position.x += distance / 2;
+        break;
+      case Direction.West:
+        position.x -= distance;
+        position.y -= distance;
+        break;
+      case Direction.East:
+        position.x += distance;
+        position.y -= distance / 2;
+        break;
+      case Direction.SouthWest:
+        position.y += distance;
+        break;
+      case Direction.South:
+        break;
+      case Direction.SouthEast:
+        position.y += distance / 2;
+        position.x += distance / 2;
+        break;
+    }
+    return position;
   }
 }

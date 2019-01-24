@@ -7,7 +7,7 @@
         ],
         "lines": [
             {
-                "name": "MA",
+                "name": "A",
                 "color": "#f36d21",
                 "stations": [
                     {
@@ -97,7 +97,7 @@
                         },
                         "transfers": [
                             {
-                                "line": "MB",
+                                "line": "B",
                                 "type": "Underground",
                                 "stations": [
                                     "Termini"
@@ -124,7 +124,7 @@
                         },
                         "transfers": [
                             {
-                                "line": "MC",
+                                "line": "C",
                                 "stations": [
                                     "S. Giovanni"
                                 ]
@@ -194,7 +194,7 @@
                 ]
             },
             {
-                "name": "MB",
+                "name": "B",
                 "color": "#0071bb",
                 "stations": [
                     {
@@ -273,7 +273,7 @@
                         },
                         "transfers": [
                             {
-                                "line": "MC",
+                                "line": "C",
                                 "stations": [
                                     "Colosseo"
                                 ]
@@ -410,7 +410,7 @@
                 ]
             },
             {
-                "name": "MC",
+                "name": "C",
                 "color": "#007352",
                 "stations": [
                     {
@@ -548,7 +548,7 @@
                         ],
                         "transfers": [
                             {
-                                "line": "MA",
+                                "line": "A",
                                 "stations": [
                                     "S. Giovanni"
                                 ]
@@ -574,7 +574,7 @@
                         },
                         "transfers": [
                             {
-                                "line": "MB",
+                                "line": "B",
                                 "stations": [
                                     "Colosseo"
                                 ]

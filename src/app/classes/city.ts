@@ -9,20 +9,42 @@ export class SubwayRouter {
   from: Station;
   to: Station;
 
+  // Sugar
+  private select_to = false;
+
   constructor(lines: Line[]) {
     // this.lines = lines;
   }
 
-  select_station(station: Station) {
-    if (this.from === undefined) {
-      this.from = station;
+  select_station_from(station: Station) {
+    if (this.from !== undefined) {
+      this.from.uncheck();
+    }
+    this.from = station;
+  }
+
+  select_station_to(station: Station) {
+    if (this.to !== undefined) {
+      this.to.uncheck();
+    }
+    this.to = station;
+  }
+
+  select_station(station: Station, to?: boolean) {
+    if (to === true || this.select_to) {
+      this.select_station_to(station);
     } else {
-      this.to = station;
+      this.select_station_from(station);
+      this.select_to = true;
     }
 
     if (this.from !== undefined && this.to !== undefined) {
       this.calculate_route(this.from, this.to);
     }
+
+    console.log(
+      `${this.from} ,${this.to} ${to}`,
+    );
   }
 
   calculate_route(start: Station, finish: Station) {

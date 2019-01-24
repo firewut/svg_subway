@@ -1,4 +1,4 @@
-import { ElementType, ElementParams, Point2D, TextElement } from './element';
+import { ElementType, ElementParams, Point2D, TextElement, LocationMarker } from './element';
 import { Line } from './line';
 import { StationTransfer } from './transfer';
 import { environment } from '../../environments/environment';
@@ -50,6 +50,7 @@ export class Station {
 
   element_params: ElementParams[] = [];
   svg_elements: svgjs.Container[] = [];
+  svg_marker_elements: svgjs.Container[] = [];
 
   constructor(line: Line, json: any) {
     this.id = makeid();
@@ -297,13 +298,44 @@ export class Station {
     this.text_position = this.get_text_position(environment.station_font_size);
   }
 
-  click(el: svgjs.Container) {
+  check(el: svgjs.Container) {
     this.line.city.router.select_station(this);
 
     for (const element of this.svg_elements) {
       const element_obj = element.remember('element');
       if (element_obj instanceof TextElement) {
-        element_obj.check(el);
+        element_obj.toggle();
+
+        // Set marker
+        const marker_params: ElementParams = {
+          'type': ElementType.LocationMarker,
+          'properties': {
+            'text': this.name[0],
+            'position': {
+              'x': this.text_position.x,
+              'y': this.text_position.y,
+            }
+          },
+          'attr': {},
+          'draw_callback': (marker_el: svgjs.Container) => {
+            marker_el.front();
+            this.svg_marker_elements.push(el);
+          },
+          'classes': [
+            'Station',
+            'Name',
+            this.id,
+          ]
+        };
+      }
+    }
+  }
+
+  uncheck() {
+    for (const element of this.svg_elements) {
+      const element_obj = element.remember('element');
+      if (element_obj instanceof TextElement) {
+        element_obj.uncheck();
       }
     }
   }
@@ -333,7 +365,7 @@ export class Station {
 
           const self = this;
           el.on('click', function() {
-            self.click(el);
+            self.check(el);
           });
         },
         'classes': [
@@ -367,7 +399,7 @@ export class Station {
 
           const self = this;
           el.on('click', function() {
-            self.click(el);
+            self.check(el);
           });
         },
         'classes': [
@@ -394,7 +426,7 @@ export class Station {
 
           const self = this;
           el.on('click', function() {
-            self.click(el);
+            self.check(el);
           });
         },
         'classes': [

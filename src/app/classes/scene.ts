@@ -9,10 +9,11 @@ import { Theme } from './theme';
 import {
   Element,
   ElementType,
-  TextElement,
   CircleElement,
   LineElement,
+  LocationMarker,
   RectElement,
+  TextElement,
   ElementParams,
 } from './element';
 
@@ -83,6 +84,9 @@ export class Scene {
         break;
       case ElementType.PolyLineElement:
         element = new PolyLineElement(params);
+        break;
+      case ElementType.LocationMarker:
+        element = new LocationMarker(params);
         break;
       default:
         console.log(params);

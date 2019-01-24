@@ -18,6 +18,8 @@ export class Line {
   // start, middle, end
   text_anchor = 'middle';
 
+  svg_elements: svgjs.Container[] = [];
+
   constructor(city: City, json: any) {
     this.city = city;
     this.name = json.name;
@@ -112,6 +114,9 @@ export class Line {
     return station;
   }
 
+  click(el: svgjs.Container) {
+  }
+
   generate_element_params(theme: Theme): ElementParams[] {
     const elements: ElementParams[] = [];
 
@@ -144,6 +149,7 @@ export class Line {
               'opacity': connector_opacity,
             },
             'draw_callback': (el: svgjs.Container) => {
+              this.svg_elements.push(el);
               el.back();
             },
             'classes': [
@@ -180,6 +186,7 @@ export class Line {
                 'fill': theme.settings.line_name_font_color,
               },
               'draw_callback': (el: svgjs.Container) => {
+                this.svg_elements.push(el);
                 el.front();
               },
               'classes': [
@@ -196,7 +203,13 @@ export class Line {
                 'fill': this.color,
               },
               'draw_callback': (el: svgjs.Container) => {
+                this.svg_elements.push(el);
                 el.back();
+
+                const self = this;
+                el.on('click', function() {
+                  self.click(el);
+                });
               },
               'classes': [
                 'Line', 'BBox', this.name

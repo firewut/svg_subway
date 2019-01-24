@@ -11,17 +11,6 @@ export enum ElementType {
   PolyLineElement,
 }
 
-export interface Element {
-  id: string;
-  attr: any;
-  classes: string[];
-  position: Point2D;
-  svg_element: SVG.Shape;
-
-  draw: (_: svgjs.Container) => any;
-  draw_callback: (_: svgjs.Shape) => any;
-}
-
 export interface ElementParams {
   attr: any;
   classes: string[];
@@ -31,12 +20,32 @@ export interface ElementParams {
   draw_callback?: (_: svgjs.Shape) => any;
 }
 
+export interface Element {
+  id: string;
+  attr: any;
+  classes: string[];
+  position: Point2D;
+
+  param: ElementParams;
+  svg_element: SVG.Shape;
+
+  click_toggle: boolean;
+  toggle: (_: svgjs.Container) => any;
+  check: (_: svgjs.Container) => any;
+  uncheck: (_: svgjs.Container) => any;
+
+  draw: (_: svgjs.Container) => any;
+  draw_callback: (_: svgjs.Shape) => any;
+}
+
 export class TextElement {
   id: string;
   attr: any;
   classes: string[] = [];
+  param: ElementParams;
   position: Point2D;
   svg_element: SVG.Shape;
+  click_toggle = false;
 
   text: string;
   family = 'Inconsolata';
@@ -49,6 +58,7 @@ export class TextElement {
     this.text = params.properties['text'];
     this.attr = params.attr;
     this.classes = params.classes;
+    this.param = params;
 
     this.position = new Point2D(
       params.properties['position']['x'],
@@ -69,12 +79,12 @@ export class TextElement {
     }
   }
 
-  draw_callback(element: svgjs.Shape) {
-
-  }
+  draw_callback(element: svgjs.Shape) { }
 
   draw(canvas: svgjs.Container) {
     const svg_element: SVG.Text = canvas.text(this.text);
+    svg_element.remember('element', this);
+    svg_element.remember('param', this.param);
 
     svg_element.font(
       {
@@ -130,14 +140,33 @@ export class TextElement {
 
     return this.svg_element;
   }
+
+  toggle(element: svgjs.Container) {
+    this.click_toggle = !this.click_toggle;
+    if (this.toggle) {
+      this.check(element);
+    } else {
+      this.uncheck(element);
+    }
+  }
+
+  check(element: svgjs.Container) {
+    this.svg_element.attr('font-weight', 'bold');
+  }
+
+  uncheck(element: svgjs.Container) {
+    this.svg_element.attr('font-weight', this.weight);
+  }
 }
 
 export class CircleElement {
   id: string;
   position: Point2D;
-  svg_element: SVG.Shape;
   attr: any;
   classes: string[] = [];
+  param: ElementParams;
+  svg_element: SVG.Shape;
+  click_toggle = false;
 
   center: Point2D;
   radius: number;
@@ -159,12 +188,12 @@ export class CircleElement {
     }
   }
 
-  draw_callback(element: svgjs.Shape) {
-
-  }
+  draw_callback(element: svgjs.Shape) { }
 
   draw(canvas: svgjs.Container) {
     const svg_element: SVG.Circle = canvas.circle(this.radius);
+    svg_element.remember('element', this);
+    svg_element.remember('param', this.param);
 
     svg_element.center(this.position.x, this.position.y);
     svg_element.attr(this.attr);
@@ -178,14 +207,32 @@ export class CircleElement {
     this.svg_element = svg_element;
     return svg_element;
   }
+
+  toggle(element: svgjs.Container) {
+    this.click_toggle = !this.click_toggle;
+    if (this.toggle) {
+      this.check(element);
+    } else {
+      this.uncheck(element);
+    }
+  }
+  check(element: svgjs.Container) {
+
+  }
+
+  uncheck(element: svgjs.Container) {
+
+  }
 }
 
 export class PolyLineElement {
   id: string;
-  position: Point2D;
-  svg_element: SVG.Shape;
   attr: any;
+  svg_element: SVG.Shape;
+  click_toggle = false;
+  param: ElementParams;
   classes: string[] = [];
+  position: Point2D;
 
   points: number[][] = [];
 
@@ -202,9 +249,7 @@ export class PolyLineElement {
     }
   }
 
-  draw_callback(element: svgjs.Shape) {
-
-  }
+  draw_callback(element: svgjs.Shape) { }
 
   draw(canvas: svgjs.Container) {
     const points_array: number[][] = [];
@@ -216,6 +261,8 @@ export class PolyLineElement {
     }
 
     const svg_element: SVG.PolyLine = canvas.polyline(points_array);
+    svg_element.remember('element', this);
+    svg_element.remember('param', this.param);
 
     svg_element.stroke(this.attr);
 
@@ -228,13 +275,31 @@ export class PolyLineElement {
     this.svg_element = svg_element;
     return svg_element;
   }
+
+  toggle(element: svgjs.Container) {
+    this.click_toggle = !this.click_toggle;
+    if (this.toggle) {
+      this.check(element);
+    } else {
+      this.uncheck(element);
+    }
+  }
+  check(element: svgjs.Container) {
+
+  }
+
+  uncheck(element: svgjs.Container) {
+
+  }
 }
 
 export class LineElement {
   id: string;
   position: Point2D;
   svg_element: SVG.Shape;
+  click_toggle = false;
   attr: any;
+  param: ElementParams;
   classes: string[] = [];
 
   x1: number;
@@ -262,12 +327,12 @@ export class LineElement {
     }
   }
 
-  draw_callback(element: svgjs.Shape) {
-
-  }
+  draw_callback(element: svgjs.Shape) { }
 
   draw(canvas: svgjs.Container) {
     const svg_element: SVG.Line = canvas.line(this.x1, this.y1, this.x2, this.y2);
+    svg_element.remember('element', this);
+    svg_element.remember('param', this.param);
 
     svg_element.stroke(this.attr);
 
@@ -280,13 +345,31 @@ export class LineElement {
     this.svg_element = svg_element;
     return svg_element;
   }
+
+  toggle(element: svgjs.Container) {
+    this.click_toggle = !this.click_toggle;
+    if (this.toggle) {
+      this.check(element);
+    } else {
+      this.uncheck(element);
+    }
+  }
+  check(element: svgjs.Container) {
+
+  }
+
+  uncheck(element: svgjs.Container) {
+
+  }
 }
 
 export class RectElement {
   id: string;
   position: Point2D;
   svg_element: SVG.Shape;
+  click_toggle = false;
   attr: any;
+  param: ElementParams;
   classes: string[] = [];
 
   x1: number;
@@ -320,15 +403,15 @@ export class RectElement {
     }
   }
 
-  draw_callback(element: svgjs.Shape) {
-
-  }
+  draw_callback(element: svgjs.Shape) { }
 
   draw(canvas: svgjs.Container) {
     const svg_element: SVG.Rect = canvas.rect(
       Math.abs(this.x1 - this.x2),
       Math.abs(this.y1 - this.y2),
     );
+    svg_element.remember('element', this);
+    svg_element.remember('param', this.param);
 
     svg_element.radius(this.radius);
     svg_element.move(this.position.x, this.position.y);
@@ -342,6 +425,22 @@ export class RectElement {
 
     this.svg_element = svg_element;
     return svg_element;
+  }
+
+  toggle(element: svgjs.Container) {
+    this.click_toggle = !this.click_toggle;
+    if (this.toggle) {
+      this.check(element);
+    } else {
+      this.uncheck(element);
+    }
+  }
+  check(element: svgjs.Container) {
+
+  }
+
+  uncheck(element: svgjs.Container) {
+
   }
 }
 

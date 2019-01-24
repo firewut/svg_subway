@@ -37,6 +37,9 @@ export class City {
   lines: Line[];
   router: SubwayRouter;
 
+  elements: Element[] = [];
+  svg_elements: svgjs.Container[] = [];
+
   constructor(json: any) {
     this.name = json.name;
     this.lines = [];
@@ -62,14 +65,14 @@ export class City {
     );
 
     for (const line of this.lines) {
-      // City Subway Lines
+      // Subway Lines
       for (const line_element_param of line.generate_element_params(
         theme
       )) {
         element_params.push(line_element_param);
       }
 
-      // City Subway Stations
+      // Subway Stations
       for (const station of line.stations) {
         for (const station_element_param of station.generate_element_params(
           theme
@@ -78,7 +81,7 @@ export class City {
         }
       }
 
-      // City Subway transfers
+      // Subway Transfers
       for (const transfer of line.transfers) {
         for (const transfer_element of transfer.generate_element_params(
           theme
@@ -121,6 +124,7 @@ export class City {
                 },
                 'draw_callback': (el: svgjs.Container) => {
                   el.back();
+                  this.svg_elements.push(el);
                 },
                 'classes': [
                   this.name

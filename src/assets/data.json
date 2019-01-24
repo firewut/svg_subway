@@ -15,7 +15,7 @@
                             "value": "Battistini"
                         },
                         "x": 3,
-                        "y": 4,
+                        "y": 5,
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -203,7 +203,7 @@
                             "location": "South"
                         },
                         "x": 20,
-                        "y": 23,
+                        "y": 24,
                         "links": [
                             {
                                 "direction": "West"
@@ -418,7 +418,7 @@
                             "value": "Monte Compatri-Pantano"
                         },
                         "x": 47,
-                        "y": 30,
+                        "y": 31,
                         "links": [
                             {
                                 "direction": "NorthWest"

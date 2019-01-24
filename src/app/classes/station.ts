@@ -1,4 +1,4 @@
-import { ElementType, ElementParams, Point2D } from './element';
+import { ElementType, ElementParams, Point2D, TextElement } from './element';
 import { Line } from './line';
 import { StationTransfer } from './transfer';
 import { environment } from '../../environments/environment';
@@ -47,6 +47,9 @@ export class Station {
   text_position: Point2D;
   under_construction = false;
   is_name_hidden = false;
+
+  element_params: ElementParams[] = [];
+  svg_elements: svgjs.Container[] = [];
 
   constructor(line: Line, json: any) {
     this.id = makeid();
@@ -296,6 +299,13 @@ export class Station {
 
   click(el: svgjs.Container) {
     this.line.city.router.select_station(this);
+
+    for (const element of this.svg_elements) {
+      const element_obj = element.remember('element');
+      if (element_obj instanceof TextElement) {
+        element_obj.check(el);
+      }
+    }
   }
 
   generate_element_params(theme: Theme): ElementParams[] {
@@ -319,6 +329,7 @@ export class Station {
         },
         'draw_callback': (el: svgjs.Container) => {
           el.front();
+          this.svg_elements.push(el);
 
           const self = this;
           el.on('click', function() {
@@ -352,6 +363,7 @@ export class Station {
         },
         'draw_callback': (el: svgjs.Container) => {
           el.front();
+          this.svg_elements.push(el);
 
           const self = this;
           el.on('click', function() {
@@ -378,6 +390,7 @@ export class Station {
         },
         'draw_callback': (el: svgjs.Container) => {
           el.front();
+          this.svg_elements.push(el);
 
           const self = this;
           el.on('click', function() {

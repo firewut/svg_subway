@@ -285,25 +285,26 @@ export class Line {
         position.y -= distance;
         break;
       case Direction.NorthEast:
-        position.y -= distance;
         position.x += distance / 2;
+        position.y -= distance;
         break;
       case Direction.West:
         position.x -= distance;
-        position.y -= distance;
+        position.y -= distance / 2;
         break;
       case Direction.East:
         position.x += distance;
         position.y -= distance / 2;
         break;
       case Direction.SouthWest:
-        position.y += distance;
+        position.x -= distance / 2;
+        position.y += distance / 2;
         break;
       case Direction.South:
         break;
       case Direction.SouthEast:
-        position.y += distance / 2;
         position.x += distance / 2;
+        position.y += distance / 2;
         break;
     }
     return position;

@@ -1,4 +1,4 @@
 export interface Theme {
-    name: string;
-    settings: any;
+  name: string;
+  settings: any;
 }

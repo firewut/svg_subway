@@ -2,12 +2,12 @@
     {
         "name": "Rome",
         "size": [
-            48,
-            35
+            50,
+            33
         ],
         "lines": [
             {
-                "name": "MA",
+                "name": "A",
                 "color": "#f36d21",
                 "stations": [
                     {
@@ -15,7 +15,7 @@
                             "value": "Battistini"
                         },
                         "x": 3,
-                        "y": 6,
+                        "y": 4,
                         "links": [
                             {
                                 "direction": "SouthEast"
@@ -97,7 +97,7 @@
                         },
                         "transfers": [
                             {
-                                "line": "MB",
+                                "line": "B",
                                 "type": "Underground",
                                 "stations": [
                                     "Termini"
@@ -124,7 +124,7 @@
                         },
                         "transfers": [
                             {
-                                "line": "MC",
+                                "line": "C",
                                 "stations": [
                                     "S. Giovanni"
                                 ]
@@ -194,7 +194,7 @@
                 ]
             },
             {
-                "name": "MB",
+                "name": "B",
                 "color": "#0071bb",
                 "stations": [
                     {
@@ -203,7 +203,7 @@
                             "location": "South"
                         },
                         "x": 20,
-                        "y": 25,
+                        "y": 23,
                         "links": [
                             {
                                 "direction": "West"
@@ -273,7 +273,7 @@
                         },
                         "transfers": [
                             {
-                                "line": "MC",
+                                "line": "C",
                                 "stations": [
                                     "Colosseo"
                                 ]
@@ -410,7 +410,7 @@
                 ]
             },
             {
-                "name": "MC",
+                "name": "C",
                 "color": "#007352",
                 "stations": [
                     {
@@ -418,7 +418,7 @@
                             "value": "Monte Compatri-Pantano"
                         },
                         "x": 47,
-                        "y": 32,
+                        "y": 30,
                         "links": [
                             {
                                 "direction": "NorthWest"
@@ -548,7 +548,7 @@
                         ],
                         "transfers": [
                             {
-                                "line": "MA",
+                                "line": "A",
                                 "stations": [
                                     "S. Giovanni"
                                 ]
@@ -574,7 +574,7 @@
                         },
                         "transfers": [
                             {
-                                "line": "MB",
+                                "line": "B",
                                 "stations": [
                                     "Colosseo"
                                 ]

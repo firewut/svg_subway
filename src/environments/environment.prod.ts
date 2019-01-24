@@ -5,6 +5,9 @@ export const environment = {
   grid_width: 40,
   grid_height: 40,
 
+  line_name_font_size: 25,
+  line_name_font_weight: '2em',
+  line_name_grid_distance: 50,
   station_grid_distance: 80,
   station_line_height: 5,
   station_font_size: 15,
@@ -20,7 +23,9 @@ export const environment = {
         debug_grid_color: '#fff',
         transfer_outer_color: '#fff',
         transfer_inner_color: '#666',
-        station_under_construction_color: '#eee',
+        link_under_construction_color: '#aaa',
+        link_under_construction_opacity: 0.75,
+        line_name_font_color: '#fff',
         station_font_color: '#fff',
         station_marker_inner_color: '#fff',
       }

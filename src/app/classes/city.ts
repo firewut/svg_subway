@@ -16,11 +16,22 @@ export class SubwayRouter {
     // this.lines = lines;
   }
 
+  unselect_station(station: Station) {
+    if (this.from === station) {
+      this.from = undefined;
+      this.select_to = false;
+    } else if (this.to === station) {
+      this.to = undefined;
+      this.select_to = true;
+    }
+  }
+
   select_station_from(station: Station) {
     if (this.from !== undefined) {
       this.from.uncheck();
     }
     this.from = station;
+    this.select_to = true;
   }
 
   select_station_to(station: Station) {
@@ -35,16 +46,11 @@ export class SubwayRouter {
       this.select_station_to(station);
     } else {
       this.select_station_from(station);
-      this.select_to = true;
     }
 
     if (this.from !== undefined && this.to !== undefined) {
       this.calculate_route(this.from, this.to);
     }
-
-    console.log(
-      `${this.from} ,${this.to} ${to}`,
-    );
   }
 
   calculate_route(start: Station, finish: Station) {
@@ -62,10 +68,14 @@ export class City {
   elements: Element[] = [];
   svg_elements: svgjs.Container[] = [];
 
-  constructor(json: any) {
+  canvas: svgjs.Container;
+
+  constructor(json: any, canvas: svgjs.Container) {
     this.name = json.name;
     this.lines = [];
     this.size = json.size;
+
+    this.canvas = canvas;
 
     for (const line_json of json.lines) {
       const line = new Line(this, line_json);

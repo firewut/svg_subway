@@ -24,19 +24,18 @@ export class SubwayComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.theme = environment.themes[0];
+    this.scene = new Scene('canvas', this.theme);
     this.background_color = this.theme.settings.background_color;
 
     for (const city of data as any[]) {
       this.cities.push(
-        new City(city)
+        new City(city, this.scene.canvas)
       );
     }
     this.selectedCity = this.cities[0].name;
   }
 
   ngAfterViewInit() {
-    this.scene = new Scene('canvas', this.theme);
-
     this.selectCity(this.selectedCity);
   }
 

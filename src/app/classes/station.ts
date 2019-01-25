@@ -52,6 +52,10 @@ export class Station {
   svg_elements: svgjs.Container[] = [];
   svg_marker_elements: svgjs.Container[] = [];
 
+  private click_toggle = false;
+  private location_marker: svgjs.Shape;
+
+
   constructor(line: Line, json: any) {
     this.id = makeid();
     this.line = line;
@@ -298,6 +302,41 @@ export class Station {
     this.text_position = this.get_text_position(environment.station_font_size);
   }
 
+  toggle(el: svgjs.Container) {
+    this.click_toggle = !this.click_toggle;
+    if (this.click_toggle) {
+      this.check(el);
+    } else {
+      this.uncheck();
+    }
+  }
+
+  get_location_marker(el: svgjs.Container): ElementParams {
+    return {
+      'type': ElementType.LocationMarker,
+      'properties': {
+        'text': this.name[0],
+        'position': {
+          'x': this.position.x,
+          'y': this.position.y,
+        }
+      },
+      'attr': {
+        'fill': '#000',
+        'opacity': 0.25
+      },
+      'draw_callback': (marker_el: svgjs.Container) => {
+        marker_el.front();
+        this.svg_marker_elements.push(el);
+      },
+      'classes': [
+        'Station',
+        'Name',
+        this.id,
+      ]
+    };
+  }
+
   check(el: svgjs.Container) {
     this.line.city.router.select_station(this);
 
@@ -306,37 +345,28 @@ export class Station {
       if (element_obj instanceof TextElement) {
         element_obj.toggle();
 
-        // Set marker
-        const marker_params: ElementParams = {
-          'type': ElementType.LocationMarker,
-          'properties': {
-            'text': this.name[0],
-            'position': {
-              'x': this.text_position.x,
-              'y': this.text_position.y,
-            }
-          },
-          'attr': {},
-          'draw_callback': (marker_el: svgjs.Container) => {
-            marker_el.front();
-            this.svg_marker_elements.push(el);
-          },
-          'classes': [
-            'Station',
-            'Name',
-            this.id,
-          ]
-        };
+        const marker = new LocationMarker(
+          this.get_location_marker(el)
+        );
+        this.location_marker = marker.draw(
+          this.line.city.canvas
+        );
       }
     }
   }
 
   uncheck() {
+    this.line.city.router.unselect_station(this);
+
     for (const element of this.svg_elements) {
       const element_obj = element.remember('element');
       if (element_obj instanceof TextElement) {
         element_obj.uncheck();
       }
+    }
+
+    if (this.location_marker) {
+      this.location_marker.remove();
     }
   }
 
@@ -365,7 +395,7 @@ export class Station {
 
           const self = this;
           el.on('click', function() {
-            self.check(el);
+            self.toggle(el);
           });
         },
         'classes': [
@@ -399,7 +429,7 @@ export class Station {
 
           const self = this;
           el.on('click', function() {
-            self.check(el);
+            self.toggle(el);
           });
         },
         'classes': [
@@ -426,7 +456,7 @@ export class Station {
 
           const self = this;
           el.on('click', function() {
-            self.check(el);
+            self.toggle(el);
           });
         },
         'classes': [

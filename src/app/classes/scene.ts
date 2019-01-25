@@ -29,6 +29,7 @@ export class Scene {
 
     this.container_id = container_id;
     this.theme = theme;
+    this.canvas = SVG(this.container_id);
 
     if (callback) {
       this.prepare(callback);

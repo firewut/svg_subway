@@ -88,7 +88,7 @@ export class LocationMarker {
     svg_element.remember('param', this.param);
 
     svg_element.attr(this.attr);
-    svg_element.move(this.position.x, this.position.y);
+    svg_element.center(this.position.x, this.position.y);
 
     for (const _class of this.classes) {
       svg_element.addClass(_class);

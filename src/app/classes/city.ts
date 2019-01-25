@@ -42,8 +42,11 @@ export class SubwayRouter {
   }
 
   select_station(station: Station, to?: boolean) {
+    let caption = environment.station_route_from_marker;
+
     if (to === true || this.select_to) {
       this.select_station_to(station);
+      caption = environment.station_route_to_marker;
     } else {
       this.select_station_from(station);
     }
@@ -51,6 +54,8 @@ export class SubwayRouter {
     if (this.from !== undefined && this.to !== undefined) {
       this.calculate_route(this.from, this.to);
     }
+
+    return caption;
   }
 
   calculate_route(start: Station, finish: Station) {

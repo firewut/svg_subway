@@ -58,7 +58,6 @@ export class LocationMarker {
     this.classes = params.classes;
     this.param = params;
 
-
     this.position = new Point2D(
       params.properties['position']['x'],
       params.properties['position']['y'],
@@ -80,15 +79,21 @@ export class LocationMarker {
     const text: SVG.Text = svg_element.text(
       this.text
     );
+    circle.attr({
+      fill: this.attr['marker-fill']
+    });
     text.font({
+      family: 'Inconsolata',
       size: environment.location_marker_text_size,
+    }).attr({
+      fill: this.attr['text-fill'],
     });
 
     svg_element.remember('element', this);
     svg_element.remember('param', this.param);
 
-    svg_element.attr(this.attr);
-    svg_element.center(this.position.x, this.position.y);
+    circle.center(this.position.x, this.position.y);
+    text.center(this.position.x, this.position.y);
 
     for (const _class of this.classes) {
       svg_element.addClass(_class);

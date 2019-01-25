@@ -54,7 +54,7 @@ export class Station {
 
   private click_toggle = false;
   private location_marker: svgjs.Shape;
-
+  private theme: Theme;
 
   constructor(line: Line, json: any) {
     this.id = makeid();
@@ -304,26 +304,26 @@ export class Station {
 
   toggle(el: svgjs.Container) {
     this.click_toggle = !this.click_toggle;
-    if (this.click_toggle) {
+    if (this.click_toggle === true) {
       this.check(el);
     } else {
       this.uncheck();
     }
   }
 
-  get_location_marker(el: svgjs.Container): ElementParams {
+  get_location_marker(el: svgjs.Container, caption: string): ElementParams {
     return {
       'type': ElementType.LocationMarker,
       'properties': {
-        'text': this.name[0],
+        'text': caption,
         'position': {
           'x': this.position.x,
           'y': this.position.y,
         }
       },
       'attr': {
-        'fill': '#000',
-        'opacity': 0.25
+        'marker-fill': this.theme.settings.location_marker_color,
+        'text-fill': this.theme.settings.location_marker_text_color,
       },
       'draw_callback': (marker_el: svgjs.Container) => {
         marker_el.front();
@@ -338,7 +338,7 @@ export class Station {
   }
 
   check(el: svgjs.Container) {
-    this.line.city.router.select_station(this);
+    const caption = this.line.city.router.select_station(this);
 
     for (const element of this.svg_elements) {
       const element_obj = element.remember('element');
@@ -346,7 +346,7 @@ export class Station {
         element_obj.toggle();
 
         const marker = new LocationMarker(
-          this.get_location_marker(el)
+          this.get_location_marker(el, caption)
         );
         this.location_marker = marker.draw(
           this.line.city.canvas
@@ -361,6 +361,8 @@ export class Station {
     for (const element of this.svg_elements) {
       const element_obj = element.remember('element');
       if (element_obj instanceof TextElement) {
+        element_obj.toggle();
+
         element_obj.uncheck();
       }
     }
@@ -371,6 +373,7 @@ export class Station {
   }
 
   generate_element_params(theme: Theme): ElementParams[] {
+    this.theme = theme;
     const elements: ElementParams[] = [];
 
     if (!this.is_name_hidden) {

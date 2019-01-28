@@ -2,9 +2,14 @@ import { dark } from './dark';
 
 
 export const settings = {
-  grid_width: 20,
-  grid_height: 20,
-
+  grid: {
+    width: 20,
+    height: 20,
+    overlay: {
+      color: '#fff',
+      opacity: 0.25
+    },
+  },
   location_marker: {
     from_marker: 'A',
     to_marker: 'B',

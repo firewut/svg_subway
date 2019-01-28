@@ -6,15 +6,15 @@ import { Station } from './station';
 import { settings } from '../../themes/default';
 
 export class SubwayRouter {
-  lines: Line[];
+  city: City;
   from: Station;
   to: Station;
 
   // Sugar
   private select_to = false;
 
-  constructor(lines: Line[]) {
-    // this.lines = lines;
+  constructor(city: City) {
+    this.city = city;
   }
 
   unselect_station(station: Station) {
@@ -25,6 +25,8 @@ export class SubwayRouter {
       this.to = undefined;
       this.select_to = true;
     }
+
+    this.city.hide_overlay();
   }
 
   select_station_from(station: Station) {
@@ -61,6 +63,14 @@ export class SubwayRouter {
 
   calculate_route(start: Station, finish: Station) {
     console.log(start.line.name, start.name, '|', finish.line.name, finish.name);
+    this.city.show_overlay();
+  }
+
+  highlight_route(start: Station, finish: Station) {
+    // Place an Overlay
+    this.city.show_overlay();
+
+    // Draw Markers, Transfers and etc from `start` to `finish`
   }
 }
 
@@ -75,6 +85,7 @@ export class City {
   svg_elements: svgjs.Container[] = [];
 
   canvas: svgjs.Container;
+  overlay: svgjs.Container;
 
   constructor(json: any, canvas: svgjs.Container) {
     this.name = json.name;
@@ -92,7 +103,7 @@ export class City {
       line.set_transfers();
     }
 
-    this.router = new SubwayRouter(this.lines);
+    this.router = new SubwayRouter(this);
   }
 
   generate_element_params(theme: Theme): ElementParams[] {
@@ -129,7 +140,43 @@ export class City {
       }
     }
 
+    // Overlay
+    element_params.push(
+      {
+        'type': ElementType.Rect,
+        'properties': {
+          'position': {
+            'x1': 0,
+            'y1': 0,
+            'x2': this.size[0] * settings.grid.width,
+            'y2': this.size[1] * settings.grid.height,
+          }
+        },
+        'attr': {
+          'fill': settings.grid.overlay.color,
+          'html_class': 'Rect',
+          'opacity': settings.grid.overlay.opacity
+        },
+        'draw_callback': (el: svgjs.Container) => {
+          this.svg_elements.push(el);
+          this.overlay = el;
+          el.back();
+          el.hide();
+        },
+        'classes': [
+          this.name
+        ]
+      }
+    );
+
     return element_params;
+  }
+
+  show_overlay() {
+    this.overlay.show();
+  }
+  hide_overlay() {
+    this.overlay.hide();
   }
 
   prepare_debug_elements(theme: Theme) {
@@ -139,10 +186,10 @@ export class City {
       if (environment.debug === true) {
         for (let i = 0; i < this.size[0]; i++) {
           for (let j = 0; j < this.size[1]; j++) {
-            const x0 = i * settings.grid_width;
-            const y0 = j * settings.grid_height;
-            const x1 = x0 + settings.grid_width;
-            const y1 = y0 + settings.grid_height;
+            const x0 = i * settings.grid.width;
+            const y0 = j * settings.grid.height;
+            const x1 = x0 + settings.grid.width;
+            const y1 = y0 + settings.grid.height;
 
             element_params.push(
               {

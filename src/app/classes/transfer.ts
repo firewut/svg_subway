@@ -70,7 +70,7 @@ export class StationTransfer {
           ]
         },
         'attr': {
-          'color': theme.settings.transfer_outer_color,
+          'color': theme.settings.transfer.outer_color,
           'width': settings.station.marker.outer_radius * 1.25,
           'html_class': 'Transfer',
           'linecap': 'round',

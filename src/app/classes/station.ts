@@ -63,8 +63,8 @@ export class Station {
 
     // Position is a Relative GRID coordinate
     this.position = new Point2D(
-      json.x * settings.grid_width,
-      json.y * settings.grid_height,
+      json.x * settings.grid.width,
+      json.y * settings.grid.height,
     );
     this.text_position = new Point2D(
       this.position.x,

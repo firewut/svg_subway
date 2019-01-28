@@ -39,11 +39,11 @@ export class Scene {
   resize(grid_size: number[]) {
     this.canvas.size(
       (
-        settings.grid_width
+        settings.grid.width
       ) *
       grid_size[0],
       (
-        settings.grid_height
+        settings.grid.height
       ) *
       grid_size[1],
     );

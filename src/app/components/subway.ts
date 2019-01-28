@@ -2,11 +2,11 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 import { City } from '../classes/city';
 import { Scene } from '../classes/scene';
-import { Theme } from '../classes/theme';
+import { Theme } from '../../themes/theme';
 
 // Replace by API Call
 import data from '../../assets/data.json';
-import { environment } from '../../environments/environment';
+import { settings } from '../../themes/default';
 
 @Component({
   selector: 'app-subway',
@@ -23,7 +23,7 @@ export class SubwayComponent implements OnInit, AfterViewInit {
   background_color: string;
 
   ngOnInit() {
-    this.theme = environment.themes[0];
+    this.theme = settings.themes[0];
     this.scene = new Scene('canvas', this.theme);
     this.background_color = this.theme.settings.background_color;
 

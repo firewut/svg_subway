@@ -1,8 +1,8 @@
 import { Line } from './line';
 import { Station } from './station';
 import { ElementParams, ElementType } from './element';
-import { environment } from '../../environments/environment';
-import { Theme } from './theme';
+import { settings } from '../../themes/default';
+import { Theme } from '../../themes/theme';
 import { makeid } from './helper';
 
 export enum StationTransferType {
@@ -71,7 +71,7 @@ export class StationTransfer {
         },
         'attr': {
           'color': theme.settings.transfer_outer_color,
-          'width': environment.station_marker_outer_radius * 1.25,
+          'width': settings.station.marker.outer_radius * 1.25,
           'html_class': 'Transfer',
           'linecap': 'round',
           'linejoin': 'round',
@@ -97,8 +97,8 @@ export class StationTransfer {
           ]
         },
         'attr': {
-          'color': theme.settings.transfer_inner_color,
-          'width': environment.station_marker_inner_radius,
+          'color': theme.settings.transfer.inner_color,
+          'width': settings.station.marker.inner_radius,
           'html_class': 'Transfer',
           'linecap': 'round',
           'linejoin': 'round',

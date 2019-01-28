@@ -1,8 +1,8 @@
 import { ElementType, ElementParams, Point2D, TextElement, LocationMarker } from './element';
 import { Line } from './line';
 import { StationTransfer } from './transfer';
-import { environment } from '../../environments/environment';
-import { Theme } from './theme';
+import { Theme } from '../../themes/theme';
+import { settings } from '../../themes/default';
 import { shadeHexColor, makeid } from './helper';
 import { Direction, VectorDirection } from './direction';
 
@@ -63,8 +63,8 @@ export class Station {
 
     // Position is a Relative GRID coordinate
     this.position = new Point2D(
-      json.x * environment.grid_width,
-      json.y * environment.grid_height,
+      json.x * settings.grid_width,
+      json.y * settings.grid_height,
     );
     this.text_position = new Point2D(
       this.position.x,
@@ -264,7 +264,7 @@ export class Station {
       position = this.get_position_by_direction(
         prev.position,
         link.direction,
-        environment.station_grid_distance,
+        settings.station.grid_distance,
         link.length,
       );
     }
@@ -299,7 +299,7 @@ export class Station {
 
   set_params() {
     this.position = this.get_position_by_parents();
-    this.text_position = this.get_text_position(environment.station_font_size);
+    this.text_position = this.get_text_position(settings.station.font_size);
   }
 
   toggle(el: svgjs.Container) {
@@ -322,8 +322,8 @@ export class Station {
         }
       },
       'attr': {
-        'marker-fill': this.theme.settings.location_marker_color,
-        'text-fill': this.theme.settings.location_marker_text_color,
+        'marker-fill': this.theme.settings.location_marker.color,
+        'text-fill': this.theme.settings.location_marker.text_color,
       },
       'draw_callback': (marker_el: svgjs.Container) => {
         marker_el.front();
@@ -381,16 +381,16 @@ export class Station {
         'type': ElementType.Text,
         'properties': {
           'text': this.name,
-          'size': environment.station_font_size,
+          'size': settings.station.font_size,
           'position': {
             'x': this.text_position.x,
             'y': this.text_position.y,
           },
           'anchor': this.text_anchor,
-          'weight': environment.station_font_weight,
+          'weight': settings.station.font_weight,
         },
         'attr': {
-          'fill': theme.settings.station_font_color,
+          'fill': theme.settings.station.font_color,
         },
         'draw_callback': (el: svgjs.Container) => {
           el.front();
@@ -415,7 +415,7 @@ export class Station {
       {
         'type': ElementType.Circle,
         'properties': {
-          'radius': environment.station_marker_outer_radius,
+          'radius': settings.station.marker.outer_radius,
           'position': {
             'x': this.position.x,
             'y': this.position.y,
@@ -444,14 +444,14 @@ export class Station {
       {
         'type': ElementType.Circle,
         'properties': {
-          'radius': environment.station_marker_inner_radius,
+          'radius': settings.station.marker.inner_radius,
           'position': {
             'x': this.position.x,
             'y': this.position.y,
           }
         },
         'attr': {
-          'fill': theme.settings.station_marker_inner_color
+          'fill': theme.settings.station.marker.inner_color
         },
         'draw_callback': (el: svgjs.Container) => {
           el.front();

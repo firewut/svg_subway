@@ -2,6 +2,7 @@ import * as SVG from 'svg.js';
 
 import { makeid } from './helper';
 import { environment } from '../../environments/environment';
+import { settings } from '../../themes/default';
 
 export enum ElementType {
   Text,
@@ -74,7 +75,7 @@ export class LocationMarker {
     const svg_element: SVG.Container = canvas.group();
 
     const circle: SVG.Circle = svg_element.circle(
-      environment.location_marker_radius
+      settings.location_marker.radius
     );
     const text: SVG.Text = svg_element.text(
       this.text
@@ -84,7 +85,7 @@ export class LocationMarker {
     });
     text.font({
       family: 'Inconsolata',
-      size: environment.location_marker_text_size,
+      size: settings.location_marker.text_size,
     }).attr({
       fill: this.attr['text-fill'],
     });

@@ -3,8 +3,8 @@ import { Direction, VectorDirection } from './direction';
 import { City } from './city';
 import { StationTransfer } from './transfer';
 import { ElementParams, ElementType, Point2D } from './element';
-import { Theme } from './theme';
-import { environment } from '../../environments/environment';
+import { Theme } from '../../themes/theme';
+import { settings } from '../../themes/default';
 
 export class Line {
   city: City;
@@ -126,8 +126,8 @@ export class Line {
           let connector_color: string;
           let connector_opacity = 1;
           if (station.under_construction || child.under_construction) {
-            connector_color = theme.settings.link_under_construction_color;
-            connector_opacity = theme.settings.link_under_construction_opacity;
+            connector_color = theme.settings.link_under_construction.color;
+            connector_opacity = theme.settings.link_under_construction.opacity;
           } else {
             connector_color = this.color;
           }
@@ -144,7 +144,7 @@ export class Line {
             },
             'attr': {
               'color': connector_color,
-              'width': environment.station_line_height,
+              'width': settings.line.width,
               'html_class': 'Line',
               'opacity': connector_opacity,
             },
@@ -174,16 +174,16 @@ export class Line {
               'type': ElementType.Text,
               'properties': {
                 'text': this.name,
-                'size': environment.line_name_font_size,
+                'size': settings.line.name.font_size,
                 'position': {
                   'x': line_text_position.x,
                   'y': line_text_position.y,
                 },
                 'anchor': this.text_anchor,
-                'weight': environment.line_name_font_weight,
+                'weight': settings.line.name.font_weight,
               },
               'attr': {
-                'fill': theme.settings.line_name_font_color,
+                'fill': theme.settings.line.name.font_color,
               },
               'draw_callback': (el: svgjs.Container) => {
                 this.svg_elements.push(el);
@@ -197,7 +197,7 @@ export class Line {
               'type': ElementType.Rect,
               'properties': {
                 'position': line_text_bbox_coordinates,
-                'radius': environment.line_name_font_size / 5,
+                'radius': settings.line.name.font_size / 5,
               },
               'attr': {
                 'fill': this.color,
@@ -242,7 +242,7 @@ export class Line {
     }
 
     const magic_lines_multiplier = 1.3;
-    const font_size = environment.line_name_font_size;
+    const font_size = settings.line.name.font_size;
 
     const height = font_size * lines_count * magic_lines_multiplier;
     const width = font_size / 2 * max_length + font_size;
@@ -275,7 +275,7 @@ export class Line {
     return this.get_position_by_direction(
       station,
       opposite_direction,
-      environment.line_name_grid_distance,
+      settings.line.name.grid_distance,
     );
   }
 

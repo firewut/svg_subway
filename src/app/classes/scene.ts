@@ -3,8 +3,8 @@
 import * as SVG from 'svg.js';
 
 import { PolyLineElement } from './element';
-import { environment } from '../../environments/environment';
-import { Theme } from './theme';
+import { Theme } from '../../themes/theme';
+import { settings } from '../../themes/default';
 
 import {
   Element,
@@ -39,11 +39,11 @@ export class Scene {
   resize(grid_size: number[]) {
     this.canvas.size(
       (
-        environment.grid_width
+        settings.grid_width
       ) *
       grid_size[0],
       (
-        environment.grid_height
+        settings.grid_height
       ) *
       grid_size[1],
     );

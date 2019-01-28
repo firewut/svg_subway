@@ -1,8 +1,9 @@
 import { Line } from './line';
 import { ElementParams, ElementType } from './element';
 import { environment } from '../../environments/environment';
-import { Theme } from './theme';
+import { Theme } from '../../themes/theme';
 import { Station } from './station';
+import { settings } from '../../themes/default';
 
 export class SubwayRouter {
   lines: Line[];
@@ -42,11 +43,11 @@ export class SubwayRouter {
   }
 
   select_station(station: Station, to?: boolean) {
-    let caption = environment.station_route_from_marker;
+    let caption = settings.location_marker.from_marker;
 
     if (to === true || this.select_to) {
       this.select_station_to(station);
-      caption = environment.station_route_to_marker;
+      caption = settings.location_marker.to_marker;
     } else {
       this.select_station_from(station);
     }
@@ -138,10 +139,10 @@ export class City {
       if (environment.debug === true) {
         for (let i = 0; i < this.size[0]; i++) {
           for (let j = 0; j < this.size[1]; j++) {
-            const x0 = i * environment.grid_width;
-            const y0 = j * environment.grid_height;
-            const x1 = x0 + environment.grid_width;
-            const y1 = y0 + environment.grid_height;
+            const x0 = i * settings.grid_width;
+            const y0 = j * settings.grid_height;
+            const x1 = x0 + settings.grid_width;
+            const y1 = y0 + settings.grid_height;
 
             element_params.push(
               {

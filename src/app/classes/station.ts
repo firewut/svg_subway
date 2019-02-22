@@ -21,7 +21,6 @@ export class StationLink {
 
     return opposite_link;
   }
-
 }
 
 export class Station {
@@ -308,6 +307,12 @@ export class Station {
       this.check(el);
     } else {
       this.uncheck();
+    }
+  }
+
+  highlight() {
+    for (const svg_element of this.svg_elements) {
+      svg_element.front();
     }
   }
 

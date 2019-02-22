@@ -4,6 +4,8 @@ import { environment } from '../../environments/environment';
 import { Theme } from '../../themes/theme';
 import { Station } from './station';
 import { settings } from '../../themes/default';
+import { Dijkstra } from './dijkstra';
+
 
 export class SubwayRouter {
   city: City;
@@ -12,9 +14,59 @@ export class SubwayRouter {
 
   // Sugar
   private select_to = false;
+  private graph: Dijkstra;
 
   constructor(city: City) {
+    this.graph = new Dijkstra();
     this.city = city;
+
+    for (const line of city.lines) {
+      for (const station of line.stations) {
+        const station_graph = this.build_graph(station);
+        this.graph.addVertex(station.id, station_graph);
+      }
+    }
+
+    for (const line of city.lines) {
+      for (const transfer of line.transfers) {
+        for (const destination of transfer.destinations) {
+          this.graph.addToVertex(
+            transfer.source.id, {
+              [destination.id]: 1
+            }
+          );
+          this.graph.addToVertex(
+            destination.id, {
+              [transfer.source.id]: 1
+            }
+          );
+        }
+      }
+    }
+  }
+
+  build_graph(station: Station) {
+    const children = {};
+    const parents = {};
+
+    if (station.children.length > 0) {
+      for (const child of station.children) {
+        children[child.id] = 1;
+      }
+    }
+
+    if (station.parents.length > 0) {
+      for (const parent of station.parents) {
+        parents[parent.id] = 1;
+      }
+    }
+
+    const deps = Object.assign(
+      {},
+      parents,
+      children,
+    );
+    return deps;
   }
 
   unselect_station(station: Station) {
@@ -62,15 +114,26 @@ export class SubwayRouter {
   }
 
   calculate_route(start: Station, finish: Station) {
-    console.log(start.line.name, start.name, '|', finish.line.name, finish.name);
     this.city.show_overlay();
+
+    const path: string[] = this.graph.shortestPath(start.id, finish.id);
+    if (path.length >= 2) {
+      for (const station_id of path) {
+        const station = this.city.get_station_by_id(station_id);
+        if (station) {
+          console.log(station.line.name, station.name);
+        }
+      }
+      this.highlight_route(path);
+    }
   }
 
-  highlight_route(start: Station, finish: Station) {
+  highlight_route(path: string[]) {
     // Place an Overlay
     this.city.show_overlay();
 
     // Draw Markers, Transfers and etc from `start` to `finish`
+    this.city.highlight_route(path);
   }
 }
 
@@ -104,6 +167,19 @@ export class City {
     }
 
     this.router = new SubwayRouter(this);
+  }
+
+  get_station_by_id(station_id: string): Station {
+    for (const line of this.lines) {
+      for (const _station of line.stations) {
+        if (_station.id === station_id) {
+          return _station;
+        }
+      }
+
+    }
+
+    return;
   }
 
   generate_element_params(theme: Theme): ElementParams[] {
@@ -170,6 +246,12 @@ export class City {
     );
 
     return element_params;
+  }
+
+  highlight_route(path: string[]) {
+    for (const line of this.lines) {
+      line.highlight(path);
+    }
   }
 
   show_overlay() {

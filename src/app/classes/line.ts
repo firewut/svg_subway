@@ -117,6 +117,19 @@ export class Line {
   click(el: svgjs.Container) {
   }
 
+  highlight(path: string[]) {
+    for (const station of this.stations) {
+      for (let i = 0; i < path.length; i++) {
+        // if (path[i] === station.id) {
+        //   this.svg_elements
+        // }
+        if (path.includes(station.id)) {
+          station.highlight();
+        }
+      }
+    }
+  }
+
   generate_element_params(theme: Theme): ElementParams[] {
     const elements: ElementParams[] = [];
 

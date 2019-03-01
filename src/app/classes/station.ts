@@ -48,8 +48,7 @@ export class Station {
   is_name_hidden = false;
 
   element_params: ElementParams[] = [];
-  svg_elements: svgjs.Container[] = [];
-  svg_marker_elements: svgjs.Container[] = [];
+  svg_elements_dict = {};
 
   private click_toggle = false;
   private location_marker: svgjs.Shape;
@@ -95,10 +94,10 @@ export class Station {
   parse_parents() {
     if (this._parents) {
       for (const parent of this._parents) {
-        for (const _station of this.line.stations) {
-          if (parent === _station.name) {
-            this.add_parent(_station);
-            _station.add_children(this);
+        for (const station of this.line.stations_list) {
+          if (parent === station.name) {
+            this.add_parent(station);
+            station.add_children(this);
           }
         }
       }
@@ -310,10 +309,12 @@ export class Station {
     }
   }
 
+  unhighlight() {
+
+  }
+
   highlight() {
-    for (const svg_element of this.svg_elements) {
-      svg_element.front();
-    }
+
   }
 
   get_location_marker(el: svgjs.Container, caption: string): ElementParams {
@@ -331,8 +332,10 @@ export class Station {
         'text-fill': this.theme.settings.location_marker.text_color,
       },
       'draw_callback': (marker_el: svgjs.Container) => {
+        console.log('1234');
         marker_el.front();
-        this.svg_marker_elements.push(el);
+
+        this.svg_elements_dict['location_marker'] = marker_el;
       },
       'classes': [
         'Station',
@@ -345,17 +348,20 @@ export class Station {
   check(el: svgjs.Container) {
     const caption = this.line.city.router.select_station(this);
 
-    for (const element of this.svg_elements) {
-      const element_obj = element.remember('element');
-      if (element_obj instanceof TextElement) {
-        element_obj.toggle();
+    for (const key in this.svg_elements_dict) {
+      if (this.svg_elements_dict.hasOwnProperty(key)) {
+        const element = this.svg_elements_dict[key];
+        const element_obj = element.remember('element');
+        if (element_obj instanceof TextElement) {
+          element_obj.toggle();
 
-        const marker = new LocationMarker(
-          this.get_location_marker(el, caption)
-        );
-        this.location_marker = marker.draw(
-          this.line.city.canvas
-        );
+          const marker = new LocationMarker(
+            this.get_location_marker(el, caption)
+          );
+          this.location_marker = marker.draw(
+            this.line.city.canvas
+          );
+        }
       }
     }
   }
@@ -363,12 +369,14 @@ export class Station {
   uncheck() {
     this.line.city.router.unselect_station(this);
 
-    for (const element of this.svg_elements) {
-      const element_obj = element.remember('element');
-      if (element_obj instanceof TextElement) {
-        element_obj.toggle();
-
-        element_obj.uncheck();
+    for (const key in this.svg_elements_dict) {
+      if (this.svg_elements_dict.hasOwnProperty(key)) {
+        const element = this.svg_elements_dict[key];
+        const element_obj = element.remember('element');
+        if (element_obj instanceof TextElement) {
+          element_obj.toggle();
+          element_obj.uncheck();
+        }
       }
     }
 
@@ -399,7 +407,8 @@ export class Station {
         },
         'draw_callback': (el: svgjs.Container) => {
           el.front();
-          this.svg_elements.push(el);
+
+          this.svg_elements_dict['name'] = el;
 
           const self = this;
           el.on('click', function() {
@@ -433,7 +442,7 @@ export class Station {
         },
         'draw_callback': (el: svgjs.Container) => {
           el.front();
-          this.svg_elements.push(el);
+          this.svg_elements_dict['outer_marker'] = el;
 
           const self = this;
           el.on('click', function() {
@@ -460,7 +469,8 @@ export class Station {
         },
         'draw_callback': (el: svgjs.Container) => {
           el.front();
-          this.svg_elements.push(el);
+
+          this.svg_elements_dict['inner_marker'] = el;
 
           const self = this;
           el.on('click', function() {

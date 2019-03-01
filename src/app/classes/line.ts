@@ -10,7 +10,8 @@ export class Line {
   city: City;
   name: string;
   color: string;
-  stations: Station[];
+  stations = {};
+  stations_list: Station[] = [];
   transfers: StationTransfer[];
 
   terminations: Station[] = [];
@@ -18,54 +19,53 @@ export class Line {
   // start, middle, end
   text_anchor = 'middle';
 
-  svg_elements: svgjs.Container[] = [];
+  svg_elements_dict = {};
 
   constructor(city: City, json: any) {
     this.city = city;
     this.name = json.name;
     this.color = json.color;
-    this.stations = [];
     this.transfers = [];
 
     for (const station_json of json.stations) {
-      this.stations.push(
-        new Station(this, station_json)
-      );
+      const station = new Station(this, station_json);
+      this.stations[station.id] = station;
+
+      this.stations_list.push(station);
     }
 
     // Set Parents
     let prev_station: Station;
-    for (const station of this.stations) {
+    for (const station of this.stations_list) {
       station.parse_parents();
 
       if (station.parents.length === 0) {
         station.add_parent(prev_station);
       }
-
       prev_station = station;
     }
 
     // Set Children
     let next_station: Station;
     let i = 1;
-    for (const station of this.stations) {
-      next_station = this.stations[i];
+    for (const station of this.stations_list) {
+      next_station = this.stations_list[i];
       if (next_station) {
         for (const parent of next_station.parents) {
           if (parent.name === station.name) {
             station.add_children(next_station);
           }
         }
-        i += 1;
       }
+      i += 1;
     }
 
-    for (const station of this.stations) {
+    for (const station of this.stations_list) {
       station.set_params();
     }
 
     // Set Start and End Stations
-    for (const station of this.stations) {
+    for (const station of this.stations_list) {
       if (
         station.parents.length === 0 ||
         station.children.length === 0
@@ -76,7 +76,7 @@ export class Line {
   }
 
   set_transfers() {
-    for (const station of this.stations) {
+    for (const station of this.stations_list) {
       if (station.has_transfers) {
         for (const _transfer of station.raw_transfers) {
           for (const line of this.city.lines) {
@@ -106,7 +106,7 @@ export class Line {
 
   get_station_by_name(name: string) {
     let station: Station;
-    for (const _station of this.stations) {
+    for (const _station of this.stations_list) {
       if (_station.name === name) {
         station = _station;
       }
@@ -114,26 +114,33 @@ export class Line {
     return station;
   }
 
+  get_station_by_id(id: string) {
+    if (this.stations.hasOwnProperty(id)) {
+      return this.stations[id];
+    }
+    return;
+  }
+
   click(el: svgjs.Container) {
   }
 
   highlight(path: string[]) {
-    for (const station of this.stations) {
-      for (let i = 0; i < path.length; i++) {
-        // if (path[i] === station.id) {
-        //   this.svg_elements
-        // }
-        if (path.includes(station.id)) {
-          station.highlight();
-        }
+    for (const station_id of path) {
+      const station = this.get_station_by_id(station_id);
+      if (station) {
+        station.highlight();
       }
     }
+  }
+
+  dim(path: string[]) {
+    // this.get
   }
 
   generate_element_params(theme: Theme): ElementParams[] {
     const elements: ElementParams[] = [];
 
-    for (const station of this.stations) {
+    for (const station of this.stations_list) {
       if (station.children.length > 0) {
         for (const child of station.children) {
           let connector_color: string;
@@ -162,7 +169,7 @@ export class Line {
               'opacity': connector_opacity,
             },
             'draw_callback': (el: svgjs.Container) => {
-              this.svg_elements.push(el);
+              this.svg_elements_dict['connector'] = el;
               el.back();
             },
             'classes': [
@@ -199,7 +206,7 @@ export class Line {
                 'fill': theme.settings.line.name.font_color,
               },
               'draw_callback': (el: svgjs.Container) => {
-                this.svg_elements.push(el);
+                this.svg_elements_dict['name'] = el;
                 el.front();
               },
               'classes': [
@@ -216,7 +223,7 @@ export class Line {
                 'fill': this.color,
               },
               'draw_callback': (el: svgjs.Container) => {
-                this.svg_elements.push(el);
+                this.svg_elements_dict['rect'] = el;
                 el.back();
 
                 const self = this;

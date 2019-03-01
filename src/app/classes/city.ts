@@ -21,7 +21,8 @@ export class SubwayRouter {
     this.city = city;
 
     for (const line of city.lines) {
-      for (const station of line.stations) {
+      for (const station of line.stations_list) {
+
         const station_graph = this.build_graph(station);
         this.graph.addVertex(station.id, station_graph);
       }
@@ -130,10 +131,15 @@ export class SubwayRouter {
 
   highlight_route(path: string[]) {
     // Place an Overlay
-    this.city.show_overlay();
+    // this.city.show_overlay();
 
     // Draw Markers, Transfers and etc from `start` to `finish`
+    this.dim_route(path);
     this.city.highlight_route(path);
+  }
+
+  dim_route(path: string[]) {
+    this.city.dim_route(path);
   }
 }
 
@@ -145,7 +151,7 @@ export class City {
   router: SubwayRouter;
 
   elements: Element[] = [];
-  svg_elements: svgjs.Container[] = [];
+  svg_elements_dict = {};
 
   canvas: svgjs.Container;
   overlay: svgjs.Container;
@@ -171,12 +177,10 @@ export class City {
 
   get_station_by_id(station_id: string): Station {
     for (const line of this.lines) {
-      for (const _station of line.stations) {
-        if (_station.id === station_id) {
-          return _station;
-        }
+      const station = line.get_station_by_id(station_id);
+      if (station) {
+        return station;
       }
-
     }
 
     return;
@@ -198,11 +202,14 @@ export class City {
       }
 
       // Subway Stations
-      for (const station of line.stations) {
-        for (const station_element_param of station.generate_element_params(
-          theme
-        )) {
-          element_params.push(station_element_param);
+      for (const station_id in line.stations) {
+        if (line.stations.hasOwnProperty(station_id)) {
+          const station = line.stations[station_id];
+          for (const station_element_param of station.generate_element_params(
+            theme
+          )) {
+            element_params.push(station_element_param);
+          }
         }
       }
 
@@ -234,8 +241,8 @@ export class City {
           'opacity': settings.grid.overlay.opacity
         },
         'draw_callback': (el: svgjs.Container) => {
-          this.svg_elements.push(el);
           this.overlay = el;
+          this.svg_elements_dict['overlay'] = el;
           el.back();
           el.hide();
         },
@@ -251,6 +258,12 @@ export class City {
   highlight_route(path: string[]) {
     for (const line of this.lines) {
       line.highlight(path);
+    }
+  }
+
+  dim_route(path: string[]) {
+    for (const line of this.lines) {
+      line.dim(path);
     }
   }
 
@@ -291,7 +304,7 @@ export class City {
                 },
                 'draw_callback': (el: svgjs.Container) => {
                   el.back();
-                  this.svg_elements.push(el);
+                  this.svg_elements_dict['debug_rect'] = el;
                 },
                 'classes': [
                   this.name

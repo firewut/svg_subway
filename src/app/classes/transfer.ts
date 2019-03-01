@@ -18,7 +18,7 @@ export class StationTransfer {
   destinations: Station[];
 
   elements: Element[] = [];
-  svg_elements: svgjs.Container[] = [];
+  svg_elements_dict = {};
 
   constructor(
     line: Line,
@@ -79,7 +79,7 @@ export class StationTransfer {
         },
         'draw_callback': (el: svgjs.Container) => {
           el.back();
-          this.svg_elements.push(el);
+          this.svg_elements_dict['outer_line'] = el;
         },
         'classes': [
           this.id
@@ -106,7 +106,7 @@ export class StationTransfer {
         },
         'draw_callback': (el: svgjs.Container) => {
           el.back();
-          this.svg_elements.push(el);
+          this.svg_elements_dict['inner_line'] = el;
         },
         'classes': [
           this.id

@@ -6,6 +6,8 @@ import { PolyLineElement } from './element';
 import { Theme } from '../../themes/theme';
 import { settings } from '../../themes/default';
 
+import * as panZoom from '@svgdotjs/svg.panzoom.js';
+
 import {
   Element,
   ElementType,
@@ -30,6 +32,8 @@ export class Scene {
     this.container_id = container_id;
     this.theme = theme;
     this.canvas = SVG(this.container_id);
+    this.canvas.panZoom();
+
 
     if (callback) {
       this.prepare(callback);

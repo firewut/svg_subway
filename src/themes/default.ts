@@ -7,7 +7,7 @@ export const settings = {
     height: 20,
     overlay: {
       color: '#000',
-      opacity: 0.5
+      opacity: 0.66
     },
   },
   location_marker: {
@@ -36,5 +36,5 @@ export const settings = {
   },
   themes: [
     dark
-  ]
+  ],
 };

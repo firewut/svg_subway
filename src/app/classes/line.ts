@@ -121,20 +121,12 @@ export class Line {
     return;
   }
 
-  click(el: svgjs.Container) {
-  }
+  click(el: svgjs.Container) { }
 
-  highlight(path: string[]) {
-    for (const station_id of path) {
-      const station = this.get_station_by_id(station_id);
-      if (station) {
-        station.highlight();
-      }
-    }
-  }
+  highlight(path: string[]) { }
 
-  dim(path: string[]) {
-    // this.get
+  unhighlight() {
+    console.log('Unhighlight');
   }
 
   generate_element_params(theme: Theme): ElementParams[] {
@@ -168,12 +160,12 @@ export class Line {
               'html_class': 'Line',
               'opacity': connector_opacity,
             },
+            'group': this.city.lines_group,
             'draw_callback': (el: svgjs.Container) => {
               this.svg_elements_dict['connector'] = el;
-              el.back();
             },
             'classes': [
-              'Station',
+              'Line',
               'Connector',
               station.id
             ]
@@ -191,6 +183,32 @@ export class Line {
         elements.push(
           ...[
             {
+              'type': ElementType.Rect,
+              'properties': {
+                'position': line_text_bbox_coordinates,
+                'radius': settings.line.name.font_size / 5,
+              },
+              'attr': {
+                'fill': this.color,
+              },
+              'group': this.city.lines_group,
+              'draw_callback': (el: svgjs.Container) => {
+                if (this.svg_elements_dict.hasOwnProperty('rect')) {
+                  this.svg_elements_dict['rect'].push(el);
+                } else {
+                  this.svg_elements_dict['rect'] = [el];
+                }
+
+                const self = this;
+                el.on('click', function() {
+                  self.click(el);
+                });
+              },
+              'classes': [
+                'Line', 'BBox', this.name
+              ]
+            },
+            {
               'type': ElementType.Text,
               'properties': {
                 'text': this.name,
@@ -205,36 +223,18 @@ export class Line {
               'attr': {
                 'fill': theme.settings.line.name.font_color,
               },
+              'group': this.city.lines_group,
               'draw_callback': (el: svgjs.Container) => {
-                this.svg_elements_dict['name'] = el;
-                el.front();
+                if (this.svg_elements_dict.hasOwnProperty('name')) {
+                  this.svg_elements_dict['name'].push(el);
+                } else {
+                  this.svg_elements_dict['name'] = [el];
+                }
               },
               'classes': [
                 'Line', 'Name', this.name
               ]
             },
-            {
-              'type': ElementType.Rect,
-              'properties': {
-                'position': line_text_bbox_coordinates,
-                'radius': settings.line.name.font_size / 5,
-              },
-              'attr': {
-                'fill': this.color,
-              },
-              'draw_callback': (el: svgjs.Container) => {
-                this.svg_elements_dict['rect'] = el;
-                el.back();
-
-                const self = this;
-                el.on('click', function() {
-                  self.click(el);
-                });
-              },
-              'classes': [
-                'Line', 'BBox', this.name
-              ]
-            }
           ]
         );
       }

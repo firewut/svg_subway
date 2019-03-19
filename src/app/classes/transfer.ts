@@ -77,6 +77,7 @@ export class StationTransfer {
           'linejoin': 'round',
           'opacity': 0.75,
         },
+        'group': this.line.city.transfers_group,
         'draw_callback': (el: svgjs.Container) => {
           el.back();
           this.svg_elements_dict['outer_line'] = el;
@@ -104,6 +105,7 @@ export class StationTransfer {
           'linejoin': 'round',
           'opacity': 0.25,
         },
+        'group': this.line.city.transfers_group,
         'draw_callback': (el: svgjs.Container) => {
           el.back();
           this.svg_elements_dict['inner_line'] = el;

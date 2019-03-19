@@ -1,6 +1,6 @@
 import * as SVG from 'svg.js';
 
-import { makeid } from './helper';
+import { makeid, shadeHexColor } from './helper';
 import { environment } from '../../environments/environment';
 import { settings } from '../../themes/default';
 
@@ -18,6 +18,7 @@ export interface ElementParams {
   classes: string[];
   properties: any;
   type: ElementType;
+  group: svgjs.G;
 
   draw_callback?: (_: svgjs.Shape) => any;
 }
@@ -27,14 +28,17 @@ export interface Element {
   attr: any;
   classes: string[];
   position: Point2D;
-
   param: ElementParams;
   svg_element: SVG.Shape;
-
+  group: SVG.G;
   click_toggle: boolean;
+
   toggle: () => any;
   check: () => any;
   uncheck: () => any;
+
+  highlight: () => any;
+  unhighlight: () => any;
 
   draw: (_: svgjs.Container) => any;
   draw_callback: (_: svgjs.Shape) => any;
@@ -48,7 +52,7 @@ export class LocationMarker {
 
   param: ElementParams;
   svg_element: SVG.Shape;
-
+  group: SVG.G;
   click_toggle = false;
 
   text: string;
@@ -100,12 +104,21 @@ export class LocationMarker {
       svg_element.addClass(_class);
     }
 
+    if (this.param.group) {
+      svg_element.addTo(this.param.group);
+      this.group = this.param.group;
+    }
+
     this.draw_callback(svg_element);
 
     this.svg_element = svg_element;
 
     return this.svg_element;
   }
+
+  highlight() { }
+
+  unhighlight() { }
 
   toggle() {
     this.click_toggle = !this.click_toggle;
@@ -128,6 +141,7 @@ export class TextElement {
   param: ElementParams;
   position: Point2D;
   svg_element: SVG.Shape;
+  group: SVG.G;
   click_toggle = false;
 
   text: string;
@@ -184,6 +198,11 @@ export class TextElement {
       svg_element.addClass(_class);
     }
 
+    if (this.param.group) {
+      svg_element.addTo(this.param.group);
+      this.group = this.param.group;
+    }
+
     this.draw_callback(svg_element);
 
     this.svg_element = svg_element;
@@ -220,9 +239,12 @@ export class TextElement {
       }
     }
 
-
     return this.svg_element;
   }
+
+  highlight() { }
+
+  unhighlight() { }
 
   toggle() {
     this.click_toggle = !this.click_toggle;
@@ -249,6 +271,7 @@ export class CircleElement {
   classes: string[] = [];
   param: ElementParams;
   svg_element: SVG.Shape;
+  group: SVG.G;
   click_toggle = false;
 
   center: Point2D;
@@ -258,6 +281,8 @@ export class CircleElement {
     this.id = makeid();
     this.attr = params.attr;
     this.classes = params.classes;
+    this.param = params;
+
     // this.draw_callback = params.draw_callback;
     this.position = new Point2D(
       params.properties['position']['x'],
@@ -285,11 +310,20 @@ export class CircleElement {
       svg_element.addClass(_class);
     }
 
+    if (this.param.group) {
+      svg_element.addTo(this.param.group);
+      this.group = this.param.group;
+    }
+
     this.draw_callback(svg_element);
 
     this.svg_element = svg_element;
     return svg_element;
   }
+
+  highlight() { }
+
+  unhighlight() { }
 
   toggle() {
     this.click_toggle = !this.click_toggle;
@@ -312,6 +346,7 @@ export class PolyLineElement {
   id: string;
   attr: any;
   svg_element: SVG.Shape;
+  group: SVG.G;
   click_toggle = false;
   param: ElementParams;
   classes: string[] = [];
@@ -323,6 +358,8 @@ export class PolyLineElement {
     this.id = makeid();
     this.attr = params.attr;
     this.classes = params.classes;
+    this.param = params;
+
     for (const _point of params.properties['points']) {
       this.points.push(_point);
     }
@@ -353,11 +390,20 @@ export class PolyLineElement {
       svg_element.addClass(_class);
     }
 
+    if (this.param.group) {
+      svg_element.addTo(this.param.group);
+      this.group = this.param.group;
+    }
+
     this.draw_callback(svg_element);
 
     this.svg_element = svg_element;
     return svg_element;
   }
+
+  highlight() { }
+
+  unhighlight() { }
 
   toggle() {
     this.click_toggle = !this.click_toggle;
@@ -380,6 +426,7 @@ export class LineElement {
   id: string;
   position: Point2D;
   svg_element: SVG.Shape;
+  group: SVG.G;
   click_toggle = false;
   attr: any;
   param: ElementParams;
@@ -393,6 +440,7 @@ export class LineElement {
   constructor(params: ElementParams) {
     this.id = makeid();
     this.attr = params.attr;
+    this.param = params;
     this.classes = params.classes;
     // this.draw_callback = params.draw_callback;
     this.position = new Point2D(
@@ -423,11 +471,20 @@ export class LineElement {
       svg_element.addClass(_class);
     }
 
+    if (this.param.group) {
+      svg_element.addTo(this.param.group);
+      this.group = this.param.group;
+    }
+
     this.draw_callback(svg_element);
 
     this.svg_element = svg_element;
     return svg_element;
   }
+
+  highlight() { }
+
+  unhighlight() { }
 
   toggle() {
     this.click_toggle = !this.click_toggle;
@@ -450,6 +507,7 @@ export class RectElement {
   id: string;
   position: Point2D;
   svg_element: SVG.Shape;
+  group: SVG.G;
   click_toggle = false;
   attr: any;
   param: ElementParams;
@@ -466,6 +524,7 @@ export class RectElement {
     this.id = makeid();
     this.attr = params.attr;
     this.classes = params.classes;
+    this.param = params;
     // this.draw_callback = params.draw_callback;
     this.position = new Point2D(
       params.properties['position']['x1'],
@@ -504,10 +563,23 @@ export class RectElement {
       svg_element.addClass(_class);
     }
 
+    if (this.param.group) {
+      svg_element.addTo(this.param.group);
+      this.group = this.param.group;
+    }
+
     this.draw_callback(svg_element);
 
     this.svg_element = svg_element;
     return svg_element;
+  }
+
+  highlight() {
+
+  }
+
+  unhighlight() {
+
   }
 
   toggle() {

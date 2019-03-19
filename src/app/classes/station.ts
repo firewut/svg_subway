@@ -310,11 +310,29 @@ export class Station {
   }
 
   unhighlight() {
+    for (const key in this.svg_elements_dict) {
+      if (this.svg_elements_dict.hasOwnProperty(key)) {
+        const element = this.svg_elements_dict[key];
 
+        element.addTo(
+          element.remember('element').group
+        );
+      }
+    }
   }
 
   highlight() {
+    for (const key in this.svg_elements_dict) {
+      if (this.svg_elements_dict.hasOwnProperty(key)) {
+        const element = this.svg_elements_dict[key];
 
+        element.addTo(this.line.city.highlight_group);
+
+        if (this.location_marker) {
+          this.location_marker.addTo(this.line.city.highlight_group);
+        }
+      }
+    }
   }
 
   get_location_marker(el: svgjs.Container, caption: string): ElementParams {
@@ -331,10 +349,8 @@ export class Station {
         'marker-fill': this.theme.settings.location_marker.color,
         'text-fill': this.theme.settings.location_marker.text_color,
       },
+      'group': this.line.city.markers_group,
       'draw_callback': (marker_el: svgjs.Container) => {
-        console.log('1234');
-        marker_el.front();
-
         this.svg_elements_dict['location_marker'] = marker_el;
       },
       'classes': [
@@ -364,6 +380,8 @@ export class Station {
         }
       }
     }
+
+    this.line.city.router.calculate_route();
   }
 
   uncheck() {
@@ -382,6 +400,7 @@ export class Station {
 
     if (this.location_marker) {
       this.location_marker.remove();
+      this.location_marker = undefined;
     }
   }
 
@@ -405,9 +424,8 @@ export class Station {
         'attr': {
           'fill': theme.settings.station.font_color,
         },
+        'group': this.line.city.stations_group,
         'draw_callback': (el: svgjs.Container) => {
-          el.front();
-
           this.svg_elements_dict['name'] = el;
 
           const self = this;
@@ -440,8 +458,9 @@ export class Station {
             this.line.color, 0.5
           )
         },
+        'group': this.line.city.stations_group,
         'draw_callback': (el: svgjs.Container) => {
-          el.front();
+
           this.svg_elements_dict['outer_marker'] = el;
 
           const self = this;
@@ -467,8 +486,8 @@ export class Station {
         'attr': {
           'fill': theme.settings.station.marker.inner_color
         },
+        'group': this.line.city.stations_group,
         'draw_callback': (el: svgjs.Container) => {
-          el.front();
 
           this.svg_elements_dict['inner_marker'] = el;
 

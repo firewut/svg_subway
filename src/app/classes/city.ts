@@ -107,39 +107,31 @@ export class SubwayRouter {
       this.select_station_from(station);
     }
 
-    if (this.from !== undefined && this.to !== undefined) {
-      this.calculate_route(this.from, this.to);
-    }
-
     return caption;
   }
 
-  calculate_route(start: Station, finish: Station) {
+  calculate_route(start?: Station, finish?: Station) {
+    if (start === undefined || finish === undefined) {
+      if (this.from !== undefined && this.to !== undefined) {
+        start = this.from;
+        finish = this.to;
+      }
+      if (this.from === undefined || this.to === undefined) {
+        return;
+      }
+    }
+
     this.city.show_overlay();
 
     const path: string[] = this.graph.shortestPath(start.id, finish.id);
     if (path.length >= 2) {
-      for (const station_id of path) {
-        const station = this.city.get_station_by_id(station_id);
-        if (station) {
-          console.log(station.line.name, station.name);
-        }
-      }
       this.highlight_route(path);
     }
   }
 
   highlight_route(path: string[]) {
-    // Place an Overlay
-    // this.city.show_overlay();
-
     // Draw Markers, Transfers and etc from `start` to `finish`
-    this.dim_route(path);
     this.city.highlight_route(path);
-  }
-
-  dim_route(path: string[]) {
-    this.city.dim_route(path);
   }
 }
 
@@ -152,9 +144,17 @@ export class City {
 
   elements: Element[] = [];
   svg_elements_dict = {};
+  active_route_group = [];
 
   canvas: svgjs.Container;
   overlay: svgjs.Container;
+
+  lines_group: svgjs.G;
+  stations_group: svgjs.G;
+  transfers_group: svgjs.G;
+  markers_group: svgjs.G;
+  overlay_group: svgjs.G;
+  highlight_group: svgjs.G;
 
   constructor(json: any, canvas: svgjs.Container) {
     this.name = json.name;
@@ -162,6 +162,27 @@ export class City {
     this.size = json.size;
 
     this.canvas = canvas;
+    this.lines_group = canvas.group();
+    this.stations_group = canvas.group();
+    this.transfers_group = canvas.group();
+    this.markers_group = canvas.group();
+    this.overlay_group = canvas.group();
+    this.highlight_group = canvas.group();
+
+    this.canvas.add(this.lines_group);
+    this.canvas.add(this.stations_group);
+    this.canvas.add(this.transfers_group);
+    this.canvas.add(this.markers_group);
+    this.canvas.add(this.overlay_group);
+    this.canvas.add(this.highlight_group);
+
+    // Arrange
+    this.lines_group.forward();
+    this.stations_group.before(this.lines_group);
+    this.transfers_group.before(this.stations_group);
+    this.markers_group.before(this.transfers_group);
+    this.overlay_group.before(this.markers_group);
+    this.highlight_group.before(this.overlay_group);
 
     for (const line_json of json.lines) {
       const line = new Line(this, line_json);
@@ -238,16 +259,27 @@ export class City {
         'attr': {
           'fill': settings.grid.overlay.color,
           'html_class': 'Rect',
-          'opacity': settings.grid.overlay.opacity
+          'opacity': settings.grid.overlay.opacity,
+          'style': 'pointer-events: none;', // <---- Makes Overlay Clickable & etc
         },
+        'group': this.overlay_group,
         'draw_callback': (el: svgjs.Container) => {
+          // el.on('show', () => {
+          //   this.event_show_overlay();
+          // });
+
+          // el.on('hide', () => {
+          //   this.event_hide_overlay();
+          // });
+
           this.overlay = el;
           this.svg_elements_dict['overlay'] = el;
-          el.back();
+
           el.hide();
         },
         'classes': [
-          this.name
+          this.name,
+          'overlay'
         ]
       }
     );
@@ -256,22 +288,55 @@ export class City {
   }
 
   highlight_route(path: string[]) {
-    for (const line of this.lines) {
-      line.highlight(path);
+    this.unhighlight_route();
+
+    const _path = Object.assign([], path);
+
+    // Add Stations
+    for (const station_id of _path) {
+      for (const line of this.lines) {
+        const station = line.get_station_by_id(station_id);
+        if (station) {
+          this.active_route_group.push(station);
+          break;
+        }
+      }
+    }
+
+    for (const item of this.active_route_group) {
+      item.highlight();
     }
   }
 
-  dim_route(path: string[]) {
-    for (const line of this.lines) {
-      line.dim(path);
+  unhighlight_route() {
+    for (const item of this.active_route_group) {
+      item.unhighlight();
     }
+
+    this.active_route_group = [];
   }
+
+
+  // event_show_overlay() {
+  //   console.log('show');
+  // }
+
+  // event_hide_overlay() {
+  //   console.log('hide');
+  // }
 
   show_overlay() {
-    this.overlay.show();
+    if (!this.overlay.visible()) {
+      this.overlay.show();
+      // this.overlay.fire('show');
+    }
   }
+
   hide_overlay() {
-    this.overlay.hide();
+    if (this.overlay.visible()) {
+      this.overlay.hide();
+      // this.overlay.fire('hide');
+    }
   }
 
   prepare_debug_elements(theme: Theme) {
@@ -302,6 +367,7 @@ export class City {
                   'html_class': 'Rect',
                   'opacity': 0.05
                 },
+                'group': this.overlay_group,
                 'draw_callback': (el: svgjs.Container) => {
                   el.back();
                   this.svg_elements_dict['debug_rect'] = el;

@@ -2,7 +2,7 @@ import { Station } from './station';
 import { Direction, VectorDirection } from './direction';
 import { City } from './city';
 import { StationTransfer } from './transfer';
-import { ElementParams, ElementType, Point2D } from './element';
+import { ElementParams, ElementType, Point2D, LineElement } from './element';
 import { Theme } from '../../themes/theme';
 import { settings } from '../../themes/default';
 
@@ -123,10 +123,24 @@ export class Line {
 
   click(el: svgjs.Container) { }
 
-  highlight(path: string[]) { }
-
   unhighlight() {
-    console.log('Unhighlight');
+    for (const key in this.svg_elements_dict) {
+      if (this.svg_elements_dict.hasOwnProperty(key)) {
+        const element = this.svg_elements_dict[key];
+        element.addTo(
+          element.remember('element').group
+        );
+      }
+    }
+  }
+
+  highlight(path: string[]) {
+    for (const key in this.svg_elements_dict) {
+      if (this.svg_elements_dict.hasOwnProperty(key)) {
+        const element = this.svg_elements_dict[key];
+        element.addTo(this.city.highlight_group);
+      }
+    }
   }
 
   generate_element_params(theme: Theme): ElementParams[] {

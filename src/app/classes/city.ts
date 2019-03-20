@@ -22,9 +22,10 @@ export class SubwayRouter {
 
     for (const line of city.lines) {
       for (const station of line.stations_list) {
-
-        const station_graph = this.build_graph(station);
-        this.graph.addVertex(station.id, station_graph);
+        if (!station.under_construction) {
+          const station_graph = this.build_graph(station);
+          this.graph.addVertex(station.id, station_graph);
+        }
       }
     }
 
@@ -163,24 +164,23 @@ export class City {
 
     this.canvas = canvas;
     this.lines_group = canvas.group();
-    this.stations_group = canvas.group();
     this.transfers_group = canvas.group();
+    this.stations_group = canvas.group();
     this.markers_group = canvas.group();
     this.overlay_group = canvas.group();
     this.highlight_group = canvas.group();
 
     this.canvas.add(this.lines_group);
-    this.canvas.add(this.stations_group);
     this.canvas.add(this.transfers_group);
+    this.canvas.add(this.stations_group);
     this.canvas.add(this.markers_group);
     this.canvas.add(this.overlay_group);
     this.canvas.add(this.highlight_group);
 
     // Arrange
-    this.lines_group.forward();
+    this.lines_group.back();
     this.stations_group.before(this.lines_group);
-    this.transfers_group.before(this.stations_group);
-    this.markers_group.before(this.transfers_group);
+    this.transfers_group.before(this.lines_group);
     this.overlay_group.before(this.markers_group);
     this.highlight_group.before(this.overlay_group);
 
@@ -296,7 +296,7 @@ export class City {
     for (const station_id of _path) {
       for (const line of this.lines) {
         const station = line.get_station_by_id(station_id);
-        if (station) {
+        if (station !== undefined) {
           this.active_route_group.push(station);
           break;
         }

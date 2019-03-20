@@ -301,6 +301,9 @@ export class Station {
   }
 
   toggle(el: svgjs.Container) {
+    if (this.under_construction) {
+      return;
+    }
     this.click_toggle = !this.click_toggle;
     if (this.click_toggle === true) {
       this.check(el);

@@ -355,6 +355,11 @@ export class Station {
       'group': this.line.city.markers_group,
       'draw_callback': (marker_el: svgjs.Container) => {
         this.svg_elements_dict['location_marker'] = marker_el;
+
+        const self = this;
+        marker_el.on('click', function() {
+          self.toggle(marker_el);
+        });
       },
       'classes': [
         'Station',

@@ -32,6 +32,9 @@ export class SubwayRouter {
     for (const line of city.lines) {
       for (const transfer of line.transfers) {
         for (const destination of transfer.destinations) {
+          if (destination.under_construction) {
+            continue;
+          }
           this.graph.addToVertex(
             transfer.source.id, {
               [destination.id]: 1
@@ -53,13 +56,17 @@ export class SubwayRouter {
 
     if (station.children.length > 0) {
       for (const child of station.children) {
-        children[child.id] = 1;
+        if (!child.under_construction) {
+          children[child.id] = 1;
+        }
       }
     }
 
     if (station.parents.length > 0) {
       for (const parent of station.parents) {
-        parents[parent.id] = 1;
+        if (!parent.under_construction) {
+          parents[parent.id] = 1;
+        }
       }
     }
 

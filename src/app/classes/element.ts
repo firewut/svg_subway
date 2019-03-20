@@ -68,6 +68,10 @@ export class LocationMarker {
       params.properties['position']['y'],
     );
 
+    if (params.draw_callback) {
+      this.draw_callback = params.draw_callback;
+    }
+
     if ('text' in params.properties) {
       this.text = params.properties['text'];
     }

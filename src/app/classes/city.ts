@@ -303,19 +303,25 @@ export class City {
       }
     }
 
-    // Add Links
+    // Add Links, Parents, Transfers
     for (let i = 0; i < stations.length - 1; i++) {
       const current_item = stations[i];
       const next_item = stations[i + 1];
-      if (current_item instanceof Station) {
-        if (current_item.has_link_to(next_item)) {
-          console.log(current_item.name, next_item.name);
+
+      // Parents/Child
+      if (
+        current_item.children.includes(next_item) ||
+        current_item.parents.includes(next_item)
+      ) {
+        const connector = current_item.line.get_connector(current_item, next_item);
+        if (connector) {
+          this.active_route_group.push(connector);
         }
       }
     }
 
-    // Add Transfers
-    // pass
+    // Reverse Sort
+    this.active_route_group.reverse();
 
     for (const item of this.active_route_group) {
       item.highlight();

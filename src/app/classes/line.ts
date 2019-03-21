@@ -6,6 +6,41 @@ import { ElementParams, ElementType, Point2D, LineElement } from './element';
 import { Theme } from '../../themes/theme';
 import { settings } from '../../themes/default';
 
+export class StationConnector {
+  line: Line;
+  from: Station;
+  to: Station;
+
+  svg_elements_dict = {};
+
+  constructor(line: Line, from: Station, to: Station, svg_elements_dict: {}) {
+    this.line = line;
+    this.from = from;
+    this.to = to;
+    this.svg_elements_dict = svg_elements_dict;
+  }
+
+  unhighlight() {
+    for (const key in this.svg_elements_dict) {
+      if (this.svg_elements_dict.hasOwnProperty(key)) {
+        const element = this.svg_elements_dict[key];
+        element.addTo(
+          element.remember('element').group
+        );
+      }
+    }
+  }
+
+  highlight(path: string[]) {
+    for (const key in this.svg_elements_dict) {
+      if (this.svg_elements_dict.hasOwnProperty(key)) {
+        const element = this.svg_elements_dict[key];
+        element.addTo(this.line.city.highlight_group);
+      }
+    }
+  }
+}
+
 export class Line {
   city: City;
   name: string;
@@ -20,6 +55,7 @@ export class Line {
   text_anchor = 'middle';
 
   svg_elements_dict = {};
+  connectors_dict = {};
 
   constructor(city: City, json: any) {
     this.city = city;
@@ -143,6 +179,22 @@ export class Line {
     }
   }
 
+  get_connector(from: Station, to: Station): StationConnector {
+    let connector: StationConnector;
+
+    const property = `${from.id}-${to.id}`;
+    const reverse_property = `${to.id}-${from.id}`;
+
+    if (this.connectors_dict.hasOwnProperty(property)) {
+      connector = this.connectors_dict[property];
+    }
+    if (this.connectors_dict.hasOwnProperty(reverse_property)) {
+      connector = this.connectors_dict[reverse_property];
+    }
+
+    return connector;
+  }
+
   generate_element_params(theme: Theme): ElementParams[] {
     const elements: ElementParams[] = [];
 
@@ -177,6 +229,11 @@ export class Line {
             'group': this.city.lines_group,
             'draw_callback': (el: svgjs.Container) => {
               this.svg_elements_dict['connector'] = el;
+
+              const connector = new StationConnector(
+                this, station, child, { 'connector': el }
+              );
+              this.connectors_dict[`${station.id}-${child.id}`] = connector;
             },
             'classes': [
               'Line',
@@ -246,7 +303,9 @@ export class Line {
                 }
               },
               'classes': [
-                'Line', 'Name', this.name
+                'Line',
+                'Name',
+                this.name,
               ]
             },
           ]

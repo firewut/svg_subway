@@ -300,10 +300,16 @@ export class Station {
     this.text_position = this.get_text_position(settings.station.font_size);
   }
 
-  toggle(el: svgjs.Container) {
-    if (this.under_construction) {
+  toggle() {
+    const el = this.svg_elements_dict['outer_marker'];
+    this.toggle_with_element(el);
+  }
+
+  toggle_with_element(el: svgjs.Container) {
+    if (this.under_construction === true) {
       return;
     }
+
     this.click_toggle = !this.click_toggle;
     if (this.click_toggle === true) {
       this.check(el);
@@ -358,7 +364,7 @@ export class Station {
 
         const self = this;
         marker_el.on('click', function() {
-          self.toggle(marker_el);
+          self.toggle();
         });
       },
       'classes': [
@@ -378,6 +384,7 @@ export class Station {
         const element_obj = element.remember('element');
         if (element_obj instanceof TextElement) {
           element_obj.toggle();
+          element_obj.check();
 
           const marker = new LocationMarker(
             this.get_location_marker(el, caption)
@@ -393,8 +400,6 @@ export class Station {
   }
 
   uncheck() {
-    this.line.city.router.unselect_station(this);
-
     for (const key in this.svg_elements_dict) {
       if (this.svg_elements_dict.hasOwnProperty(key)) {
         const element = this.svg_elements_dict[key];
@@ -407,9 +412,12 @@ export class Station {
     }
 
     if (this.location_marker) {
+      this.location_marker.hide();
       this.location_marker.remove();
       this.location_marker = undefined;
     }
+
+    this.line.city.router.unselect_station(this);
   }
 
   generate_element_params(theme: Theme): ElementParams[] {
@@ -438,7 +446,7 @@ export class Station {
 
           const self = this;
           el.on('click', function() {
-            self.toggle(el);
+            self.toggle();
           });
         },
         'classes': [
@@ -473,7 +481,7 @@ export class Station {
 
           const self = this;
           el.on('click', function() {
-            self.toggle(el);
+            self.toggle();
           });
         },
         'classes': [
@@ -501,7 +509,7 @@ export class Station {
 
           const self = this;
           el.on('click', function() {
-            self.toggle(el);
+            self.toggle();
           });
         },
         'classes': [

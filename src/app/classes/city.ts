@@ -86,13 +86,12 @@ export class SubwayRouter {
       this.to = undefined;
       this.select_to = true;
     }
-
     this.city.hide_overlay();
   }
 
   select_station_from(station: Station) {
     if (this.from !== undefined) {
-      this.from.uncheck();
+      this.from.toggle();
     }
     this.from = station;
     this.select_to = true;
@@ -100,7 +99,7 @@ export class SubwayRouter {
 
   select_station_to(station: Station) {
     if (this.to !== undefined) {
-      this.to.uncheck();
+      this.to.toggle();
     }
     this.to = station;
   }
@@ -271,14 +270,6 @@ export class City {
         },
         'group': this.overlay_group,
         'draw_callback': (el: svgjs.Container) => {
-          // el.on('show', () => {
-          //   this.event_show_overlay();
-          // });
-
-          // el.on('hide', () => {
-          //   this.event_hide_overlay();
-          // });
-
           this.overlay = el;
           this.svg_elements_dict['overlay'] = el;
 
@@ -298,6 +289,7 @@ export class City {
     this.unhighlight_route();
 
     const _path = Object.assign([], path);
+    const stations: Station[] = [];
 
     // Add Stations
     for (const station_id of _path) {
@@ -305,10 +297,25 @@ export class City {
         const station = line.get_station_by_id(station_id);
         if (station !== undefined) {
           this.active_route_group.push(station);
+          stations.push(station);
           break;
         }
       }
     }
+
+    // Add Links
+    for (let i = 0; i < stations.length - 1; i++) {
+      const current_item = stations[i];
+      const next_item = stations[i + 1];
+      if (current_item instanceof Station) {
+        if (current_item.has_link_to(next_item)) {
+          console.log(current_item.name, next_item.name);
+        }
+      }
+    }
+
+    // Add Transfers
+    // pass
 
     for (const item of this.active_route_group) {
       item.highlight();
@@ -324,25 +331,15 @@ export class City {
   }
 
 
-  // event_show_overlay() {
-  //   console.log('show');
-  // }
-
-  // event_hide_overlay() {
-  //   console.log('hide');
-  // }
-
   show_overlay() {
     if (!this.overlay.visible()) {
       this.overlay.show();
-      // this.overlay.fire('show');
     }
   }
 
   hide_overlay() {
     if (this.overlay.visible()) {
       this.overlay.hide();
-      // this.overlay.fire('hide');
     }
   }
 

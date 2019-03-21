@@ -320,7 +320,7 @@ export class City {
       }
     }
 
-    // Reverse Sort
+    // Reverse Station Marks/Lines
     this.active_route_group.reverse();
 
     for (const item of this.active_route_group) {

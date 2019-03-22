@@ -7,6 +7,233 @@
         ],
         "lines": [
             {
+                "name": "ML 1",
+                "color": "#5E7EA9",
+                "stations": [
+                    {
+                        "name": {
+                            "value": "Las Tablas"
+                        },
+                        "x": 32,
+                        "y": 11,
+                        "transfers": [
+                            {
+                                "line": "10",
+                                "stations": [
+                                    "Las Tablas"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Palas de Rey",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "María Tudor",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Blasco Ibáñez",
+                            "location": "South"
+                        },
+                        "links": [
+                            {
+                                "direction": "East"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Álvarez de Villaamil",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Antonio Saura",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Virgen del Cortijo",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthWest",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Fuente de la Mora",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "South"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Pinar de\n Chamartin",
+                            "location": "South"
+                        },
+                        "line_name_plate": false,
+                        "transfers": [
+                            {
+                                "line": "1",
+                                "stations": [
+                                    "Pinar de\n Chamartin"
+                                ]
+                            },
+                            {
+                                "line": "4",
+                                "stations": [
+                                    "Pinar de\n Chamartin"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "ML 2",
+                "color": "#5E2F76",
+                "stations": [
+                    {
+                        "name": {
+                            "value": "Estación de Aravaca"
+                        },
+                        "x": 18,
+                        "y": 25,
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Berna"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Av. de Europa"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Campus Somosaguas"
+                        },
+                        "links": [
+                            {
+                                "direction": "South"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Dos Castillas"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Bélgica"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Pozuelo Oeste"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Somosaguas Centro"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Somosaguas Sur"
+                        },
+                        "links": [
+                            {
+                                "direction": "South"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Prado del Rey"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Colonia de los Ángeles",
+                            "location": "West"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Prado del Vega",
+                            "location": "West"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthEast",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Colonia Jardin",
+                            "location": "East"
+                        },
+                        "line_name_plate": false,
+                        "transfers": [
+                            {
+                                "line": "ML 3",
+                                "stations": [
+                                    "Colonia Jardin"
+                                ]
+                            },
+                            {
+                                "line": "10",
+                                "stations": [
+                                    "Colonia Jardin"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
                 "name": "ML 3",
                 "color": "#FF0000",
                 "stations": [
@@ -16,7 +243,7 @@
                             "location": "East"
                         },
                         "x": 3,
-                        "y": 26,
+                        "y": 32,
                         "links": [
                             {
                                 "direction": "South"
@@ -143,14 +370,12 @@
                         "transfers": [
                             {
                                 "line": "ML 2",
-                                "type": "Underground",
                                 "stations": [
                                     "Colonia Jardin"
                                 ]
                             },
                             {
                                 "line": "10",
-                                "type": "Underground",
                                 "stations": [
                                     "Colonia Jardin"
                                 ]
@@ -160,34 +385,137 @@
                 ]
             },
             {
-                "name": "ML 2",
-                "color": "#5E2F76",
+                "name": "1",
+                "color": "#5CABCF",
                 "stations": [
                     {
                         "name": {
-                            "value": "Estación de Aravaca"
+                            "value": "Pinar de\n Chamartin",
+                            "location": "South"
                         },
-                        "x": 18,
-                        "y": 19,
+                        "x": 37,
+                        "y": 20,
+                        "line_name_plate": false,
+                        "transfers": [
+                            {
+                                "line": "ML 1",
+                                "stations": [
+                                    "Pinar de\n Chamartin"
+                                ]
+                            },
+                            {
+                                "line": "4",
+                                "stations": [
+                                    "Pinar de\n Chamartin"
+                                ]
+                            }
+                        ],
                         "links": [
                             {
-                                "direction": "SouthEast"
+                                "direction": "West"
                             }
                         ]
                     },
                     {
                         "name": {
-                            "value": "Berna"
+                            "value": "Bambú",
+                            "location": "South"
+                        },
+                        "links": [
+                            {
+                                "direction": "West",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Chamartín",
+                            "location": "North"
+                        },
+                        "transfers": [
+                            {
+                                "line": "10",
+                                "stations": [
+                                    "Chamartín"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "SouthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Plaza de Castilla",
+                            "location": "West"
+                        },
+                        "transfers": [
+                            {
+                                "line": "10",
+                                "stations": [
+                                    "Plaza de Castilla"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Valdeacederas"
                         }
                     },
                     {
                         "name": {
-                            "value": "Av. de Europa"
+                            "value": "Tetuán"
                         }
                     },
                     {
                         "name": {
-                            "value": "Campus Somosaguas"
+                            "value": "Estrecho"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Alvarado"
+                        },
+                        "links": [
+                            {
+                                "direction": "South",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Cuatro\n Caminos",
+                            "location": "West"
+                        },
+                        "transfers": [
+                            {
+                                "line": "2",
+                                "stations": [
+                                    "Cuatro\n Caminos"
+                                ]
+                            },
+                            {
+                                "line": "6",
+                                "stations": [
+                                    "Cuatro\n Caminos"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "SouthEast",
+                                "length": "3"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Ríos\n Rosas"
                         },
                         "links": [
                             {
@@ -197,17 +525,228 @@
                     },
                     {
                         "name": {
-                            "value": "Dos Castillas"
+                            "value": "Iglesia"
                         }
                     },
                     {
                         "name": {
-                            "value": "Bélgica"
+                            "value": "Bilbao",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "South"
+                            }
+                        ],
+                        "transfers": [
+                            {
+                                "line": "4",
+                                "stations": [
+                                    "Bilbao"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Tribunal",
+                            "location": "North"
+                        },
+                        "links": [
+                            {
+                                "direction": "South",
+                                "length": 2
+                            }
+                        ],
+                        "transfers": [
+                            {
+                                "line": "10",
+                                "stations": [
+                                    "Tribunal"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Sol"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ],
+                        "transfers": [
+                            {
+                                "line": "2",
+                                "stations": [
+                                    "Sol"
+                                ]
+                            },
+                            {
+                                "line": "3",
+                                "stations": [
+                                    "Sol"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Tirso de Molina",
+                            "location": "East"
                         }
                     },
                     {
                         "name": {
-                            "value": "Pozuelo Oeste"
+                            "value": "Antón Martín",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Estación del Arte",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Atocha Renfe",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Menéndez Pelayo",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Pacifico",
+                            "location": "East"
+                        },
+                        "transfers": [
+                            {
+                                "line": "6",
+                                "stations": [
+                                    "Pacifico"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Puente de Vallecas"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Nueva Numancia"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Portazgo"
+                        },
+                        "links": [
+                            {
+                                "direction": "South"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Buenos Aires"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Alto del Arenal"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Miguel Hernández"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Sierra de Guadalupe"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Villa de Vallecas"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Congosto"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "La Gavia"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Las Suertes"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Valdecarros"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "10",
+                "color": "#204681",
+                "stations": [
+                    {
+                        "name": {
+                            "value": "Hospital Infanta Sofía"
+                        },
+                        "x": 40,
+                        "y": 3,
+                        "links": [
+                            {
+                                "direction": "SouthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Reyes Católicos"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Baunatal"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Manuel de Falla"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Marqués de la Valdavia"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "La Moraleja",
+                            "location": "East"
                         },
                         "links": [
                             {
@@ -217,12 +756,234 @@
                     },
                     {
                         "name": {
-                            "value": "Somosaguas Centro"
+                            "value": "La Granja"
                         }
                     },
                     {
                         "name": {
-                            "value": "Somosaguas Sur"
+                            "value": "Ronda de la Comunicación",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Las Tablas"
+                        },
+                        "transfers": [
+                            {
+                                "line": "ML 1",
+                                "stations": [
+                                    "Las Tablas"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Montecarmelo"
+                        },
+                        "links": [
+                            {
+                                "direction": "South",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Fuencarral"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Begoña"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Chamartín"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Plaza de Castilla",
+                            "location": "East"
+                        },
+                        "transfers": [
+                            {
+                                "line": "1",
+                                "stations": [
+                                    "Plaza de Castilla"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Cuzco"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Santiago Bernabéu"
+                        },
+                        "links": [
+                            {
+                                "direction": "South",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Nuevos Ministerios"
+                        },
+                        "links": [
+                            {
+                                "direction": "South",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Gregorio Marañón",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "South",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Alonso Martínez",
+                            "location": "South"
+                        },
+                        "links": [
+                            {
+                                "direction": "West"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Tribunal",
+                            "location": "North"
+                        },
+                        "transfers": [
+                            {
+                                "line": "1",
+                                "stations": [
+                                    "Tribunal"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Plaza de España"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthWest",
+                                "length": 2
+                            }
+                        ],
+                        "transfers": [
+                            {
+                                "line": "2",
+                                "stations": [
+                                    "Noviciado"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Príncipe Pío",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Lago",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Batán",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Casa de Campo",
+                            "location": "East"
+                        },
+                        "transfers": [
+                            {
+                                "line": "5",
+                                "stations": [
+                                    "Casa de Campo"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Colonia Jardin",
+                            "location": "East"
+                        },
+                        "transfers": [
+                            {
+                                "line": "ML 3",
+                                "stations": [
+                                    "Colonia Jardin"
+                                ]
+                            },
+                            {
+                                "line": "ML 2",
+                                "stations": [
+                                    "Colonia Jardin"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "South"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Aviación Española",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Cuatro Vientos"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthWest",
+                                "length": 5
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Joaquín Vilumbrales",
+                            "location": "East"
                         },
                         "links": [
                             {
@@ -232,46 +993,15 @@
                     },
                     {
                         "name": {
-                            "value": "Prado del Rey"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Colonia de los Ángeles",
-                            "location": "West"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Prado del Vega",
-                            "location": "West"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast",
-                                "length": 2
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Colonia Jardin",
-                            "location": "West"
+                            "value": "Puerta del Sur",
+                            "location": "East"
                         },
                         "line_name_plate": false,
                         "transfers": [
                             {
-                                "line": "ML 3",
-                                "type": "Underground",
+                                "line": "12",
                                 "stations": [
-                                    "Colonia Jardin"
-                                ]
-                            },
-                            {
-                                "line": "10",
-                                "type": "Underground",
-                                "stations": [
-                                    "Colonia Jardin"
+                                    "Puerta del Sur"
                                 ]
                             }
                         ]
@@ -285,15 +1015,14 @@
                     {
                         "name": {
                             "value": "Puerta del Sur",
-                            "location": "East"
+                            "location": "South"
                         },
                         "line_name_plate": false,
-                        "x": 17,
-                        "y": 48,
+                        "x": 15,
+                        "y": 55,
                         "transfers": [
                             {
                                 "line": "10",
-                                "type": "Underground",
                                 "stations": [
                                     "Puerta del Sur"
                                 ]
@@ -302,48 +1031,35 @@
                         "links": [
                             {
                                 "station": "Parque Lisboa",
-                                "direction": "NorthWest"
+                                "direction": "West"
                             },
                             {
                                 "station": "San Nicasio",
-                                "direction": "SouthEast",
+                                "direction": "East",
                                 "length": 2
                             }
                         ]
                     },
                     {
                         "name": {
-                            "value": "Parque Lisboa"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthWest",
-                                "length": 2
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Alcorcón Central",
-                            "location": "South"
-                        },
-                        "links": [
-                            {
-                                "direction": "West"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Parque Oeste",
+                            "value": "Parque Lisboa",
                             "location": "North"
                         },
                         "links": [
                             {
-                                "direction": "SouthWest",
-                                "length": 1
+                                "direction": "SouthWest"
                             }
                         ]
+                    },
+                    {
+                        "name": {
+                            "value": "Alcorcón Central"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Parque Oeste"
+                        }
                     },
                     {
                         "name": {
@@ -351,30 +1067,19 @@
                         },
                         "links": [
                             {
-                                "direction": "SouthEast"
+                                "direction": "South"
                             }
                         ]
                     },
                     {
                         "name": {
                             "value": "Móstoles Central"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
-                            "value": "Pradillo",
-                            "location": "East"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthWest"
-                            }
-                        ]
+                            "value": "Pradillo"
+                        }
                     },
                     {
                         "name": {
@@ -420,17 +1125,7 @@
                     {
                         "name": {
                             "value": "Parque\n Europa",
-                            "location": "North"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Fuenlabrada Central"
+                            "location": "South"
                         },
                         "links": [
                             {
@@ -441,7 +1136,19 @@
                     },
                     {
                         "name": {
-                            "value": "Parque de los Estados",
+                            "value": "Fuenlabrada\n Central",
+                            "location": "North"
+                        },
+                        "links": [
+                            {
+                                "direction": "East",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Parque de\n los Estados",
                             "location": "South"
                         },
                         "links": [
@@ -466,34 +1173,19 @@
                         "name": {
                             "value": "Alonso de Mendoza",
                             "location": "East"
-                        },
-                        "links": [
-                            {
-                                "direction": "North",
-                                "length": 1
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
-                            "value": "Getafe Central"
-                        },
-                        "links": [
-                            {
-                                "direction": "East"
-                            }
-                        ]
+                            "value": "Getafe Central",
+                            "location": "East"
+                        }
                     },
                     {
                         "name": {
                             "value": "Juan de la Cierva",
-                            "location": "South"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthEast"
-                            }
-                        ]
+                            "location": "East"
+                        }
                     },
                     {
                         "name": {
@@ -516,17 +1208,23 @@
                         "name": {
                             "value": "El Bercial",
                             "location": "East"
-                        },
-                        "links": [
-                            {
-                                "direction": "North"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "El Carrascal",
                             "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Julián\n Besteiro",
+                            "location": "South"
                         },
                         "links": [
                             {
@@ -536,42 +1234,24 @@
                     },
                     {
                         "name": {
-                            "value": "Julián Besteiro",
+                            "value": "Casa del\n Reloj",
                             "location": "North"
-                        },
-                        "links": [
-                            {
-                                "direction": "South"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Casa del Reloj",
-                            "location": "East"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthWest",
-                                "length": 2
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
                             "value": "Hospital Severo Ochoa",
-                            "location": "South"
+                            "location": "West"
                         },
                         "links": [
                             {
-                                "direction": "North"
+                                "direction": "NorthWest"
                             }
                         ]
                     },
                     {
                         "name": {
-                            "value": "Leganés Central",
-                            "location": "North"
+                            "value": "Leganés Central"
                         },
                         "links": [
                             {
@@ -582,291 +1262,11 @@
                     {
                         "name": {
                             "value": "San Nicasio",
-                            "location": "South"
+                            "location": "North"
                         },
-                        "line_name_plate": false,
                         "parents": [
                             "Puerta del Sur",
                             "Leganés Central"
-                        ]
-                    }
-                ]
-            },
-            {
-                "name": "10",
-                "color": "#204681",
-                "stations": [
-                    {
-                        "name": {
-                            "value": "Hospital Infanta Sofía"
-                        },
-                        "x": 37,
-                        "y": 2,
-                        "links": [
-                            {
-                                "direction": "SouthWest"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Reyes Católicos"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Baunatal"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Manuel de Falla"
-                        },
-                        "links": [
-                            {
-                                "direction": "South"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Marqués de la Valdavia"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "La Moraleja",
-                            "location": "East"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthWest"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "La Granja"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Ronda de la Comunicación",
-                            "location": "East"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Las Tablas"
-                        },
-                        "transfers": [
-                            {
-                                "line": "ML 1",
-                                "type": "Underground",
-                                "stations": "Las Tablas"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Montecarmelo"
-                        },
-                        "links": [
-                            {
-                                "direction": "South"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Tres Olivos"
-                        },
-                        "under_construction": true
-                    },
-                    {
-                        "name": {
-                            "value": "Fuencarral"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Begoña"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Chamartín"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Plaza de Castilla"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Cuzco"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Santiago Bernabéu"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Nuevos Ministerios"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Gregorio Marañón"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Alonso Martínez",
-                            "location": "South"
-                        },
-                        "links": [
-                            {
-                                "direction": "West"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Tribunal",
-                            "location": "North"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Plaza de España"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthWest"
-                            }
-                        ],
-                        "transfers": [
-                            {
-                                "line": "2",
-                                "type": "Underground",
-                                "stations": [
-                                    "Noviciado"
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Príncipe Pío",
-                            "location": "East"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Lago",
-                            "location": "East"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Batán",
-                            "location": "East"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Casa de Campo",
-                            "location": "East"
-                        },
-                        "transfers": [
-                            {
-                                "line": "5",
-                                "type": "Underground",
-                                "stations": [
-                                    "Casa de Campo"
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Colonia Jardin",
-                            "location": "East"
-                        },
-                        "transfers": [
-                            {
-                                "line": "ML 3",
-                                "type": "Underground",
-                                "stations": [
-                                    "Colonia Jardin"
-                                ]
-                            },
-                            {
-                                "line": "ML 2",
-                                "type": "Underground",
-                                "stations": [
-                                    "Colonia Jardin"
-                                ]
-                            }
-                        ],
-                        "links": [
-                            {
-                                "direction": "SouthWest",
-                                "length": 3
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Aviación Española",
-                            "location": "East"
-                        },
-                        "links": [
-                            {
-                                "direction": "South"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Cuatro Vientos"
-                        },
-                        "links": [
-                            {
-                                "direction": "South",
-                                "length": 2
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Joaquín Vilumbrales",
-                            "location": "East"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthWest"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Puerta del Sur",
-                            "location": "East"
-                        },
-                        "line_name_plate": false,
-                        "transfers": [
-                            {
-                                "line": "10",
-                                "type": "Underground",
-                                "stations": [
-                                    "Puerta del Sur"
-                                ]
-                            }
                         ]
                     }
                 ]
@@ -972,7 +1372,6 @@
                         "transfers": [
                             {
                                 "line": "B",
-                                "type": "Underground",
                                 "stations": [
                                     "Termini"
                                 ]

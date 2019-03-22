@@ -126,11 +126,15 @@ export class Line {
                 }
               }
 
+              const transfer = new StationTransfer(line, station, transfer_stations);
+
+              // PUSH TO LINE TRANSFERS
               if (transfer_stations.length > 0) {
-                this.transfers.push(
-                  new StationTransfer(line, station, transfer_stations)
-                );
+                this.transfers.push(transfer);
               }
+
+              // PUSH TO STATION TRANSFERS
+              station.transfers.push(transfer);
 
               break;
             }
@@ -245,7 +249,7 @@ export class Line {
         }
       }
 
-      if (this.terminations.includes(station)) {
+      if (this.terminations.includes(station) && station.line_name_plate === true) {
         const line_text_position = this.get_line_text_position(station);
         const line_text_bbox_coordinates = this.get_line_text_bbox_coordiantes(
           line_text_position

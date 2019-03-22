@@ -318,6 +318,11 @@ export class City {
           this.active_route_group.push(connector);
         }
       }
+
+      const transfers = current_item.get_transfers_to(next_item);
+      if (transfers.length > 0) {
+        this.active_route_group.push(...transfers);
+      }
     }
 
     // Reverse Station Marks/Lines

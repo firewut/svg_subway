@@ -16,6 +16,7 @@ export class StationTransfer {
   type: StationTransferType = StationTransferType.Underground;
   source: Station;
   destinations: Station[];
+  under_construction = false;
 
   elements: Element[] = [];
   svg_elements_dict = {};
@@ -24,13 +25,37 @@ export class StationTransfer {
     line: Line,
     source: Station,
     destinations: Station[],
-    type?: StationTransferType
+    type?: StationTransferType,
+    under_construction?: boolean,
   ) {
     this.id = makeid();
     this.line = line;
     this.source = source;
     this.destinations = destinations;
     this.type = type || StationTransferType.Underground;
+    this.under_construction = under_construction || false;
+  }
+
+  unhighlight() {
+    for (const key in this.svg_elements_dict) {
+      if (this.svg_elements_dict.hasOwnProperty(key)) {
+        const element = this.svg_elements_dict[key];
+
+        element.addTo(
+          element.remember('element').group
+        );
+      }
+    }
+  }
+
+  highlight() {
+    for (const key in this.svg_elements_dict) {
+      if (this.svg_elements_dict.hasOwnProperty(key)) {
+        const element = this.svg_elements_dict[key];
+
+        element.addTo(this.line.city.highlight_group);
+      }
+    }
   }
 
   generate_element_params(theme: Theme): ElementParams[] {

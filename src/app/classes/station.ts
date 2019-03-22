@@ -40,6 +40,10 @@ export class Station {
   raw_transfers?: any;
   transfers?: StationTransfer[];
 
+  // If the Station is a Termination
+  // sometimes it's necessary to Omit Line Name
+  line_name_plate = true;
+
   // start, middle, end
   text_anchor = 'middle';
 
@@ -58,6 +62,10 @@ export class Station {
     this.id = makeid();
     this.line = line;
     this.links = json.links || [];
+
+    if ('line_name_plate' in json) {
+      this.line_name_plate = json.line_name_plate;
+    }
 
     // Position is a Relative GRID coordinate
     this.position = new Point2D(
@@ -268,6 +276,23 @@ export class Station {
     }
 
     return position;
+  }
+
+  get_transfers_to(station: Station) {
+    const transfers: StationTransfer[] = [];
+
+    if (this.has_transfers) {
+      for (const transfer of this.transfers) {
+        if (
+          transfer.destinations.includes(station) ||
+          transfer.source === station
+        ) {
+          transfers.push(transfer);
+        }
+      }
+    }
+
+    return transfers;
   }
 
   add_transfer(transfer: StationTransfer) {

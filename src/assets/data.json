@@ -1446,6 +1446,7 @@
                             "value": "Colosseo",
                             "location": "East"
                         },
+                        "line_name_plate": false,
                         "transfers": [
                             {
                                 "line": "B",

@@ -312,7 +312,7 @@ export class Station {
         if (this.links.length === 0) {
           const link = new StationLink();
           link.direction = first_parent.links[0].direction;
-          link.length = 1;
+          link.length = first_parent.links[0].length || 1;
           this.links = [link];
         }
         this.position = this.get_position_by_parents();

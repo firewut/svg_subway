@@ -10,12 +10,18 @@ export enum StationTransferType {
   Groud = 'Ground',
 }
 
+export enum StationTransferDirection {
+  Bidirectional = 'Bidirectional',
+  Unidirectional = 'Unidirectional',
+}
+
 export class StationTransfer {
   id: string;
   line: Line;
   type: StationTransferType = StationTransferType.Underground;
   source: Station;
   destinations: Station[];
+  direction: StationTransferDirection = StationTransferDirection.Bidirectional;
   under_construction = false;
 
   elements: Element[] = [];
@@ -27,13 +33,66 @@ export class StationTransfer {
     destinations: Station[],
     type?: StationTransferType,
     under_construction?: boolean,
+    direction?: StationTransferDirection,
   ) {
     this.id = makeid();
     this.line = line;
     this.source = source;
     this.destinations = destinations;
-    this.type = type || StationTransferType.Underground;
     this.under_construction = under_construction || false;
+
+    if (type) {
+      this.type = type;
+    }
+    if (direction) {
+      this.direction = direction;
+    }
+  }
+
+  get_reversed(): StationTransfer[] {
+    const reversed_transfers: StationTransfer[] = [];
+
+    if (this.direction === StationTransferDirection.Unidirectional) {
+      return reversed_transfers;
+    }
+
+    for (const destination of this.destinations) {
+      const reverse_transfer = this.get_reversed_for(
+        destination
+      );
+      reversed_transfers.push(reverse_transfer);
+    }
+
+    return reversed_transfers;
+  }
+
+  get_reversed_for(destination: Station): StationTransfer {
+    let reversed_transfer: StationTransfer;
+
+    if (this.direction === StationTransferDirection.Unidirectional) {
+      return reversed_transfer;
+    }
+
+    const _destinations = Object.assign([], this.destinations);
+    const index = _destinations.indexOf(destination, 0);
+    if (index > -1) {
+      _destinations.splice(index, 1);
+    }
+    const reverse_transfer_stations = [
+      ..._destinations,
+      this.source,
+    ];
+    reversed_transfer = new StationTransfer(
+      this.source.line,
+      destination,
+      reverse_transfer_stations,
+    );
+
+    return reversed_transfer;
+  }
+
+  set_direction(direction: StationTransferDirection) {
+    this.direction = direction;
   }
 
   unhighlight() {

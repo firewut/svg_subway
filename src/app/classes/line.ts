@@ -1,7 +1,7 @@
 import { Station } from './station';
 import { Direction, VectorDirection } from './direction';
 import { City } from './city';
-import { StationTransfer } from './transfer';
+import { StationTransfer, StationTransferDirection } from './transfer';
 import { ElementParams, ElementType, Point2D, LineElement } from './element';
 import { Theme } from '../../themes/theme';
 import { settings } from '../../themes/default';
@@ -126,21 +126,43 @@ export class Line {
                 }
               }
 
-              const transfer = new StationTransfer(line, station, transfer_stations);
-
-              // PUSH TO LINE TRANSFERS
-              if (transfer_stations.length > 0) {
-                this.transfers.push(transfer);
+              const transfer = new StationTransfer(
+                line,
+                station,
+                transfer_stations,
+              );
+              if (_transfer.hasOwnProperty('direction')) {
+                transfer.set_direction(_transfer.direction);
               }
 
-              // PUSH TO STATION TRANSFERS
-              station.transfers.push(transfer);
+              // PUSH TO LINE TRANSFERS
+              this.add_transfer(transfer);
 
-              break;
+              // PUSH TO STATION TRANSFERS
+              station.add_transfer(transfer);
+
+              // Add Reverse Transfers
+              for (const destination of transfer.destinations) {
+                const reverse_transfer = transfer.get_reversed_for(
+                  destination
+                );
+
+                this.add_transfer(reverse_transfer);
+                destination.add_transfer(reverse_transfer);
+              }
             }
           }
         }
       }
+    }
+  }
+
+  add_transfer(transfer: StationTransfer) {
+    if (!this.transfers) {
+      this.transfers = [];
+    }
+    if (!this.transfers.includes(transfer)) {
+      this.transfers.push(transfer);
     }
   }
 
@@ -338,7 +360,7 @@ export class Line {
       max_length = this.name.length;
     }
 
-    const magic_lines_multiplier = 1.3;
+    const magic_lines_multiplier = Math.SQRT2;
     const font_size = settings.line.name.font_size;
 
     const height = font_size * lines_count * magic_lines_multiplier;

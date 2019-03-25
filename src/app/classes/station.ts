@@ -194,6 +194,9 @@ export class Station {
         dy += text_margin;
         break;
       case Direction.NorthWest:
+        this.text_anchor = 'end';
+        dx -= text_margin * magic_lines_multiplier;
+        dy -= text_margin + (font_size * lines_count) * magic_lines_multiplier;
         break;
       case Direction.SouthEast:
         break;
@@ -226,15 +229,15 @@ export class Station {
 
     switch (direction) {
       case Direction.NorthWest:
-        position.x -= distance / 2;
-        position.y -= distance / 2;
+        position.x -= distance;
+        position.y -= distance;
         break;
       case Direction.North:
         position.y -= distance;
         break;
       case Direction.NorthEast:
-        position.x += distance / 2;
-        position.y -= distance / 2;
+        position.x += distance;
+        position.y -= distance;
         break;
       case Direction.West:
         position.x -= distance;
@@ -243,15 +246,15 @@ export class Station {
         position.x += distance;
         break;
       case Direction.SouthWest:
-        position.x -= distance / 2;
-        position.y += distance / 2;
+        position.x -= distance;
+        position.y += distance;
         break;
       case Direction.South:
         position.y += distance;
         break;
       case Direction.SouthEast:
-        position.x += distance / 2;
-        position.y += distance / 2;
+        position.x += distance;
+        position.y += distance;
         break;
     }
 
@@ -296,7 +299,12 @@ export class Station {
   }
 
   add_transfer(transfer: StationTransfer) {
-    this.transfers.push(transfer);
+    if (!this.transfers) {
+      this.transfers = [];
+    }
+    if (!this.transfers.includes(transfer)) {
+      this.transfers.push(transfer);
+    }
   }
 
   add_children(station?: Station) {
@@ -312,7 +320,7 @@ export class Station {
         if (this.links.length === 0) {
           const link = new StationLink();
           link.direction = first_parent.links[0].direction;
-          link.length = 1;
+          link.length = first_parent.links[0].length || 1;
           this.links = [link];
         }
         this.position = this.get_position_by_parents();

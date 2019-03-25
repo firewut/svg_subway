@@ -5,6 +5,7 @@ import { Theme } from '../../themes/theme';
 import { Station } from './station';
 import { settings } from '../../themes/default';
 import { Dijkstra } from './dijkstra';
+import { StationTransferDirection } from './transfer';
 
 
 export class SubwayRouter {
@@ -20,6 +21,7 @@ export class SubwayRouter {
     this.graph = new Dijkstra();
     this.city = city;
 
+    // Each Station of a Line
     for (const line of city.lines) {
       for (const station of line.stations_list) {
         if (!station.under_construction) {
@@ -29,20 +31,17 @@ export class SubwayRouter {
       }
     }
 
+    // Each Transfer of a Line
     for (const line of city.lines) {
       for (const transfer of line.transfers) {
         for (const destination of transfer.destinations) {
           if (destination.under_construction) {
             continue;
           }
+
           this.graph.addToVertex(
             transfer.source.id, {
               [destination.id]: 1
-            }
-          );
-          this.graph.addToVertex(
-            destination.id, {
-              [transfer.source.id]: 1
             }
           );
         }
@@ -156,6 +155,7 @@ export class City {
   canvas: svgjs.Container;
   overlay: svgjs.Container;
 
+  debug_group: svgjs.G;
   lines_group: svgjs.G;
   stations_group: svgjs.G;
   transfers_group: svgjs.G;
@@ -169,6 +169,7 @@ export class City {
     this.size = json.size;
 
     this.canvas = canvas;
+    this.debug_group = canvas.group();
     this.lines_group = canvas.group();
     this.transfers_group = canvas.group();
     this.stations_group = canvas.group();
@@ -176,6 +177,7 @@ export class City {
     this.overlay_group = canvas.group();
     this.highlight_group = canvas.group();
 
+    this.canvas.add(this.debug_group);
     this.canvas.add(this.lines_group);
     this.canvas.add(this.transfers_group);
     this.canvas.add(this.stations_group);
@@ -184,7 +186,8 @@ export class City {
     this.canvas.add(this.highlight_group);
 
     // Arrange
-    this.lines_group.back();
+    this.debug_group.back();
+    this.lines_group.before(this.debug_group);
     this.stations_group.before(this.lines_group);
     this.transfers_group.before(this.lines_group);
     this.overlay_group.before(this.markers_group);
@@ -382,9 +385,8 @@ export class City {
                   'html_class': 'Rect',
                   'opacity': 0.05
                 },
-                'group': this.overlay_group,
+                'group': this.debug_group,
                 'draw_callback': (el: svgjs.Container) => {
-                  el.back();
                   this.svg_elements_dict['debug_rect'] = el;
                 },
                 'classes': [

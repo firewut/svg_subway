@@ -20,13 +20,13 @@ export const settings = {
   line: {
     width: 5,
     name: {
-      font_size: 15,
+      font_size: 20,
       font_weight: '2em',
-      grid_distance: 30,
+      grid_distance: 40,
     }
   },
   station: {
-    font_size: 9,
+    font_size: 15,
     font_weight: '1.5em',
     grid_distance: 40,
     marker: {

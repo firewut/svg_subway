@@ -102,9 +102,9 @@ export class Scene {
   }
 
   cleanup() {
-    for (const element of this.elements) {
-      element.svg_element.remove();
-    }
+    this.canvas.children().forEach((el: SVG.Container) => {
+      el.clear();
+    });
     this.elements = [];
   }
 

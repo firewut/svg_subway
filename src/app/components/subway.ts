@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 
 import { City } from '../classes/city';
 import { Scene } from '../classes/scene';
@@ -7,13 +7,16 @@ import { Theme } from '../../themes/theme';
 // Replace by API Call
 import data from '../../assets/data.json';
 import { settings } from '../../themes/default';
+import { Subscription } from 'rxjs';
+import { ResizeService } from '../services/resize_service';
 
 @Component({
   selector: 'app-subway',
   templateUrl: './subway.html',
-  styleUrls: ['./subway.css']
+  styleUrls: ['./subway.css'],
 })
-export class SubwayComponent implements OnInit, AfterViewInit {
+export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
+  private resizeSubscription: Subscription;
   scene: Scene;
 
   theme: Theme;
@@ -21,6 +24,12 @@ export class SubwayComponent implements OnInit, AfterViewInit {
   cities: City[] = [];
 
   background_color: string;
+
+  constructor(
+    private resizeService: ResizeService,
+  ) {
+
+  }
 
   ngOnInit() {
     this.theme = settings.themes[0];
@@ -33,6 +42,17 @@ export class SubwayComponent implements OnInit, AfterViewInit {
       );
     }
     this.selectedCity = this.cities[0].name;
+
+    this.resizeSubscription = this.resizeService.onResize$
+      .subscribe(event => {
+        console.log(event);
+      });
+  }
+
+  ngOnDestroy() {
+    if (this.resizeSubscription) {
+      this.resizeSubscription.unsubscribe();
+    }
   }
 
   ngAfterViewInit() {

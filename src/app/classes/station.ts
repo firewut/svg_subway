@@ -407,6 +407,7 @@ export class Station {
       'classes': [
         'Station',
         'Name',
+        'Location Marker',
         this.id,
       ]
     };

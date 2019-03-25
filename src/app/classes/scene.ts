@@ -30,6 +30,9 @@ export class Scene {
     this.container_id = container_id;
     this.theme = theme;
     this.canvas = SVG(this.container_id);
+    // this.canvas.on('wheel', function(el) {
+    //   console.log(el);
+    // });
 
     if (callback) {
       this.prepare(callback);
@@ -99,9 +102,9 @@ export class Scene {
   }
 
   cleanup() {
-    for (const element of this.elements) {
-      element.svg_element.remove();
-    }
+    this.canvas.children().forEach((el: SVG.Container) => {
+      el.clear();
+    });
     this.elements = [];
   }
 

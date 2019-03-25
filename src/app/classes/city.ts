@@ -348,7 +348,6 @@ export class City {
     this.active_route_group = [];
   }
 
-
   show_overlay() {
     if (!this.overlay.visible()) {
       this.overlay.show();

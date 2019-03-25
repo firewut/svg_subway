@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { SubwayComponent } from './components/subway';
+import { ResizeService } from './services/resize_service';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,9 @@ import { SubwayComponent } from './components/subway';
     BrowserModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    ResizeService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

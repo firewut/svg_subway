@@ -113,7 +113,7 @@ export class LocationMarker {
 
     circle.center(this.position.x, this.position.y);
     text.center(this.position.x, this.position.y);
-    v.center(this.position.x, this.position.y + radius_part * 1.8);
+    v.center(this.position.x, this.position.y + radius_part * 1.7);
 
     for (const _class of this.classes) {
       svg_element.addClass(_class);

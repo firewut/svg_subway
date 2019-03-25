@@ -14,8 +14,8 @@ export const settings = {
     from_marker: 'A',
     to_marker: 'B',
     opacity: .5,
-    radius: 15,
-    text_size: 10,
+    radius: 20,
+    text_size: 15,
   },
   line: {
     width: 5,

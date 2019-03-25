@@ -14,7 +14,6 @@ export const dark = {
       opacity: 0.75,
     },
     location_marker: {
-      color: '#FF2400',
       text_color: '#FFF',
     },
     station: {

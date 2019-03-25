@@ -1,11 +1,11 @@
-import { Line } from './line';
+import { Line, StationConnector } from './line';
 import { ElementParams, ElementType } from './element';
 import { environment } from '../../environments/environment';
 import { Theme } from '../../themes/theme';
 import { Station } from './station';
 import { settings } from '../../themes/default';
 import { Dijkstra } from './dijkstra';
-import { StationTransferDirection } from './transfer';
+import { StationTransferDirection, StationTransfer } from './transfer';
 
 
 export class SubwayRouter {
@@ -292,14 +292,16 @@ export class City {
     this.unhighlight_route();
 
     const _path = Object.assign([], path);
+    const connectors: StationConnector[] = [];
     const stations: Station[] = [];
+    const transfers: StationTransfer[] = [];
 
     // Add Stations
     for (const station_id of _path) {
       for (const line of this.lines) {
         const station = line.get_station_by_id(station_id);
         if (station !== undefined) {
-          this.active_route_group.push(station);
+          // this.active_route_group.push(station);
           stations.push(station);
           break;
         }
@@ -311,25 +313,27 @@ export class City {
       const current_item = stations[i];
       const next_item = stations[i + 1];
 
-      // Parents/Child
+      // Line Connectors
       if (
         current_item.children.includes(next_item) ||
         current_item.parents.includes(next_item)
       ) {
         const connector = current_item.line.get_connector(current_item, next_item);
         if (connector) {
-          this.active_route_group.push(connector);
+          connectors.push(connector);
         }
       }
 
-      const transfers = current_item.get_transfers_to(next_item);
-      if (transfers.length > 0) {
-        this.active_route_group.push(...transfers);
+      // Transfers
+      const _transfers = current_item.get_transfers_to(next_item);
+      if (_transfers) {
+        transfers.push(..._transfers);
       }
     }
 
-    // Reverse Station Marks/Lines
-    this.active_route_group.reverse();
+    this.active_route_group.push(...connectors);
+    this.active_route_group.push(...transfers);
+    this.active_route_group.push(...stations);
 
     for (const item of this.active_route_group) {
       item.highlight();

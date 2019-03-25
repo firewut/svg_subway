@@ -82,14 +82,21 @@ export class LocationMarker {
   draw(canvas: svgjs.Container) {
     const svg_element: SVG.Container = canvas.group();
 
+
     const circle: SVG.Circle = svg_element.circle(
       settings.location_marker.radius
     );
     const text: SVG.Text = svg_element.text(
       this.text
     );
+    const radius_part = settings.location_marker.radius / 3;
+    const v: SVG.PolyLine = svg_element.polyline(
+      `${radius_part},${radius_part * 2} ${radius_part * 1.5},${radius_part * 3} 
+      ${radius_part * 2},${radius_part * 2}`
+    );
+
     circle.attr({
-      fill: this.attr['marker-fill']
+      fill: this.attr['marker-fill'],
     });
     text.font({
       family: 'Inconsolata',
@@ -97,12 +104,16 @@ export class LocationMarker {
     }).attr({
       fill: this.attr['text-fill'],
     });
+    v.attr({
+      fill: this.attr['marker-fill'],
+    });
 
     svg_element.remember('element', this);
     svg_element.remember('param', this.param);
 
     circle.center(this.position.x, this.position.y);
     text.center(this.position.x, this.position.y);
+    v.center(this.position.x, this.position.y + radius_part * 1.8);
 
     for (const _class of this.classes) {
       svg_element.addClass(_class);

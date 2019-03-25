@@ -378,17 +378,21 @@ export class Station {
   }
 
   get_location_marker(el: svgjs.Container, caption: string): ElementParams {
+    const marker_color = this.line.color;
+
+    const marker_position = new Point2D(
+      this.position.x,
+      this.position.y - settings.location_marker.radius
+    );
+
     return {
       'type': ElementType.LocationMarker,
       'properties': {
         'text': caption,
-        'position': {
-          'x': this.position.x,
-          'y': this.position.y,
-        }
+        'position': marker_position
       },
       'attr': {
-        'marker-fill': this.theme.settings.location_marker.color,
+        'marker-fill': marker_color,
         'text-fill': this.theme.settings.location_marker.text_color,
       },
       'group': this.line.city.markers_group,

@@ -1918,6 +1918,88 @@
                 ]
             },
             {
+                "name": "11",
+                "color": "#149351",
+                "stations": [
+                    {
+                        "name": {
+                            "value": "Plaza Elíptica",
+                            "location": "North"
+                        },
+                        "x": 45,
+                        "y": 83,
+                        "transfers": [
+                            {
+                                "line": "6",
+                                "stations": [
+                                    "Plaza Elíptica"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "SouthWest",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Abrantes"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Pan Bendito"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthWest",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "San Francisco",
+                            "location": "North"
+                        },
+                        "links": [
+                            {
+                                "direction": "West"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Carabanchel Alto",
+                            "location": "South"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "La Peseta"
+                        },
+                        "links": [
+                            {
+                                "direction": "NorthWest",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "La Fortuna"
+                        }
+                    }
+                ]
+            },
+            {
                 "name": "12",
                 "color": "#93922D",
                 "stations": [

@@ -89,7 +89,7 @@
                     },
                     {
                         "name": {
-                            "value": "Pinar de\n Chamartin",
+                            "value": "Pinar de\n Chamartín",
                             "location": "South"
                         },
                         "line_name_plate": false,
@@ -97,13 +97,13 @@
                             {
                                 "line": "1",
                                 "stations": [
-                                    "Pinar de\n Chamartin"
+                                    "Pinar de\n Chamartín"
                                 ]
                             },
                             {
                                 "line": "4",
                                 "stations": [
-                                    "Pinar de\n Chamartin"
+                                    "Pinar de\n Chamartín"
                                 ]
                             }
                         ]
@@ -389,7 +389,7 @@
                 "stations": [
                     {
                         "name": {
-                            "value": "Pinar de\n Chamartin",
+                            "value": "Pinar de\n Chamartín",
                             "location": "South"
                         },
                         "x": 66,
@@ -399,13 +399,13 @@
                             {
                                 "line": "ML 1",
                                 "stations": [
-                                    "Pinar de\n Chamartin"
+                                    "Pinar de\n Chamartín"
                                 ]
                             },
                             {
                                 "line": "4",
                                 "stations": [
-                                    "Pinar de\n Chamartin"
+                                    "Pinar de\n Chamartín"
                                 ]
                             }
                         ],
@@ -747,13 +747,15 @@
                         ],
                         "links": [
                             {
-                                "direction": "SouthEast"
+                                "direction": "SouthEast",
+                                "length": 2
                             }
                         ]
                     },
                     {
                         "name": {
-                            "value": "Argüelles"
+                            "value": "Argüelles",
+                            "location": "NorthEast"
                         },
                         "transfers": [
                             {
@@ -772,7 +774,7 @@
                         "links": [
                             {
                                 "direction": "SouthEast",
-                                "length": 2
+                                "length": 1
                             }
                         ]
                     },
@@ -946,6 +948,282 @@
                 ]
             },
             {
+                "name": "4",
+                "color": "#8A583A",
+                "stations": [
+                    {
+                        "name": {
+                            "value": "Pinar de\n Chamartín",
+                            "location": "South"
+                        },
+                        "x": 66,
+                        "y": 29,
+                        "line_name_plate": false,
+                        "links": [
+                            {
+                                "direction": "East",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Manoteras",
+                            "location": "North"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Hortaleza",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Parque de Santa María",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "South"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "San Lorenzo",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "South",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Mar de\n Cristal",
+                            "location": "North"
+                        },
+                        "transfers": [
+                            {
+                                "line": "8",
+                                "stations": [
+                                    "Mar de\n Cristal"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "South"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Canillas",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Esperanza",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Arturo Soria",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Av. de la Paz",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Alfonso XIII",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Prosperidad",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthWest",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Av. de América",
+                            "location": "South"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthEast",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Diego de León",
+                            "location": "North"
+                        },
+                        "links": [
+                            {
+                                "direction": "South"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Lista",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Goya",
+                            "location": "East"
+                        },
+                        "transfers": [
+                            {
+                                "line": "2",
+                                "stations": [
+                                    "Goya"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "West"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Velázquez",
+                            "location": "South"
+                        },
+                        "links": [
+                            {
+                                "direction": "West",
+                                "length": 3
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Serrano",
+                            "location": "North"
+                        },
+                        "links": [
+                            {
+                                "direction": "West"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Colón",
+                            "location": "South"
+                        },
+                        "links": [
+                            {
+                                "direction": "West",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Alonso Martínez",
+                            "location": "South"
+                        },
+                        "transfers": [
+                            {
+                                "line": "10",
+                                "stations": [
+                                    "Alonso Martínez"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "NorthWest",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Bilbao",
+                            "location": "East"
+                        },
+                        "transfers": [
+                            {
+                                "line": "1",
+                                "stations": [
+                                    "Bilbao"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "West",
+                                "length": 3
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "San Bernardo",
+                            "location": "SouthEast"
+                        },
+                        "links": [
+                            {
+                                "direction": "West",
+                                "length": 3
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Argüelles",
+                            "location": "NorthEast"
+                        },
+                        "transfers": [
+                            {
+                                "line": "3",
+                                "stations": [
+                                    "Argüelles"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
                 "name": "6",
                 "color": "#70797A",
                 "stations": []
@@ -1115,7 +1393,7 @@
                         "links": [
                             {
                                 "direction": "East",
-                                "length": 2
+                                "length": 3
                             }
                         ]
                     },
@@ -1138,7 +1416,8 @@
                         },
                         "links": [
                             {
-                                "direction": "SouthEast"
+                                "direction": "SouthEast",
+                                "length": 2
                             }
                         ]
                     },
@@ -1146,7 +1425,21 @@
                         "name": {
                             "value": "Pueblo Nuevo",
                             "location": "East"
-                        }
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthEast",
+                                "length": 1
+                            }
+                        ],
+                        "transfers": [
+                            {
+                                "line": "5",
+                                "stations": [
+                                    "Pueblo Nuevo"
+                                ]
+                            }
+                        ]
                     },
                     {
                         "name": {
@@ -1381,6 +1674,12 @@
                                 "stations": [
                                     "Av. de América"
                                 ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "South",
+                                "length": 2
                             }
                         ]
                     },

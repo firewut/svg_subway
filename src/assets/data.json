@@ -3,7 +3,7 @@
         "name": "Madrid",
         "size": [
             108,
-            115
+            120
         ],
         "lines": [
             {
@@ -118,8 +118,8 @@
                         "name": {
                             "value": "Estación de Aravaca"
                         },
-                        "x": 22,
-                        "y": 47,
+                        "x": 18,
+                        "y": 51,
                         "links": [
                             {
                                 "direction": "South"
@@ -241,8 +241,8 @@
                             "value": "Puerta de\nBoadilla",
                             "location": "East"
                         },
-                        "x": 6,
-                        "y": 57,
+                        "x": 2,
+                        "y": 61,
                         "links": [
                             {
                                 "direction": "South"
@@ -588,7 +588,8 @@
                     },
                     {
                         "name": {
-                            "value": "Sol"
+                            "value": "Sol",
+                            "location": "East"
                         },
                         "links": [
                             {
@@ -725,6 +726,229 @@
                         }
                     }
                 ]
+            },
+            {
+                "name": "3",
+                "color": "#F1C752",
+                "stations": [
+                    {
+                        "name": {
+                            "value": "Moncloa"
+                        },
+                        "x": 34,
+                        "y": 53,
+                        "transfers": [
+                            {
+                                "line": "3",
+                                "stations": [
+                                    "Moncloa"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Argüelles"
+                        },
+                        "transfers": [
+                            {
+                                "line": "4",
+                                "stations": [
+                                    "Argüelles"
+                                ]
+                            },
+                            {
+                                "line": "2",
+                                "stations": [
+                                    "Noviciado"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "SouthEast",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Ventura Rodríguez",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthEast",
+                                "length": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Plaza de España"
+                        },
+                        "transfers": [
+                            {
+                                "line": "10",
+                                "stations": [
+                                    "Plaza de España"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Callao",
+                            "location": "South"
+                        },
+                        "links": [
+                            {
+                                "direction": "East",
+                                "length": 3
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Sol",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "South",
+                                "length": 3
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Lavapiés",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "South"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Embajadores",
+                            "location": "East"
+                        },
+                        "transfers": [
+                            {
+                                "line": "5",
+                                "stations": [
+                                    "Embajadores"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "SouthEast",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Palos de la Frontera",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "South"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Delicias",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "South",
+                                "length": 3
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Legazpi",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthWest",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Almendrales",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "South"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Hospital 12 de Octubre",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "San Fermín-Orcasur",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Ciudad de los Ángeles",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Villaverde Bajo-Cruce",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "San Cristóbal",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Villaverde Alto",
+                            "location": "East"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "6",
+                "color": "#70797A",
+                "stations": []
             },
             {
                 "name": "7",
@@ -1573,8 +1797,7 @@
                     },
                     {
                         "name": {
-                            "value": "Príncipe Pío",
-                            "location": "East"
+                            "value": "Príncipe Pío"
                         },
                         "links": [
                             {
@@ -1585,8 +1808,7 @@
                     },
                     {
                         "name": {
-                            "value": "Lago",
-                            "location": "East"
+                            "value": "Lago"
                         },
                         "links": [
                             {
@@ -1596,9 +1818,14 @@
                     },
                     {
                         "name": {
-                            "value": "Batán",
-                            "location": "East"
-                        }
+                            "value": "Batán"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthWest",
+                                "length": 2
+                            }
+                        ]
                     },
                     {
                         "name": {
@@ -1700,8 +1927,8 @@
                             "location": "South"
                         },
                         "line_name_plate": false,
-                        "x": 18,
-                        "y": 93,
+                        "x": 14,
+                        "y": 97,
                         "transfers": [
                             {
                                 "line": "10",

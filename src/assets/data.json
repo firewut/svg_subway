@@ -805,7 +805,7 @@
                         "links": [
                             {
                                 "direction": "SouthEast",
-                                "length": 2
+                                "length": 3
                             }
                         ]
                     },
@@ -817,7 +817,7 @@
                         "links": [
                             {
                                 "direction": "SouthEast",
-                                "length": 2
+                                "length": 1
                             }
                         ]
                     },
@@ -829,7 +829,7 @@
                         "links": [
                             {
                                 "direction": "South",
-                                "length": 3
+                                "length": 2
                             }
                         ]
                     },
@@ -1242,7 +1242,7 @@
                         "links": [
                             {
                                 "direction": "SouthEast",
-                                "length": 2
+                                "length": 3
                             }
                         ],
                         "transfers": [
@@ -1392,7 +1392,7 @@
                         "links": [
                             {
                                 "direction": "NorthEast",
-                                "length": 1
+                                "length": 2
                             }
                         ]
                     },
@@ -1421,8 +1421,8 @@
                         ],
                         "links": [
                             {
-                                "direction": "North",
-                                "length": 2
+                                "direction": "NorthWest",
+                                "length": 1
                             }
                         ]
                     },
@@ -1432,30 +1432,24 @@
                         },
                         "links": [
                             {
-                                "direction": "North",
-                                "length": 2
+                                "direction": "North"
                             }
                         ]
                     },
                     {
                         "name": {
                             "value": "La Latina"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthWest"
-                            }
-                        ]
+                        }
                     },
                     {
                         "name": {
-                            "value": "Ópera"
+                            "value": "Ópera"
                         },
                         "transfers": [
                             {
                                 "line": "R",
                                 "stations": [
-                                    "Ópera"
+                                    "Ópera"
                                 ]
                             }
                         ],
@@ -1486,77 +1480,161 @@
                     },
                     {
                         "name": {
-                            "value": "Chueca"
+                            "value": "Chueca",
+                            "location": "East"
                         }
                     },
                     {
                         "name": {
-                            "value": "Alonso Martínez"
+                            "value": "Alonso Martínez",
+                            "location": "South"
+                        },
+                        "transfers": [
+                            {
+                                "line": "4",
+                                "stations": [
+                                    "Alonso Martínez"
+                                ]
+                            },
+                            {
+                                "line": "10",
+                                "stations": [
+                                    "Alonso Martínez"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Rubén Darío",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "NorthEast",
+                                "length": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "East",
+                                "length": 3
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Núñez de Balboa",
+                            "location": "South"
+                        },
+                        "links": [
+                            {
+                                "direction": "East",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Diego de León",
+                            "location": "North"
+                        },
+                        "transfers": [
+                            {
+                                "line": "4",
+                                "stations": [
+                                    "Diego de León"
+                                ]
+                            },
+                            {
+                                "line": "6",
+                                "stations": [
+                                    "Diego de León"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "East",
+                                "length": 3
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Ventas",
+                            "location": "North"
+                        },
+                        "links": [
+                            {
+                                "direction": "East",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "El Carmen",
+                            "location": "North"
                         }
                     },
                     {
                         "name": {
-                            "value": "Rubén Darío"
+                            "value": "Quintana",
+                            "location": "South"
                         }
                     },
                     {
                         "name": {
-                            "value": "Núñez de Balboa"
+                            "value": "Pueblo Nuevo",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "NorthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Ciudad Lineal",
+                            "location": "East"
                         }
                     },
                     {
                         "name": {
-                            "value": "Diego de León"
+                            "value": "Suanzes",
+                            "location": "East"
                         }
                     },
                     {
                         "name": {
-                            "value": "Ventas"
+                            "value": "Torre Arias",
+                            "location": "East"
                         }
                     },
                     {
                         "name": {
-                            "value": "El Carmen"
+                            "value": "Canillejas",
+                            "location": "East"
                         }
                     },
                     {
                         "name": {
-                            "value": "Quintana"
+                            "value": "El Capricho",
+                            "location": "East"
                         }
                     },
                     {
                         "name": {
-                            "value": "Pueblo Nuevo"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Ciudad Lineal"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Suanzes"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Torre Arias"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Canillejas"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "El Capricho"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Alameda de Osun"
+                            "value": "Alameda de Osun",
+                            "location": "East"
                         }
                     }
                 ]
@@ -2023,7 +2101,8 @@
                     },
                     {
                         "name": {
-                            "value": "Núñez de Balboa"
+                            "value": "Núñez de Balboa",
+                            "location": "South"
                         },
                         "transfers": [
                             {
@@ -2440,6 +2519,14 @@
                             {
                                 "direction": "SouthWest",
                                 "length": 2
+                            }
+                        ],
+                        "transfers": [
+                            {
+                                "line": "R",
+                                "stations": [
+                                    "Príncipe Pío"
+                                ]
                             }
                         ]
                     },

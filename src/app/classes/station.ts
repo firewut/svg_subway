@@ -6,21 +6,45 @@ import { settings } from '../../themes/default';
 import { shadeHexColor, makeid } from './helper';
 import { Direction, VectorDirection } from './direction';
 
-export class StationLink {
+export interface StationLinkInterface {
+  station?: string;
   direction: Direction;
   length: number;
-  station?: string;
+  under_construction: boolean;
+}
 
-  get_opposite_link(link: StationLink) {
-    const vector = new VectorDirection(link.direction);
+export class StationLink {
+  source_id: string;
+  destination_id: string;
+  direction: Direction;
+  length: number;
+  under_construction = false;
 
-    const opposite_link = {
-      direction: vector.get_opposite_direction(),
-      length: link.length,
-    };
-
-    return opposite_link;
+  constructor(source: Station, destination: Station) {
+    this.source_id = source.id;
+    if (destination) {
+      this.destination_id = destination.id;
+    }
+    this.length = 1;
+    this.direction = Direction.North;
   }
+
+
+  // get_opposite_link(): StationLink {
+  //   const vector = new VectorDirection(this.direction);
+
+  //   const opposite_link: StationLink = Object.assign(
+  //     {},
+  //     this
+  //   );
+
+  //   opposite_link.destination_id = this.source_id;
+  //   opposite_link.source_id = this.destination_id;
+  //   opposite_link.direction = vector.get_opposite_direction();
+  //   opposite_link.length = this.length;
+
+  //   return opposite_link;
+  // }
 }
 
 export class Station {
@@ -28,7 +52,9 @@ export class Station {
   name: string;
   name_location: Direction = Direction.West;
   position?: Point2D;
-  links: StationLink[];
+
+  links: StationLink[] = [];
+  _links?: StationLinkInterface[] = [];
 
   line: Line;
   _parents?: string[] = [];
@@ -61,7 +87,7 @@ export class Station {
   constructor(line: Line, json: any) {
     this.id = makeid();
     this.line = line;
-    this.links = json.links || [];
+    this._links = json.links || [];
 
     if ('line_name_plate' in json) {
       this.line_name_plate = json.line_name_plate;
@@ -88,7 +114,7 @@ export class Station {
     this._parents = json.parents;
 
     if ('name' in json) {
-      this.name = json.name.value;
+      this.name = json.name.value.trim();
       if ('location' in json.name) {
         this.name_location = json.name.location;
       }
@@ -97,6 +123,44 @@ export class Station {
 
   hide_name() {
     this.is_name_hidden = true;
+  }
+
+  parse_links() {
+    if (this._links) {
+      for (const _link of this._links) {
+        let destination: Station;
+        if (_link.station) {
+          destination = this.line.get_station_by_name(
+            _link.station
+          );
+        } else {
+          if (this.children.length > 0) {
+            destination = this.children[0];
+          }
+        }
+        if (this.name === 'S. Giovanni') {
+          console.log(
+            this.name,
+            this.children,
+            destination,
+            _link.under_construction
+          );
+        }
+
+        const link = new StationLink(this, destination);
+        link.direction = _link.direction;
+        link.length = _link.length || 1;
+        link.under_construction = _link.under_construction || false;
+
+        this.add_link(link);
+      }
+    }
+  }
+
+  add_link(link?: StationLink) {
+    if (!this.links.includes(link)) {
+      this.links.push(link);
+    }
   }
 
   parse_parents() {
@@ -113,16 +177,17 @@ export class Station {
   }
 
   has_link_to(station: Station) {
-    let link: StationLink;
-
     for (const _link of this.links) {
-      if (_link.station === station.name) {
-        link = _link;
-        break;
+      if (_link.destination_id === station.id) {
+        return _link;
       }
     }
 
-    return link;
+    for (const _link of station.links) {
+      if (_link.destination_id === this.id) {
+        return _link;
+      }
+    }
   }
 
   get_next_link() {
@@ -314,16 +379,14 @@ export class Station {
   add_parent(station?: Station) {
     if (station) {
       this.parents.push(station);
+
       const first_parent = this.parents[0];
       if (first_parent.links) {
-        // Order MATTERS
-        if (this.links.length === 0) {
-          const link = new StationLink();
-          link.direction = first_parent.links[0].direction;
-          link.length = first_parent.links[0].length || 1;
-          this.links = [link];
-        }
-        this.position = this.get_position_by_parents();
+        const link = new StationLink(this, station);
+        link.direction = first_parent.links[0].direction;
+        link.length = first_parent.links[0].length || 1;
+
+        this.add_link(link);
       }
     }
   }
@@ -497,6 +560,14 @@ export class Station {
     }
 
     // Station Marker
+    let inner_color = this.line.color;
+    let outer_color = theme.settings.station.marker.inner_color;
+
+    if (this.under_construction) {
+      inner_color = shadeHexColor(inner_color, 0.5);
+      outer_color = shadeHexColor(outer_color, 0.5);
+    }
+
     const station_element_params: ElementParams[] = [
       {
         'type': ElementType.Circle,
@@ -509,7 +580,7 @@ export class Station {
         },
         'attr': {
           'fill': shadeHexColor(
-            this.line.color, 0.5
+            inner_color, 0.5
           )
         },
         'group': this.line.city.stations_group,
@@ -538,7 +609,7 @@ export class Station {
           }
         },
         'attr': {
-          'fill': theme.settings.station.marker.inner_color
+          'fill': outer_color
         },
         'group': this.line.city.stations_group,
         'draw_callback': (el: svgjs.Container) => {

@@ -66,8 +66,11 @@ export class Line {
     for (const station_json of json.stations) {
       const station = new Station(this, station_json);
       this.stations[station.id] = station;
-
       this.stations_list.push(station);
+    }
+
+    for (const station of this.stations_list) {
+      station.parse_links();
     }
 
     // Set Parents
@@ -76,7 +79,9 @@ export class Line {
       station.parse_parents();
 
       if (station.parents.length === 0) {
-        station.add_parent(prev_station);
+        if (prev_station) {
+          station.add_parent(prev_station);
+        }
       }
       prev_station = station;
     }
@@ -96,10 +101,6 @@ export class Line {
       i += 1;
     }
 
-    for (const station of this.stations_list) {
-      station.set_params();
-    }
-
     // Set Start and End Stations
     for (const station of this.stations_list) {
       if (
@@ -108,6 +109,11 @@ export class Line {
       ) {
         this.terminations.push(station);
       }
+    }
+
+
+    for (const station of this.stations_list) {
+      station.set_params();
     }
   }
 
@@ -227,13 +233,25 @@ export class Line {
     for (const station of this.stations_list) {
       if (station.children.length > 0) {
         for (const child of station.children) {
-          let connector_color: string;
+
+          let connector_color = this.color;
           let connector_opacity = 1;
-          if (station.under_construction || child.under_construction) {
+
+          const link = station.has_link_to(child);
+          if (!link) {
+            continue;
+          }
+          if (station.name === 'S. Giovanni') {
+            console.log(
+              station.name,
+              child.name,
+              link.under_construction
+            )
+          }
+
+          if (link && link.under_construction) {
             connector_color = theme.settings.link_under_construction.color;
             connector_opacity = theme.settings.link_under_construction.opacity;
-          } else {
-            connector_color = this.color;
           }
 
           const child_connector: ElementParams = {
@@ -387,7 +405,9 @@ export class Line {
     } else if (station.children.length === 0) {
       if (station.parents.length > 0) {
         const link = station.get_parent_link();
-        opposite_direction = link.direction;
+        if (link) {
+          opposite_direction = link.direction;
+        }
       }
     }
 

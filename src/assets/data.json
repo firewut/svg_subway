@@ -193,8 +193,7 @@
                     },
                     {
                         "name": {
-                            "value": "Colonia de los Ángeles",
-                            "location": "West"
+                            "value": "Colonia de los Ángeles"
                         }
                     },
                     {
@@ -574,7 +573,8 @@
                         },
                         "links": [
                             {
-                                "direction": "South"
+                                "direction": "South",
+                                "length": 4
                             }
                         ],
                         "transfers": [
@@ -801,6 +801,12 @@
                                     "Plaza de España"
                                 ]
                             }
+                        ],
+                        "links": [
+                            {
+                                "direction": "SouthEast",
+                                "length": 2
+                            }
                         ]
                     },
                     {
@@ -810,8 +816,8 @@
                         },
                         "links": [
                             {
-                                "direction": "East",
-                                "length": 3
+                                "direction": "SouthEast",
+                                "length": 2
                             }
                         ]
                     },
@@ -1220,6 +1226,338 @@
                                 ]
                             }
                         ]
+                    }
+                ]
+            },
+            {
+                "name": "R",
+                "color": "#2B2B2B",
+                "stations": [
+                    {
+                        "name": {
+                            "value": "Príncipe Pío"
+                        },
+                        "x": 40,
+                        "y": 63,
+                        "links": [
+                            {
+                                "direction": "SouthEast",
+                                "length": 2
+                            }
+                        ],
+                        "transfers": [
+                            {
+                                "line": "10",
+                                "stations": [
+                                    "Príncipe Pío"
+                                ]
+                            },
+                            {
+                                "line": "6",
+                                "stations": [
+                                    "Príncipe Pío"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Ópera"
+                        },
+                        "line_name_plate": false,
+                        "transfers": [
+                            {
+                                "line": "2",
+                                "stations": [
+                                    "Ópera"
+                                ]
+                            },
+                            {
+                                "line": "5",
+                                "stations": [
+                                    "Ópera"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "5",
+                "color": "#709947",
+                "stations": [
+                    {
+                        "name": {
+                            "value": "Casa de Campo",
+                            "location": "West"
+                        },
+                        "x": 30,
+                        "y": 73,
+                        "transfers": [
+                            {
+                                "line": "10",
+                                "stations": [
+                                    "Casa de Campo"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "South",
+                                "length": 4
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Campamento"
+                        },
+                        "links": [
+                            {
+                                "direction": "South"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Empalme"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Aluche"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Eugenia de\n Montijo"
+                        },
+                        "links": [
+                            {
+                                "direction": "East"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Carabanchel",
+                            "location": "North"
+                        },
+                        "links": [
+                            {
+                                "direction": "East"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Vista\n Alegre",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "NorthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Oporto"
+                        },
+                        "transfers": [
+                            {
+                                "line": "6",
+                                "stations": [
+                                    "Oporto"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Urgel",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Marqués\n de Vadillo",
+                            "location": "NorthWest"
+                        },
+                        "links": [
+                            {
+                                "direction": "NorthEast",
+                                "length": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Pirámides",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "NorthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Acacias"
+                        },
+                        "transfers": [
+                            {
+                                "line": "3",
+                                "stations": [
+                                    "Embajadores"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "North",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Puerta\n de Toledo"
+                        },
+                        "links": [
+                            {
+                                "direction": "North",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "La Latina"
+                        },
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Ópera"
+                        },
+                        "transfers": [
+                            {
+                                "line": "R",
+                                "stations": [
+                                    "Ópera"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "NorthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Callao",
+                            "location": "South"
+                        },
+                        "transfers": [
+                            {
+                                "line": "3",
+                                "stations": [
+                                    "Callao"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Gran Vía"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Chueca"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Alonso Martínez"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Rubén Darío"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Núñez de Balboa"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Diego de León"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Ventas"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "El Carmen"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Quintana"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Pueblo Nuevo"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Ciudad Lineal"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Suanzes"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Torre Arias"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Canillejas"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "El Capricho"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Alameda de Osun"
+                        }
                     }
                 ]
             },
@@ -2161,19 +2499,20 @@
                         ],
                         "links": [
                             {
-                                "direction": "South",
+                                "direction": "SouthWest",
                                 "length": 2
                             }
                         ]
                     },
                     {
                         "name": {
-                            "value": "Aviación Española",
+                            "value": "Aviación\n Española",
                             "location": "East"
                         },
                         "links": [
                             {
-                                "direction": "SouthWest"
+                                "direction": "South",
+                                "length": 3
                             }
                         ]
                     },
@@ -2184,7 +2523,7 @@
                         "links": [
                             {
                                 "direction": "SouthWest",
-                                "length": 5
+                                "length": 3
                             }
                         ]
                     },
@@ -2226,7 +2565,8 @@
                             "location": "North"
                         },
                         "x": 45,
-                        "y": 83,
+                        "y": 88,
+                        "line_name_plate": false,
                         "transfers": [
                             {
                                 "line": "6",
@@ -2238,13 +2578,14 @@
                         "links": [
                             {
                                 "direction": "SouthWest",
-                                "length": 2
+                                "length": 1
                             }
                         ]
                     },
                     {
                         "name": {
-                            "value": "Abrantes"
+                            "value": "Abrantes",
+                            "location": "East"
                         },
                         "links": [
                             {
@@ -2254,19 +2595,20 @@
                     },
                     {
                         "name": {
-                            "value": "Pan Bendito"
+                            "value": "Pan Bendito",
+                            "location": "East"
                         },
                         "links": [
                             {
                                 "direction": "SouthWest",
-                                "length": 2
+                                "length": 1
                             }
                         ]
                     },
                     {
                         "name": {
                             "value": "San Francisco",
-                            "location": "North"
+                            "location": "East"
                         },
                         "links": [
                             {
@@ -2276,8 +2618,8 @@
                     },
                     {
                         "name": {
-                            "value": "Carabanchel Alto",
-                            "location": "South"
+                            "value": "Carabanchel\n Alto",
+                            "location": "North"
                         }
                     },
                     {
@@ -2287,7 +2629,7 @@
                         "links": [
                             {
                                 "direction": "NorthWest",
-                                "length": 2
+                                "length": 1
                             }
                         ]
                     },
@@ -2308,7 +2650,7 @@
                             "location": "South"
                         },
                         "line_name_plate": false,
-                        "x": 14,
+                        "x": 16,
                         "y": 97,
                         "transfers": [
                             {
@@ -2352,7 +2694,7 @@
                     },
                     {
                         "name": {
-                            "value": "Universidad Rey Juan Carlos"
+                            "value": "Universidad\n Rey Juan Carlos"
                         },
                         "links": [
                             {
@@ -2362,17 +2704,20 @@
                     },
                     {
                         "name": {
-                            "value": "Móstoles Central"
+                            "value": "Móstoles Central",
+                            "location": "East"
                         }
                     },
                     {
                         "name": {
-                            "value": "Pradillo"
+                            "value": "Pradillo",
+                            "location": "East"
                         }
                     },
                     {
                         "name": {
-                            "value": "Hospital de Móstoles"
+                            "value": "Hospital de Móstoles",
+                            "location": "East"
                         },
                         "links": [
                             {
@@ -2382,7 +2727,8 @@
                     },
                     {
                         "name": {
-                            "value": "Manuela Malasaña"
+                            "value": "Manuela Malasaña",
+                            "location": "East"
                         },
                         "links": [
                             {
@@ -2392,7 +2738,8 @@
                     },
                     {
                         "name": {
-                            "value": "Loranca"
+                            "value": "Loranca",
+                            "location": "East"
                         },
                         "links": [
                             {
@@ -2402,7 +2749,7 @@
                     },
                     {
                         "name": {
-                            "value": "Hospital de Fuenlabrada"
+                            "value": "Hospital\n de Fuenlabrada"
                         },
                         "links": [
                             {

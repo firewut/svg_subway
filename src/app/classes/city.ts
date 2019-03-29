@@ -127,6 +127,13 @@ export class SubwayRouter {
   }
 
   select_station(station: Station, to?: boolean) {
+    // If Both are selected - SHOW DIALOG
+    if (this.from && this.to && this.select_to) {
+      this.city.show_station_selection_dialog(station);
+
+      return;
+    }
+
     let caption = settings.location_marker.from_marker;
 
     if (to === true || this.select_to) {
@@ -185,6 +192,7 @@ export class City {
   markers_group: svgjs.G;
   overlay_group: svgjs.G;
   highlight_group: svgjs.G;
+  dialog_group: svgjs.G;
 
   constructor(json: any, canvas: svgjs.Container) {
     this.name = json.name;
@@ -199,6 +207,9 @@ export class City {
     this.markers_group = canvas.group();
     this.overlay_group = canvas.group();
     this.highlight_group = canvas.group();
+    this.dialog_group = canvas.group();
+
+    this.dialog_group.hide();
 
     this.canvas.add(this.debug_group);
     this.canvas.add(this.lines_group);
@@ -207,6 +218,7 @@ export class City {
     this.canvas.add(this.markers_group);
     this.canvas.add(this.overlay_group);
     this.canvas.add(this.highlight_group);
+    this.canvas.add(this.dialog_group);
 
     // Arrange
     this.debug_group.back();
@@ -215,6 +227,7 @@ export class City {
     this.transfers_group.before(this.lines_group);
     this.overlay_group.before(this.markers_group);
     this.highlight_group.before(this.overlay_group);
+    this.dialog_group.before(this.highlight_group);
 
     for (const line_json of json.lines) {
       const line = new Line(this, line_json);
@@ -239,11 +252,27 @@ export class City {
     return;
   }
 
+  show_station_selection_dialog(station: Station) {
+    const y_padding = this.dialog_group.bbox().height;
+
+    this.dialog_group.remember('station', station);
+    this.dialog_group.center(
+      station.position.x,
+      station.position.y + y_padding,
+    );
+    this.dialog_group.show();
+  }
+
   generate_element_params(theme: Theme): ElementParams[] {
     const element_params: ElementParams[] = [];
 
     element_params.push(
       ...this.prepare_debug_elements(theme)
+    );
+
+    // Station Selection Dialog
+    element_params.push(
+      ...this.prepare_station_selection_dialog(theme)
     );
 
     for (const line of this.lines) {
@@ -374,6 +403,7 @@ export class City {
   show_overlay() {
     if (!this.overlay.visible()) {
       this.overlay.show();
+      this.dialog_group.hide();
     }
   }
 
@@ -381,6 +411,142 @@ export class City {
     if (this.overlay.visible()) {
       this.overlay.hide();
     }
+  }
+
+  prepare_station_selection_dialog(theme: Theme) {
+    const element_params: ElementParams[] = [];
+
+    const dialog_settings = settings.dialog.station_selection;
+
+    element_params.push(
+      ...[
+        {
+          'type': ElementType.Rect,
+          'properties': {
+            'position': {
+              'x1': 0,
+              'y1': 0,
+              'x2': dialog_settings.width,
+              'y2': dialog_settings.height,
+            },
+            'radius': dialog_settings.corner_radius,
+          },
+          'attr': {
+            'fill': theme.settings.dialog.station_selection.background_color,
+            'html_class': 'Rect',
+            'opacity': .5
+          },
+          'group': this.dialog_group,
+          'draw_callback': (el: svgjs.Container) => {
+
+          },
+          'classes': []
+        },
+        {
+          'type': ElementType.Rect,
+          'properties': {
+            'position': {
+              'x1': dialog_settings.inner.rects_padding,
+              'y1': dialog_settings.inner.rects_padding,
+              'x2': dialog_settings.width / 2 - dialog_settings.inner.rects_padding,
+              'y2': dialog_settings.height - dialog_settings.inner.rects_padding,
+            },
+            'radius': dialog_settings.corner_radius,
+          },
+          'attr': {
+            'fill': theme.settings.dialog.station_selection.background_color,
+            'html_class': 'Rect',
+            'opacity': .9
+          },
+          'group': this.dialog_group,
+          'draw_callback': (el: svgjs.Container) => {
+
+          },
+          'classes': []
+        },
+        {
+          'type': ElementType.Rect,
+          'properties': {
+            'position': {
+              'x1': dialog_settings.width / 2 + dialog_settings.inner.rects_padding,
+              'y1': 5,
+              'x2': dialog_settings.width - dialog_settings.inner.rects_padding,
+              'y2': dialog_settings.height - dialog_settings.inner.rects_padding,
+            },
+            'radius': dialog_settings.corner_radius,
+          },
+          'attr': {
+            'fill': theme.settings.dialog.station_selection.background_color,
+            'html_class': 'Rect',
+            'opacity': .9
+          },
+          'group': this.dialog_group,
+          'draw_callback': (el: svgjs.Container) => {
+
+          },
+          'classes': []
+        },
+        {
+          'type': ElementType.Text,
+          'properties': {
+            'text': dialog_settings.text_from.value,
+            'size': dialog_settings.font_size,
+            'position': {
+              'x': dialog_settings.inner.rects_padding * 2,
+              'y': dialog_settings.inner.rects_padding * 2,
+            },
+            'anchor': 'start',
+            'weight': settings.line.name.font_weight,
+          },
+          'attr': {
+            'fill': theme.settings.line.name.font_color,
+          },
+          'group': this.dialog_group,
+          'draw_callback': (el: svgjs.Container) => {
+            const self = this;
+            el.on('click', function() {
+              self.router.select_station_from(
+                self.dialog_group.remember('station')
+              );
+              self.router.calculate_route();
+            });
+          },
+          'classes': [
+          ]
+        },
+        {
+          'type': ElementType.Text,
+          'properties': {
+            'text': dialog_settings.text_to.value,
+            'size': dialog_settings.font_size,
+            'position': {
+              'x': dialog_settings.width / 2 + dialog_settings.inner.rects_padding * 2,
+              'y': dialog_settings.inner.rects_padding * 2,
+            },
+            'anchor': 'start',
+            'weight': settings.line.name.font_weight,
+          },
+          'attr': {
+            'fill': theme.settings.line.name.font_color,
+          },
+          'group': this.dialog_group,
+          'draw_callback': (el: svgjs.Container) => {
+            const self = this;
+            el.on('click', function() {
+              self.router.select_station_to(
+                self.dialog_group.remember('station')
+              );
+              self.router.calculate_route();
+            });
+          },
+          'classes': [
+          ]
+        },
+      ]
+    );
+
+
+    return element_params;
   }
 
   prepare_debug_elements(theme: Theme) {

@@ -443,21 +443,60 @@ export class Station {
     this.text_position = this.get_text_position(settings.station.font_size);
   }
 
-  toggle() {
+  toggle(caption?: string) {
     const el = this.svg_elements_dict['outer_marker'];
-    this.toggle_with_element(el);
+    this.toggle_with_element(el, caption);
   }
 
-  toggle_with_element(el: svgjs.Container) {
+  toggle_with_element(el: svgjs.Container, caption?: string) {
     if (this.under_construction === true) {
       return;
     }
 
     this.click_toggle = !this.click_toggle;
     if (this.click_toggle === true) {
-      this.check(el);
+      this.check(el, caption);
     } else {
       this.uncheck();
+    }
+  }
+
+  check(el: svgjs.Container, caption?: string) {
+    for (const key in this.svg_elements_dict) {
+      if (this.svg_elements_dict.hasOwnProperty(key)) {
+        const element = this.svg_elements_dict[key];
+        const element_obj = element.remember('element');
+        if (element_obj instanceof TextElement) {
+          element_obj.toggle();
+          element_obj.check();
+
+          const marker = new LocationMarker(
+            this.get_location_marker(el, caption)
+          );
+          this.location_marker = marker.draw(
+            this.line.city.canvas
+          );
+        }
+      }
+    }
+  }
+
+  uncheck() {
+    for (const key in this.svg_elements_dict) {
+      if (this.svg_elements_dict.hasOwnProperty(key)) {
+        const element = this.svg_elements_dict[key];
+        const element_obj = element.remember('element');
+        if (element_obj instanceof TextElement) {
+          element_obj.toggle();
+          element_obj.uncheck();
+        }
+      }
+    }
+
+    if (this.location_marker) {
+      this.location_marker.hide();
+      this.location_marker.remove();
+      this.location_marker = undefined;
     }
   }
 
@@ -514,7 +553,7 @@ export class Station {
 
         const self = this;
         marker_el.on('click', function() {
-          self.toggle();
+          self.line.city.router.select_station(self);
         });
       },
       'classes': [
@@ -526,53 +565,7 @@ export class Station {
     };
   }
 
-  check(el: svgjs.Container) {
-    const caption = this.line.city.router.select_station(this);
-    if (caption === undefined) {
-      return;
-    }
 
-    for (const key in this.svg_elements_dict) {
-      if (this.svg_elements_dict.hasOwnProperty(key)) {
-        const element = this.svg_elements_dict[key];
-        const element_obj = element.remember('element');
-        if (element_obj instanceof TextElement) {
-          element_obj.toggle();
-          element_obj.check();
-
-          const marker = new LocationMarker(
-            this.get_location_marker(el, caption)
-          );
-          this.location_marker = marker.draw(
-            this.line.city.canvas
-          );
-        }
-      }
-    }
-
-    this.line.city.router.calculate_route();
-  }
-
-  uncheck() {
-    for (const key in this.svg_elements_dict) {
-      if (this.svg_elements_dict.hasOwnProperty(key)) {
-        const element = this.svg_elements_dict[key];
-        const element_obj = element.remember('element');
-        if (element_obj instanceof TextElement) {
-          element_obj.toggle();
-          element_obj.uncheck();
-        }
-      }
-    }
-
-    if (this.location_marker) {
-      this.location_marker.hide();
-      this.location_marker.remove();
-      this.location_marker = undefined;
-    }
-
-    this.line.city.router.unselect_station(this);
-  }
 
   generate_element_params(theme: Theme): ElementParams[] {
     this.theme = theme;
@@ -610,7 +603,7 @@ export class Station {
 
           const self = this;
           el.on('click', function() {
-            self.toggle();
+            self.line.city.router.select_station(self);
           });
         },
         'classes': [
@@ -643,7 +636,7 @@ export class Station {
 
           const self = this;
           el.on('click', function() {
-            self.toggle();
+            self.line.city.router.select_station(self);
           });
         },
         'classes': [
@@ -671,7 +664,7 @@ export class Station {
 
           const self = this;
           el.on('click', function() {
-            self.toggle();
+            self.line.city.router.select_station(self);
           });
         },
         'classes': [

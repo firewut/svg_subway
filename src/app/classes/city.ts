@@ -108,42 +108,53 @@ export class SubwayRouter {
       this.to = undefined;
       this.select_to = true;
     }
+    station.uncheck();
+
     this.city.hide_overlay();
   }
 
   select_station_from(station: Station) {
+    const marker_text = settings.location_marker.from_marker;
     if (this.from !== undefined) {
-      this.from.toggle();
+      this.from.toggle(marker_text);
     }
+    station.toggle(marker_text);
     this.from = station;
+
     this.select_to = true;
   }
 
   select_station_to(station: Station) {
+    const marker_text = settings.location_marker.to_marker;
+
     if (this.to !== undefined) {
-      this.to.toggle();
+      this.to.toggle(marker_text);
     }
+    station.toggle(marker_text);
     this.to = station;
   }
 
   select_station(station: Station, to?: boolean) {
     // If Both are selected - SHOW DIALOG
-    if (this.from && this.to && this.select_to) {
-      this.city.show_station_selection_dialog(station);
-
-      return;
+    if (this.from && this.to) {
+      if (![this.from, this.to].includes(station)) {
+        this.city.show_station_selection_dialog(station);
+        return;
+      } else {
+        this.unselect_station(station);
+        return;
+      }
     }
-
-    let caption = settings.location_marker.from_marker;
 
     if (to === true || this.select_to) {
       this.select_station_to(station);
-      caption = settings.location_marker.to_marker;
     } else {
       this.select_station_from(station);
     }
 
-    return caption;
+    if (this.from && this.to) {
+      this.calculate_route();
+    }
   }
 
   calculate_route(start?: Station, finish?: Station) {
@@ -168,6 +179,7 @@ export class SubwayRouter {
   highlight_route(path: string[]) {
     // Draw Markers, Transfers and etc from `start` to `finish`
     this.city.highlight_route(path);
+    this.city.hide_stations_selection_dialog();
   }
 }
 
@@ -250,6 +262,10 @@ export class City {
     }
 
     return;
+  }
+
+  hide_stations_selection_dialog() {
+    this.dialog_group.hide();
   }
 
   show_station_selection_dialog(station: Station) {
@@ -505,9 +521,9 @@ export class City {
           'draw_callback': (el: svgjs.Container) => {
             const self = this;
             el.on('click', function() {
-              self.router.select_station_from(
-                self.dialog_group.remember('station')
-              );
+              const station = self.dialog_group.remember('station');
+
+              self.router.select_station_from(station);
               self.router.calculate_route();
             });
           },
@@ -533,9 +549,9 @@ export class City {
           'draw_callback': (el: svgjs.Container) => {
             const self = this;
             el.on('click', function() {
-              self.router.select_station_to(
-                self.dialog_group.remember('station')
-              );
+              const station = self.dialog_group.remember('station');
+
+              self.router.select_station_to(station);
               self.router.calculate_route();
             });
           },

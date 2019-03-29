@@ -98,10 +98,6 @@ export class Station {
       this.line_name_plate = json.line_name_plate;
     }
 
-    if ('line_name_plate' in json) {
-      this.line_name_plate = json.line_name_plate;
-    }
-
     // Position is a Relative GRID coordinate
     this.position = new Point2D(
       json.x * settings.grid.width,
@@ -416,11 +412,6 @@ export class Station {
         }
       }
     }
-    if (this.name === 'Bologna') {
-      console.log(
-        links,
-      );
-    }
 
     this.add_links(links);
   }
@@ -537,6 +528,9 @@ export class Station {
 
   check(el: svgjs.Container) {
     const caption = this.line.city.router.select_station(this);
+    if (caption === undefined) {
+      return;
+    }
 
     for (const key in this.svg_elements_dict) {
       if (this.svg_elements_dict.hasOwnProperty(key)) {

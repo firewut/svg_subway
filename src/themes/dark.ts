@@ -3,7 +3,11 @@ export const dark = {
   settings: {
     background_color: '#3a3939',
     debug_grid_color: '#fff',
-
+    dialog: {
+      station_selection: {
+        background_color: '#333'
+      }
+    },
     line: {
       name: {
         font_color: '#fff',

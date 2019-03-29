@@ -12,6 +12,7 @@ export enum ElementType {
   PolyLineElement,
   LocationMarker,
   LineDashedElement,
+  LineDashedTwoColorsElement,
 }
 
 export interface ElementParams {
@@ -476,7 +477,7 @@ export class LineElement {
   draw_callback(element: svgjs.Shape) { }
 
   draw(canvas: svgjs.Container) {
-    const svg_element: SVG.Line = canvas.line(this.x1, this.y1, this.x2, this.y2);
+    const svg_element: SVG.Shape = canvas.line(this.x1, this.y1, this.x2, this.y2);
     svg_element.remember('element', this);
     svg_element.remember('param', this.param);
 
@@ -525,9 +526,42 @@ export class LineDashedElement extends LineElement {
     svg_element.remember('param', this.param);
 
     svg_element.stroke(this.attr);
-    svg_element.attr({
-      'stroke-dasharray': (this.attr.width * Math.PI).toString(),
+
+    for (const _class of this.classes) {
+      svg_element.addClass(_class);
+    }
+
+    if (this.param.group) {
+      svg_element.addTo(this.param.group);
+      this.group = this.param.group;
+    }
+
+    this.draw_callback(svg_element);
+
+    this.svg_element = svg_element;
+    return svg_element;
+  }
+}
+
+export class LineDashedTwoColorsElement extends LineElement {
+  draw(canvas: svgjs.Container) {
+    const svg_element: SVG.Container = canvas.group();
+
+    const line = svg_element.line(this.x1, this.y1, this.x2, this.y2);
+    const dashed_line = svg_element.line(this.x1, this.y1, this.x2, this.y2);
+
+    line.stroke({
+      'color': this.attr.color,
+      'width': this.attr.width,
     });
+    dashed_line.stroke({
+      'color': this.attr.dashed_line_color,
+      'width': this.attr.width,
+      'dasharray': this.attr.dashed_line_dasharray,
+    });
+
+    svg_element.remember('element', this);
+    svg_element.remember('param', this.param);
 
     for (const _class of this.classes) {
       svg_element.addClass(_class);

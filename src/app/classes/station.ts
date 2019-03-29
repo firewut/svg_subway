@@ -75,6 +75,11 @@ export class Station {
 
   text_position: Point2D;
   under_construction = false;
+
+  // Skippable affects UI ONLY
+  // by Hiding from Highlight
+  skippable = false;
+
   is_name_hidden = false;
 
   element_params: ElementParams[] = [];
@@ -105,6 +110,11 @@ export class Station {
     if ('under_construction' in json) {
       this.under_construction = json.under_construction;
     }
+    if ('skippable' in json) {
+      this.skippable = json.skippable;
+    }
+
+
     if ('transfers' in json) {
       this.has_transfers = true;
       this.raw_transfers = json.transfers;
@@ -469,18 +479,17 @@ export class Station {
   }
 
   highlight() {
-    if (!this.under_construction) {
+    if (this.skippable) {
+      return;
+    }
+    for (const key in this.svg_elements_dict) {
+      if (this.svg_elements_dict.hasOwnProperty(key)) {
+        const element = this.svg_elements_dict[key];
 
+        element.addTo(this.line.city.highlight_group);
 
-      for (const key in this.svg_elements_dict) {
-        if (this.svg_elements_dict.hasOwnProperty(key)) {
-          const element = this.svg_elements_dict[key];
-
-          element.addTo(this.line.city.highlight_group);
-
-          if (this.location_marker) {
-            this.location_marker.addTo(this.line.city.highlight_group);
-          }
+        if (this.location_marker) {
+          this.location_marker.addTo(this.line.city.highlight_group);
         }
       }
     }

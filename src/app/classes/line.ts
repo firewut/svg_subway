@@ -236,8 +236,10 @@ export class Line {
       if (station.children.length > 0) {
         for (const child of station.children) {
 
-          const connector_color = this.color;
           const connector_opacity = 1;
+          let connector_color = this.color;
+          let dashed_connector_color = this.color;
+          let dasharray = '0';
 
           const link = station.has_link_to(child);
           if (!link) {
@@ -246,7 +248,10 @@ export class Line {
 
           let line_element_type = ElementType.Line;
           if (link.under_construction) {
-            line_element_type = ElementType.LineDashedElement;
+            line_element_type = ElementType.LineDashedTwoColorsElement;
+            connector_color = '#FFEB3A';
+            dashed_connector_color = '#000000';
+            dasharray = (settings.line.width * 4).toString();
           }
 
           const child_connector: ElementParams = {
@@ -263,7 +268,9 @@ export class Line {
               'color': connector_color,
               'width': settings.line.width,
               'html_class': 'Line',
-              'opacity': connector_opacity
+              'opacity': connector_opacity,
+              'dashed_line_color': dashed_connector_color,
+              'dashed_line_dasharray': dasharray,
             },
             'group': this.city.lines_group,
             'draw_callback': (el: svgjs.Container) => {

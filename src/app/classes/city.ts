@@ -24,10 +24,13 @@ export class SubwayRouter {
     // Each Station of a Line
     for (const line of city.lines) {
       for (const station of line.stations_list) {
-        if (!station.under_construction) {
-          const station_graph = this.build_graph(station);
-          this.graph.addVertex(station.id, station_graph);
+        if (station.under_construction) {
+          if (!station.skippable) {
+            continue;
+          }
         }
+        const station_graph = this.build_graph(station);
+        this.graph.addVertex(station.id, station_graph);
       }
     }
 

@@ -65,9 +65,9 @@ export class SubwayRouter {
         } else {
           continue;
         }
-        if (!child.under_construction) {
-          children[child.id] = 1;
-        }
+        // if (!child.under_construction) {
+        children[child.id] = 1;
+        // }
       }
     }
 
@@ -83,9 +83,9 @@ export class SubwayRouter {
         } else {
           continue;
         }
-        if (!parent.under_construction) {
-          parents[parent.id] = 1;
-        }
+        // if (!parent.under_construction) {
+        parents[parent.id] = 1;
+        // }
       }
     }
 

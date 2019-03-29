@@ -1146,7 +1146,7 @@
                     {
                         "name": {
                             "value": "Tribunal",
-                            "location": "North"
+                            "location": "South"
                         },
                         "links": [
                             {
@@ -1369,7 +1369,8 @@
                     },
                     {
                         "name": {
-                            "value": "Plaza de España"
+                            "value": "Plaza de España",
+                            "location": "NorthEast"
                         },
                         "transfers": [
                             {
@@ -1740,14 +1741,14 @@
                     },
                     {
                         "name": {
-                            "value": "Alonso Martínez",
-                            "location": "South"
+                            "value": "Alonso Martínez",
+                            "location": "North"
                         },
                         "transfers": [
                             {
                                 "line": "10",
                                 "stations": [
-                                    "Alonso Martínez"
+                                    "Alonso Martínez"
                                 ]
                             }
                         ],
@@ -2064,7 +2065,7 @@
                     {
                         "name": {
                             "value": "Alonso Martínez",
-                            "location": "South"
+                            "location": "North"
                         },
                         "transfers": [
                             {
@@ -3042,7 +3043,7 @@
                     {
                         "name": {
                             "value": "Alonso Martínez",
-                            "location": "South"
+                            "location": "North"
                         },
                         "links": [
                             {
@@ -3054,7 +3055,7 @@
                     {
                         "name": {
                             "value": "Tribunal",
-                            "location": "North"
+                            "location": "South"
                         },
                         "transfers": [
                             {
@@ -3073,7 +3074,8 @@
                     },
                     {
                         "name": {
-                            "value": "Plaza de España"
+                            "value": "Plaza de España",
+                            "location": "NorthEast"
                         },
                         "links": [
                             {

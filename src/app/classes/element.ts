@@ -11,6 +11,7 @@ export enum ElementType {
   Rect,
   PolyLineElement,
   LocationMarker,
+  LineDashedElement,
 }
 
 export interface ElementParams {
@@ -514,6 +515,33 @@ export class LineElement {
 
   uncheck() {
 
+  }
+}
+
+export class LineDashedElement extends LineElement {
+  draw(canvas: svgjs.Container) {
+    const svg_element: SVG.Line = canvas.line(this.x1, this.y1, this.x2, this.y2);
+    svg_element.remember('element', this);
+    svg_element.remember('param', this.param);
+
+    svg_element.stroke(this.attr);
+    svg_element.attr({
+      'stroke-dasharray': (this.attr.width * Math.PI).toString(),
+    });
+
+    for (const _class of this.classes) {
+      svg_element.addClass(_class);
+    }
+
+    if (this.param.group) {
+      svg_element.addTo(this.param.group);
+      this.group = this.param.group;
+    }
+
+    this.draw_callback(svg_element);
+
+    this.svg_element = svg_element;
+    return svg_element;
   }
 }
 

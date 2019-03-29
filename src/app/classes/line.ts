@@ -236,21 +236,21 @@ export class Line {
       if (station.children.length > 0) {
         for (const child of station.children) {
 
-          let connector_color = this.color;
-          let connector_opacity = 1;
+          const connector_color = this.color;
+          const connector_opacity = 1;
 
           const link = station.has_link_to(child);
           if (!link) {
             continue;
           }
 
-          if (link && link.under_construction) {
-            connector_color = theme.settings.link_under_construction.color;
-            connector_opacity = theme.settings.link_under_construction.opacity;
+          let line_element_type = ElementType.Line;
+          if (link.under_construction) {
+            line_element_type = ElementType.LineDashedElement;
           }
 
           const child_connector: ElementParams = {
-            'type': ElementType.Line,
+            'type': line_element_type,
             'properties': {
               'position': {
                 'x1': station.position.x,
@@ -263,7 +263,7 @@ export class Line {
               'color': connector_color,
               'width': settings.line.width,
               'html_class': 'Line',
-              'opacity': connector_opacity,
+              'opacity': connector_opacity
             },
             'group': this.city.lines_group,
             'draw_callback': (el: svgjs.Container) => {

@@ -15,6 +15,7 @@ import {
   RectElement,
   TextElement,
   ElementParams,
+  LineDashedElement,
 } from './element';
 
 export class Scene {
@@ -88,6 +89,9 @@ export class Scene {
         break;
       case ElementType.PolyLineElement:
         element = new PolyLineElement(params);
+        break;
+      case ElementType.LineDashedElement:
+        element = new LineDashedElement(params);
         break;
       case ElementType.LocationMarker:
         element = new LocationMarker(params);

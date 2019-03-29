@@ -469,14 +469,18 @@ export class Station {
   }
 
   highlight() {
-    for (const key in this.svg_elements_dict) {
-      if (this.svg_elements_dict.hasOwnProperty(key)) {
-        const element = this.svg_elements_dict[key];
+    if (!this.under_construction) {
 
-        element.addTo(this.line.city.highlight_group);
 
-        if (this.location_marker) {
-          this.location_marker.addTo(this.line.city.highlight_group);
+      for (const key in this.svg_elements_dict) {
+        if (this.svg_elements_dict.hasOwnProperty(key)) {
+          const element = this.svg_elements_dict[key];
+
+          element.addTo(this.line.city.highlight_group);
+
+          if (this.location_marker) {
+            this.location_marker.addTo(this.line.city.highlight_group);
+          }
         }
       }
     }

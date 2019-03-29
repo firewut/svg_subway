@@ -6,21 +6,45 @@ import { settings } from '../../themes/default';
 import { shadeHexColor, makeid } from './helper';
 import { Direction, VectorDirection } from './direction';
 
-export class StationLink {
+export interface StationLinkInterface {
+  station?: string;
   direction: Direction;
   length: number;
-  station?: string;
+  under_construction: boolean;
+}
 
-  get_opposite_link(link: StationLink) {
-    const vector = new VectorDirection(link.direction);
+export class StationLink {
+  source_id: string;
+  destination_id: string;
+  direction: Direction;
+  length: number;
+  under_construction = false;
 
-    const opposite_link = {
-      direction: vector.get_opposite_direction(),
-      length: link.length,
-    };
-
-    return opposite_link;
+  constructor(source: Station, destination: Station) {
+    this.source_id = source.id;
+    if (destination) {
+      this.destination_id = destination.id;
+    }
+    this.length = 1;
+    this.direction = Direction.North;
   }
+
+
+  // get_opposite_link(): StationLink {
+  //   const vector = new VectorDirection(this.direction);
+
+  //   const opposite_link: StationLink = Object.assign(
+  //     {},
+  //     this
+  //   );
+
+  //   opposite_link.destination_id = this.source_id;
+  //   opposite_link.source_id = this.destination_id;
+  //   opposite_link.direction = vector.get_opposite_direction();
+  //   opposite_link.length = this.length;
+
+  //   return opposite_link;
+  // }
 }
 
 export class Station {
@@ -28,7 +52,9 @@ export class Station {
   name: string;
   name_location: Direction = Direction.West;
   position?: Point2D;
-  links: StationLink[];
+
+  links: StationLink[] = [];
+  _links?: StationLinkInterface[] = [];
 
   line: Line;
   _parents?: string[] = [];
@@ -49,6 +75,11 @@ export class Station {
 
   text_position: Point2D;
   under_construction = false;
+
+  // Skippable affects UI ONLY
+  // by Hiding from Highlight
+  skippable = false;
+
   is_name_hidden = false;
 
   element_params: ElementParams[] = [];
@@ -61,7 +92,11 @@ export class Station {
   constructor(line: Line, json: any) {
     this.id = makeid();
     this.line = line;
-    this.links = json.links || [];
+    this._links = json.links || [];
+
+    if ('line_name_plate' in json) {
+      this.line_name_plate = json.line_name_plate;
+    }
 
     if ('line_name_plate' in json) {
       this.line_name_plate = json.line_name_plate;
@@ -79,6 +114,11 @@ export class Station {
     if ('under_construction' in json) {
       this.under_construction = json.under_construction;
     }
+    if ('skippable' in json) {
+      this.skippable = json.skippable;
+    }
+
+
     if ('transfers' in json) {
       this.has_transfers = true;
       this.raw_transfers = json.transfers;
@@ -88,7 +128,7 @@ export class Station {
     this._parents = json.parents;
 
     if ('name' in json) {
-      this.name = json.name.value;
+      this.name = json.name.value.trim();
       if ('location' in json.name) {
         this.name_location = json.name.location;
       }
@@ -97,6 +137,21 @@ export class Station {
 
   hide_name() {
     this.is_name_hidden = true;
+  }
+
+
+  add_links(links: StationLink[]) {
+    for (const link of links) {
+      this.add_link(link);
+    }
+  }
+
+  add_link(link?: StationLink) {
+    if (link) {
+      if (!this.links.includes(link)) {
+        this.links.push(link);
+      }
+    }
   }
 
   parse_parents() {
@@ -113,16 +168,17 @@ export class Station {
   }
 
   has_link_to(station: Station) {
-    let link: StationLink;
-
     for (const _link of this.links) {
-      if (_link.station === station.name) {
-        link = _link;
-        break;
+      if (_link.destination_id === station.id) {
+        return _link;
       }
     }
 
-    return link;
+    for (const _link of station.links) {
+      if (_link.destination_id === this.id) {
+        return _link;
+      }
+    }
   }
 
   get_next_link() {
@@ -314,19 +370,82 @@ export class Station {
   add_parent(station?: Station) {
     if (station) {
       this.parents.push(station);
-      const first_parent = this.parents[0];
-      if (first_parent.links) {
-        // Order MATTERS
-        if (this.links.length === 0) {
-          const link = new StationLink();
-          link.direction = first_parent.links[0].direction;
-          link.length = first_parent.links[0].length || 1;
-          this.links = [link];
-        }
-        this.position = this.get_position_by_parents();
-      }
     }
   }
+
+  parse_and_set_links() {
+    const links: StationLink[] = [];
+
+    // If link was passed
+    if (this._links.length > 0) {
+      for (const _link of this._links) {
+        let destination: Station;
+
+        if (_link.station) {
+          destination = this.line.get_station_by_name(
+            _link.station
+          );
+        } else {
+          if (this.children.length > 0) {
+            destination = this.children[0];
+          }
+        }
+
+        const link = new StationLink(this, destination);
+        link.direction = _link.direction;
+        link.length = _link.length || 1;
+        link.under_construction = _link.under_construction || false;
+
+        links.push(link);
+      }
+    } else {
+      // Inherit Parent's Link
+      if (
+        this.parents.length > 0 &&
+        this.children.length > 0
+      ) {
+        const parent = this.parents[0];
+        const parent_link = parent.has_link_to(this);
+        if (parent_link) {
+          const link = new StationLink(this, this.children[0]);
+          link.direction = parent_link.direction;
+          link.length = parent_link.length;
+          link.under_construction = parent_link.under_construction || false;
+
+          links.push(link);
+        }
+      }
+    }
+    if (this.name === 'Bologna') {
+      console.log(
+        links,
+      );
+    }
+
+    this.add_links(links);
+  }
+
+
+  // set_links() {
+  //   for (const child of this.children) {
+  //     if (!this.has_link_to(child)) {
+  //       const link = new StationLink(this, child);
+
+  //       // console.log(
+  //       //   this.line.name,
+  //       //   this.name,
+  //       //   child.name,
+  //       //   child.links
+  //       // );
+
+  //       if (this.links.length > 0) {
+  //         link.direction = this.links[0].direction;
+  //         link.length = this.links[0].length || 1;
+  //       }
+  //       this.add_link(link);
+  //     }
+  //   }
+  // }
 
   set_params() {
     this.position = this.get_position_by_parents();
@@ -364,6 +483,9 @@ export class Station {
   }
 
   highlight() {
+    if (this.skippable) {
+      return;
+    }
     for (const key in this.svg_elements_dict) {
       if (this.svg_elements_dict.hasOwnProperty(key)) {
         const element = this.svg_elements_dict[key];
@@ -462,6 +584,16 @@ export class Station {
     this.theme = theme;
     const elements: ElementParams[] = [];
 
+    let inner_color = shadeHexColor(this.line.color, 0.5);
+    let outer_color = theme.settings.station.marker.outer_color;
+    let font_color = theme.settings.station.font_color;
+
+    if (this.under_construction) {
+      outer_color = theme.settings.station.marker.under_construction.outer_color;
+      inner_color = theme.settings.station.marker.under_construction.inner_color;
+      font_color = theme.settings.station.under_construction.font_color;
+    }
+
     if (!this.is_name_hidden) {
       const label_element_params: ElementParams = {
         'type': ElementType.Text,
@@ -476,7 +608,7 @@ export class Station {
           'weight': settings.station.font_weight,
         },
         'attr': {
-          'fill': theme.settings.station.font_color,
+          'fill': font_color,
         },
         'group': this.line.city.stations_group,
         'draw_callback': (el: svgjs.Container) => {
@@ -508,9 +640,7 @@ export class Station {
           }
         },
         'attr': {
-          'fill': shadeHexColor(
-            this.line.color, 0.5
-          )
+          'fill': inner_color,
         },
         'group': this.line.city.stations_group,
         'draw_callback': (el: svgjs.Container) => {
@@ -538,7 +668,7 @@ export class Station {
           }
         },
         'attr': {
-          'fill': theme.settings.station.marker.inner_color
+          'fill': outer_color,
         },
         'group': this.line.city.stations_group,
         'draw_callback': (el: svgjs.Container) => {

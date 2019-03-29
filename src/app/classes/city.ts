@@ -24,10 +24,13 @@ export class SubwayRouter {
     // Each Station of a Line
     for (const line of city.lines) {
       for (const station of line.stations_list) {
-        if (!station.under_construction) {
-          const station_graph = this.build_graph(station);
-          this.graph.addVertex(station.id, station_graph);
+        if (station.under_construction) {
+          if (!station.skippable) {
+            continue;
+          }
         }
+        const station_graph = this.build_graph(station);
+        this.graph.addVertex(station.id, station_graph);
       }
     }
 
@@ -55,17 +58,37 @@ export class SubwayRouter {
 
     if (station.children.length > 0) {
       for (const child of station.children) {
-        if (!child.under_construction) {
-          children[child.id] = 1;
+        const link = station.has_link_to(child);
+        if (link) {
+          if (!link.under_construction) {
+            children[child.id] = 1;
+          } else {
+            continue;
+          }
+        } else {
+          continue;
         }
+        // if (!child.under_construction) {
+        children[child.id] = 1;
+        // }
       }
     }
 
     if (station.parents.length > 0) {
       for (const parent of station.parents) {
-        if (!parent.under_construction) {
-          parents[parent.id] = 1;
+        const link = station.has_link_to(parent);
+        if (link) {
+          if (!link.under_construction) {
+            parents[parent.id] = 1;
+          } else {
+            continue;
+          }
+        } else {
+          continue;
         }
+        // if (!parent.under_construction) {
+        parents[parent.id] = 1;
+        // }
       }
     }
 

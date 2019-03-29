@@ -21,7 +21,7 @@ export class ResizeService {
 
   private onResize(event: WheelEvent) {
     if (event.ctrlKey) {
-      console.log(event)
+      // console.log(event)
       // this.resizeSubject.next(<Window>event.target);
     }
   }

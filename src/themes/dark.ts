@@ -9,18 +9,27 @@ export const dark = {
         font_color: '#fff',
       }
     },
-    link_under_construction: {
-      color: '#aaa',
-      opacity: 0.75,
+    link: {
+      under_construction: {
+        connector_color: '#FFEB3A',
+        dashed_connector_color: '#000000',
+      },
     },
     location_marker: {
       text_color: '#FFF',
     },
     station: {
       font_color: '#fff',
+      under_construction: {
+        font_color: '#aaa'
+      },
       marker: {
-        inner_color: '#fff',
-      }
+        outer_color: '#fff',
+        under_construction: {
+          outer_color: '#000000',
+          inner_color: '#FFEB3A',
+        }
+      },
     },
     transfer: {
       inner_color: '#666',

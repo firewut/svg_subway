@@ -15,6 +15,8 @@ import {
   RectElement,
   TextElement,
   ElementParams,
+  LineDashedElement,
+  LineDashedTwoColorsElement,
 } from './element';
 
 export class Scene {
@@ -82,6 +84,12 @@ export class Scene {
         break;
       case ElementType.Line:
         element = new LineElement(params);
+        break;
+      case ElementType.LineDashedElement:
+        element = new LineDashedElement(params);
+        break;
+      case ElementType.LineDashedTwoColorsElement:
+        element = new LineDashedTwoColorsElement(params);
         break;
       case ElementType.Rect:
         element = new RectElement(params);

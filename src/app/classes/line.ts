@@ -63,10 +63,10 @@ export class Line {
     this.color = json.color;
     this.transfers = [];
 
+    // Init Stations
     for (const station_json of json.stations) {
       const station = new Station(this, station_json);
       this.stations[station.id] = station;
-
       this.stations_list.push(station);
     }
 
@@ -76,7 +76,9 @@ export class Line {
       station.parse_parents();
 
       if (station.parents.length === 0) {
-        station.add_parent(prev_station);
+        if (prev_station) {
+          station.add_parent(prev_station);
+        }
       }
       prev_station = station;
     }
@@ -96,8 +98,9 @@ export class Line {
       i += 1;
     }
 
+    // Parse Links
     for (const station of this.stations_list) {
-      station.set_params();
+      station.parse_and_set_links();
     }
 
     // Set Start and End Stations
@@ -108,6 +111,11 @@ export class Line {
       ) {
         this.terminations.push(station);
       }
+    }
+
+
+    for (const station of this.stations_list) {
+      station.set_params();
     }
   }
 
@@ -227,17 +235,27 @@ export class Line {
     for (const station of this.stations_list) {
       if (station.children.length > 0) {
         for (const child of station.children) {
-          let connector_color: string;
-          let connector_opacity = 1;
-          if (station.under_construction || child.under_construction) {
-            connector_color = theme.settings.link_under_construction.color;
-            connector_opacity = theme.settings.link_under_construction.opacity;
-          } else {
-            connector_color = this.color;
+
+          const connector_opacity = 1;
+          let connector_color = this.color;
+          let dashed_connector_color = this.color;
+          let dasharray = '0';
+
+          const link = station.has_link_to(child);
+          if (!link) {
+            continue;
+          }
+
+          let line_element_type = ElementType.Line;
+          if (link.under_construction) {
+            line_element_type = ElementType.LineDashedTwoColorsElement;
+            connector_color = theme.settings.link.under_construction.connector_color;
+            dashed_connector_color = theme.settings.link.under_construction.dashed_connector_color;
+            dasharray = settings.line.under_construction.dash_width.toString();
           }
 
           const child_connector: ElementParams = {
-            'type': ElementType.Line,
+            'type': line_element_type,
             'properties': {
               'position': {
                 'x1': station.position.x,
@@ -251,6 +269,8 @@ export class Line {
               'width': settings.line.width,
               'html_class': 'Line',
               'opacity': connector_opacity,
+              'dashed_line_color': dashed_connector_color,
+              'dashed_line_dasharray': dasharray,
             },
             'group': this.city.lines_group,
             'draw_callback': (el: svgjs.Container) => {
@@ -387,7 +407,9 @@ export class Line {
     } else if (station.children.length === 0) {
       if (station.parents.length > 0) {
         const link = station.get_parent_link();
-        opposite_direction = link.direction;
+        if (link) {
+          opposite_direction = link.direction;
+        }
       }
     }
 

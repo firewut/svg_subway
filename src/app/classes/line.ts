@@ -249,9 +249,9 @@ export class Line {
           let line_element_type = ElementType.Line;
           if (link.under_construction) {
             line_element_type = ElementType.LineDashedTwoColorsElement;
-            connector_color = '#FFEB3A';
-            dashed_connector_color = '#000000';
-            dasharray = (settings.line.width * 4).toString();
+            connector_color = theme.settings.link.under_construction.connector_color;
+            dashed_connector_color = theme.settings.link.under_construction.dashed_connector_color;
+            dasharray = settings.line.under_construction.dash_width.toString();
           }
 
           const child_connector: ElementParams = {

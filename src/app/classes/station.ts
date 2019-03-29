@@ -580,6 +580,16 @@ export class Station {
     this.theme = theme;
     const elements: ElementParams[] = [];
 
+    let inner_color = shadeHexColor(this.line.color, 0.5);
+    let outer_color = theme.settings.station.marker.outer_color;
+    let font_color = theme.settings.station.font_color;
+
+    if (this.under_construction) {
+      outer_color = theme.settings.station.marker.under_construction.outer_color;
+      inner_color = theme.settings.station.marker.under_construction.inner_color;
+      font_color = theme.settings.station.under_construction.font_color;
+    }
+
     if (!this.is_name_hidden) {
       const label_element_params: ElementParams = {
         'type': ElementType.Text,
@@ -594,7 +604,7 @@ export class Station {
           'weight': settings.station.font_weight,
         },
         'attr': {
-          'fill': theme.settings.station.font_color,
+          'fill': font_color,
         },
         'group': this.line.city.stations_group,
         'draw_callback': (el: svgjs.Container) => {
@@ -615,14 +625,6 @@ export class Station {
     }
 
     // Station Marker
-    let inner_color = this.line.color;
-    let outer_color = theme.settings.station.marker.inner_color;
-
-    if (this.under_construction) {
-      inner_color = shadeHexColor(inner_color, 0.5);
-      outer_color = shadeHexColor(outer_color, 0.5);
-    }
-
     const station_element_params: ElementParams[] = [
       {
         'type': ElementType.Circle,
@@ -634,9 +636,7 @@ export class Station {
           }
         },
         'attr': {
-          'fill': shadeHexColor(
-            inner_color, 0.5
-          )
+          'fill': inner_color,
         },
         'group': this.line.city.stations_group,
         'draw_callback': (el: svgjs.Container) => {
@@ -664,7 +664,7 @@ export class Station {
           }
         },
         'attr': {
-          'fill': outer_color
+          'fill': outer_color,
         },
         'group': this.line.city.stations_group,
         'draw_callback': (el: svgjs.Container) => {

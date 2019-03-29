@@ -23,6 +23,9 @@ export const settings = {
       font_size: 20,
       font_weight: '2em',
       grid_distance: 40,
+    },
+    under_construction: {
+      dash_width: 20
     }
   },
   station: {

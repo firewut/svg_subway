@@ -63,14 +63,11 @@ export class Line {
     this.color = json.color;
     this.transfers = [];
 
+    // Init Stations
     for (const station_json of json.stations) {
       const station = new Station(this, station_json);
       this.stations[station.id] = station;
       this.stations_list.push(station);
-    }
-
-    for (const station of this.stations_list) {
-      station.parse_links();
     }
 
     // Set Parents
@@ -99,6 +96,11 @@ export class Line {
         }
       }
       i += 1;
+    }
+
+    // Parse Links
+    for (const station of this.stations_list) {
+      station.parse_and_set_links();
     }
 
     // Set Start and End Stations
@@ -240,13 +242,6 @@ export class Line {
           const link = station.has_link_to(child);
           if (!link) {
             continue;
-          }
-          if (station.name === 'S. Giovanni') {
-            console.log(
-              station.name,
-              child.name,
-              link.under_construction
-            )
           }
 
           if (link && link.under_construction) {

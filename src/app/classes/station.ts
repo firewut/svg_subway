@@ -125,41 +125,18 @@ export class Station {
     this.is_name_hidden = true;
   }
 
-  parse_links() {
-    if (this._links) {
-      for (const _link of this._links) {
-        let destination: Station;
-        if (_link.station) {
-          destination = this.line.get_station_by_name(
-            _link.station
-          );
-        } else {
-          if (this.children.length > 0) {
-            destination = this.children[0];
-          }
-        }
-        if (this.name === 'S. Giovanni') {
-          console.log(
-            this.name,
-            this.children,
-            destination,
-            _link.under_construction
-          );
-        }
 
-        const link = new StationLink(this, destination);
-        link.direction = _link.direction;
-        link.length = _link.length || 1;
-        link.under_construction = _link.under_construction || false;
-
-        this.add_link(link);
-      }
+  add_links(links: StationLink[]) {
+    for (const link of links) {
+      this.add_link(link);
     }
   }
 
   add_link(link?: StationLink) {
-    if (!this.links.includes(link)) {
-      this.links.push(link);
+    if (link) {
+      if (!this.links.includes(link)) {
+        this.links.push(link);
+      }
     }
   }
 
@@ -379,17 +356,82 @@ export class Station {
   add_parent(station?: Station) {
     if (station) {
       this.parents.push(station);
-
-      const first_parent = this.parents[0];
-      if (first_parent.links) {
-        const link = new StationLink(this, station);
-        link.direction = first_parent.links[0].direction;
-        link.length = first_parent.links[0].length || 1;
-
-        this.add_link(link);
-      }
     }
   }
+
+  parse_and_set_links() {
+    const links: StationLink[] = [];
+
+    // If link was passed
+    if (this._links.length > 0) {
+      for (const _link of this._links) {
+        let destination: Station;
+
+        if (_link.station) {
+          destination = this.line.get_station_by_name(
+            _link.station
+          );
+        } else {
+          if (this.children.length > 0) {
+            destination = this.children[0];
+          }
+        }
+
+        const link = new StationLink(this, destination);
+        link.direction = _link.direction;
+        link.length = _link.length || 1;
+        link.under_construction = _link.under_construction || false;
+
+        links.push(link);
+      }
+    } else {
+      // Inherit Parent's Link
+      if (
+        this.parents.length > 0 &&
+        this.children.length > 0
+      ) {
+        const parent = this.parents[0];
+        const parent_link = parent.has_link_to(this);
+        if (parent_link) {
+          const link = new StationLink(this, this.children[0]);
+          link.direction = parent_link.direction;
+          link.length = parent_link.length;
+          link.under_construction = parent_link.under_construction || false;
+
+          links.push(link);
+        }
+      }
+    }
+    if (this.name === 'Bologna') {
+      console.log(
+        links,
+      );
+    }
+
+    this.add_links(links);
+  }
+
+
+  // set_links() {
+  //   for (const child of this.children) {
+  //     if (!this.has_link_to(child)) {
+  //       const link = new StationLink(this, child);
+
+  //       // console.log(
+  //       //   this.line.name,
+  //       //   this.name,
+  //       //   child.name,
+  //       //   child.links
+  //       // );
+
+  //       if (this.links.length > 0) {
+  //         link.direction = this.links[0].direction;
+  //         link.length = this.links[0].length || 1;
+  //       }
+  //       this.add_link(link);
+  //     }
+  //   }
+  // }
 
   set_params() {
     this.position = this.get_position_by_parents();

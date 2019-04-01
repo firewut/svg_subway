@@ -557,8 +557,8 @@ export class Station {
     this.theme = theme;
     const elements: ElementParams[] = [];
 
-    let inner_color = shadeHexColor(this.line.color, 0.5);
-    let outer_color = theme.settings.station.marker.outer_color;
+    let outer_color = shadeHexColor(this.line.color, 0.5);
+    let inner_color = theme.settings.station.marker.inner_color;
     let font_color = theme.settings.station.font_color;
 
     if (this.under_construction) {
@@ -615,7 +615,7 @@ export class Station {
             }
           },
           'attr': {
-            'fill': inner_color,
+            'fill': outer_color,
           },
           'group': this.line.city.stations_group,
           'draw_callback': (el: svgjs.Container) => {
@@ -643,7 +643,7 @@ export class Station {
             }
           },
           'attr': {
-            'fill': outer_color,
+            'fill': inner_color,
           },
           'group': this.line.city.stations_group,
           'draw_callback': (el: svgjs.Container) => {

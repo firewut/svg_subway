@@ -1,17 +1,17 @@
-export const dark = {
-  name: 'dark',
+export const light = {
+  name: 'light',
   settings: {
-    background_color: '#51555b',
-    debug_grid_color: '#fff',
+    background_color: '#fff',
+    debug_grid_color: '#000',
     dialog: {
       station_selection: {
-        background_color: '#FFFFFF',
+        background_color: '#000',
         button_background_color: '#457AB2',
       }
     },
     line: {
       name: {
-        font_color: '#fff',
+        font_color: '#000',
       }
     },
     link: {
@@ -21,24 +21,24 @@ export const dark = {
       },
     },
     location_marker: {
-      text_color: '#FFF',
+      text_color: '#000',
     },
     station: {
-      font_color: '#fff',
+      font_color: '#000',
       under_construction: {
-        font_color: '#aaa'
+        font_color: '#333'
       },
       marker: {
         inner_color: '#fff',
         under_construction: {
-          outer_color: '#000000',
+          outer_color: '#fff',
           inner_color: '#FFEB3A',
         }
       },
     },
     transfer: {
-      inner_color: '#666',
-      outer_color: '#fff',
+      inner_color: '#aaa',
+      outer_color: '#000',
     }
   }
 };

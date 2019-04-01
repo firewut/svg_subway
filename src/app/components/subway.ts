@@ -32,6 +32,7 @@ export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
+    // TODO: Theme selector
     this.theme = settings.themes[0];
     this.scene = new Scene('canvas', this.theme);
     this.background_color = this.theme.settings.background_color;

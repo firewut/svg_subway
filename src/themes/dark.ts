@@ -1,6 +1,7 @@
 export const dark = {
   name: 'dark',
   settings: {
+    overlay_color: '#000000',
     background_color: '#51555b',
     debug_grid_color: '#fff',
     dialog: {

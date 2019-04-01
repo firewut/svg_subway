@@ -1,5 +1,582 @@
 [
     {
+        "name": "Rome",
+        "size": [
+            80,
+            60
+        ],
+        "lines": [
+            {
+                "name": "A",
+                "color": "#f36d21",
+                "stations": [
+                    {
+                        "name": {
+                            "value": "Battistini"
+                        },
+                        "x": 4,
+                        "y": 4,
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Cornelia"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Baldo\n degli Ubaldi",
+                            "location": "South"
+                        },
+                        "links": [
+                            {
+                                "direction": "East"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Valle\n Aurelia",
+                            "location": "North"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Cipro",
+                            "location": "South"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Ottaviano",
+                            "location": "North"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Lepanto",
+                            "location": "South"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Flaminio",
+                            "location": "North"
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Spagna",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Barberini",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Repubblica"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Termini",
+                            "location": "East"
+                        },
+                        "transfers": [
+                            {
+                                "line": "B",
+                                "stations": [
+                                    "Termini"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Vittorio Emanuele",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Manzoni",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "S. Giovanni",
+                            "location": "NorthEast"
+                        },
+                        "transfers": [
+                            {
+                                "line": "C",
+                                "stations": [
+                                    "S. Giovanni"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Re di Roma"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Ponte Lungo"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Furio Camillo"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Colli Albani"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Arco di Travertino"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Porta Furba"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Numidio Quadrato"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Lucio Sesto"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Giulio Agricola"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Subaugusta"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Cinecitta"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Anagnina"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "B",
+                "color": "#0071bb",
+                "stations": [
+                    {
+                        "name": {
+                            "value": "Laurentina",
+                            "location": "South"
+                        },
+                        "x": 24,
+                        "y": 34,
+                        "links": [
+                            {
+                                "direction": "West"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "EUR\n Fermi",
+                            "location": "North"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "EUR\n Palasport",
+                            "location": "South"
+                        },
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "EUR Magliana"
+                        },
+                        "links": [
+                            {
+                                "direction": "North"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Marconi"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Basilica S. Paolo"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Garbatella"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Piramide"
+                        },
+                        "links": [
+                            {
+                                "direction": "NorthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Circo Massimo"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Colosseo"
+                        },
+                        "transfers": [
+                            {
+                                "line": "C",
+                                "stations": [
+                                    "Colosseo"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Carvour"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Termini",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Castro Pretorio",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Policlinico",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Bologna"
+                        },
+                        "links": [
+                            {
+                                "station": "Tiburtina",
+                                "direction": "East"
+                            },
+                            {
+                                "station": "S. Agnese/\nAnnibiliano",
+                                "direction": "North"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Tiburtina",
+                            "location": "North"
+                        },
+                        "parents": [
+                            "Bologna"
+                        ],
+                        "links": [
+                            {
+                                "direction": "East"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Quintiliani",
+                            "location": "South"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Monti\n Tiburtini",
+                            "location": "North"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Pietralata",
+                            "location": "South"
+                        },
+                        "links": [
+                            {
+                                "direction": "NorthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "S. Maria del Soccorso",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Ponte Mammolo",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Rebibbia",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "S. Agnese/\nAnnibiliano"
+                        },
+                        "parents": [
+                            "Bologna"
+                        ],
+                        "links": [
+                            {
+                                "direction": "North"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Libia"
+                        },
+                        "links": [
+                            {
+                                "direction": "NorthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Conca d'Oro",
+                            "location": "West"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Jonio"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "C",
+                "color": "#007352",
+                "stations": [
+                    {
+                        "name": {
+                            "value": "Monte Compatri-Pantano"
+                        },
+                        "x": 76,
+                        "y": 56,
+                        "links": [
+                            {
+                                "direction": "NorthWest"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Graniti"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Finocchio"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Bolognetta"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Borghesiana"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Due Leoni/Fontana\n Candida"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Grotte Celoni"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Torre Gaia"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Torre Angela"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Torrenova"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Giardinetti"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Torre Maura"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Torre Spaccata"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Alessandrino"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Parco di Centocelle"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Mirti"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Gardenie",
+                            "location": "West"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Teano",
+                            "location": "North"
+                        },
+                        "links": [
+                            {
+                                "direction": "West"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Malatesta",
+                            "location": "South"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Pigneto",
+                            "location": "North"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Lodi",
+                            "location": "South"
+                        },
+                        "links": [
+                            {
+                                "direction": "West",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "S. Giovanni",
+                            "location": "NorthEast"
+                        },
+                        "links": [
+                            {
+                                "direction": "West",
+                                "length": 4,
+                                "under_construction": true
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Amba\n Aradam",
+                            "location": "South"
+                        },
+                        "under_construction": true,
+                        "links": [
+                            {
+                                "direction": "NorthWest",
+                                "under_construction": true
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Colosseo"
+                        },
+                        "line_name_plate": false
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "name": "Madrid",
         "size": [
             120,
@@ -2996,583 +3573,6 @@
                             "Puerta del Sur",
                             "Leganés Central"
                         ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "name": "Rome",
-        "size": [
-            80,
-            60
-        ],
-        "lines": [
-            {
-                "name": "A",
-                "color": "#f36d21",
-                "stations": [
-                    {
-                        "name": {
-                            "value": "Battistini"
-                        },
-                        "x": 4,
-                        "y": 4,
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Cornelia"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Baldo\n degli Ubaldi",
-                            "location": "South"
-                        },
-                        "links": [
-                            {
-                                "direction": "East"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Valle\n Aurelia",
-                            "location": "North"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Cipro",
-                            "location": "South"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Ottaviano",
-                            "location": "North"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Lepanto",
-                            "location": "South"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Flaminio",
-                            "location": "North"
-                        },
-                        "links": [
-                            {
-                                "direction": "SouthEast"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Spagna",
-                            "location": "East"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Barberini",
-                            "location": "East"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Repubblica"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Termini",
-                            "location": "East"
-                        },
-                        "transfers": [
-                            {
-                                "line": "B",
-                                "stations": [
-                                    "Termini"
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Vittorio Emanuele",
-                            "location": "East"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Manzoni",
-                            "location": "East"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "S. Giovanni",
-                            "location": "NorthEast"
-                        },
-                        "transfers": [
-                            {
-                                "line": "C",
-                                "stations": [
-                                    "S. Giovanni"
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Re di Roma"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Ponte Lungo"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Furio Camillo"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Colli Albani"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Arco di Travertino"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Porta Furba"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Numidio Quadrato"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Lucio Sesto"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Giulio Agricola"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Subaugusta"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Cinecitta"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Anagnina"
-                        }
-                    }
-                ]
-            },
-            {
-                "name": "B",
-                "color": "#0071bb",
-                "stations": [
-                    {
-                        "name": {
-                            "value": "Laurentina",
-                            "location": "South"
-                        },
-                        "x": 24,
-                        "y": 34,
-                        "links": [
-                            {
-                                "direction": "West"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "EUR\n Fermi",
-                            "location": "North"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "EUR\n Palasport",
-                            "location": "South"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthWest"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "EUR Magliana"
-                        },
-                        "links": [
-                            {
-                                "direction": "North"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Marconi"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Basilica S. Paolo"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Garbatella"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Piramide"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthEast"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Circo Massimo"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Colosseo"
-                        },
-                        "transfers": [
-                            {
-                                "line": "C",
-                                "stations": [
-                                    "Colosseo"
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Carvour"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Termini",
-                            "location": "East"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Castro Pretorio",
-                            "location": "East"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Policlinico",
-                            "location": "East"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Bologna"
-                        },
-                        "links": [
-                            {
-                                "station": "Tiburtina",
-                                "direction": "East"
-                            },
-                            {
-                                "station": "S. Agnese/\nAnnibiliano",
-                                "direction": "North"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Tiburtina",
-                            "location": "North"
-                        },
-                        "parents": [
-                            "Bologna"
-                        ],
-                        "links": [
-                            {
-                                "direction": "East"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Quintiliani",
-                            "location": "South"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Monti\n Tiburtini",
-                            "location": "North"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Pietralata",
-                            "location": "South"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthEast"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "S. Maria del Soccorso",
-                            "location": "East"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Ponte Mammolo",
-                            "location": "East"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Rebibbia",
-                            "location": "East"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "S. Agnese/\nAnnibiliano"
-                        },
-                        "parents": [
-                            "Bologna"
-                        ],
-                        "links": [
-                            {
-                                "direction": "North"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Libia"
-                        },
-                        "links": [
-                            {
-                                "direction": "NorthEast"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Conca d'Oro",
-                            "location": "West"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Jonio"
-                        }
-                    }
-                ]
-            },
-            {
-                "name": "C",
-                "color": "#007352",
-                "stations": [
-                    {
-                        "name": {
-                            "value": "Monte Compatri-Pantano"
-                        },
-                        "x": 76,
-                        "y": 56,
-                        "links": [
-                            {
-                                "direction": "NorthWest"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Graniti"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Finocchio"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Bolognetta"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Borghesiana"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Due Leoni/Fontana\n Candida"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Grotte Celoni"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Torre Gaia"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Torre Angela"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Torrenova"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Giardinetti"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Torre Maura"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Torre Spaccata"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Alessandrino"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Parco di Centocelle"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Mirti"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Gardenie",
-                            "location": "West"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Teano",
-                            "location": "North"
-                        },
-                        "links": [
-                            {
-                                "direction": "West"
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Malatesta",
-                            "location": "South"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Pigneto",
-                            "location": "North"
-                        }
-                    },
-                    {
-                        "name": {
-                            "value": "Lodi",
-                            "location": "South"
-                        },
-                        "links": [
-                            {
-                                "direction": "West",
-                                "length": 2
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "S. Giovanni",
-                            "location": "NorthEast"
-                        },
-                        "links": [
-                            {
-                                "direction": "West",
-                                "length": 4,
-                                "under_construction": true
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Amba\n Aradam",
-                            "location": "South"
-                        },
-                        "under_construction": true,
-                        "links": [
-                            {
-                                "direction": "NorthWest",
-                                "under_construction": true
-                            }
-                        ]
-                    },
-                    {
-                        "name": {
-                            "value": "Colosseo"
-                        },
-                        "line_name_plate": false
                     }
                 ]
             }

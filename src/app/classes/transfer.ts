@@ -163,7 +163,6 @@ export class StationTransfer {
         },
         'group': this.line.city.transfers_group,
         'draw_callback': (el: svgjs.Container) => {
-          el.back();
           this.svg_elements_dict['outer_line'] = el;
         },
         'classes': [
@@ -187,11 +186,10 @@ export class StationTransfer {
           'html_class': 'Transfer',
           'linecap': 'round',
           'linejoin': 'round',
-          'opacity': 0.25,
+          'opacity': 0.5,
         },
         'group': this.line.city.transfers_group,
         'draw_callback': (el: svgjs.Container) => {
-          el.back();
           this.svg_elements_dict['inner_line'] = el;
         },
         'classes': [

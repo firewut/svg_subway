@@ -6,7 +6,7 @@
         <mat-icon>location_city</mat-icon>
         <span>City</span>
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item [matMenuTriggerFor]="themes_list">
         <mat-icon>color_lens</mat-icon>
         <span>Theme</span>
     </button>
@@ -20,17 +20,16 @@
     </button>
 </mat-menu>
 
-<!-- MAKE A DIALOG WITH SELECT INSIDE -->
-
 <mat-menu #cities_list="matMenu">
-    <mat-form-field>
-        <mat-label>Cities</mat-label>
-        <select matNativeControl [(ngModel)]="selectedCity" (ngModelChange)="selectCity($event)">
-            <option *ngFor="let city of cities" [ngValue]="city.name">
-                {{ city.name }}
-            </option>
-        </select>
-    </mat-form-field>
+    <button mat-menu-item *ngFor="let city of cities" (click)="selectCity(city)">
+        <span>{{city.name}}</span>
+    </button>
 </mat-menu>
+<mat-menu #themes_list="matMenu">
+    <button mat-menu-item *ngFor="let theme of themes" (click)="selectTheme(theme)">
+        <span>{{theme.name}}</span>
+    </button>
+</mat-menu>
+
 
 <div id="canvas"></div>

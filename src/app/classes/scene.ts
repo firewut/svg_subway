@@ -42,6 +42,10 @@ export class Scene {
     }
   }
 
+  set_theme(theme: Theme) {
+    this.theme = theme;
+  }
+
   resize(grid_size: number[]) {
     this.canvas.size(
       (

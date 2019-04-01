@@ -6,7 +6,6 @@ export const settings = {
     width: 20,
     height: 20,
     overlay: {
-      color: '#000',
       opacity: 0.66,
     },
   },
@@ -55,7 +54,7 @@ export const settings = {
     }
   },
   themes: [
-    dark,
     light,
+    dark,
   ],
 };

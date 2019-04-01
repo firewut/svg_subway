@@ -1,11 +1,12 @@
 export const light = {
   name: 'light',
   settings: {
-    background_color: '#fff',
+    overlay_color: '#FFFFFF',
+    background_color: '#FFFFFF',
     debug_grid_color: '#000',
     dialog: {
       station_selection: {
-        background_color: '#000',
+        background_color: '#FFFFFF',
         button_background_color: '#457AB2',
       }
     },
@@ -29,16 +30,16 @@ export const light = {
         font_color: '#333'
       },
       marker: {
-        inner_color: '#fff',
+        inner_color: '#FFFFFF',
         under_construction: {
-          outer_color: '#fff',
+          outer_color: '#FFFFFF',
           inner_color: '#FFEB3A',
         }
       },
     },
     transfer: {
-      inner_color: '#aaa',
-      outer_color: '#000',
+      inner_color: '#666',
+      outer_color: '#AAA',
     }
   }
 };

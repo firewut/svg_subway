@@ -102,6 +102,9 @@ export class SubwayRouter {
 
   unselect_station(station: Station) {
     this.select_to = false;
+    if (!station) {
+      return
+    }
     if (this.from === station) {
       this.from = undefined;
     } else if (this.to === station) {
@@ -191,6 +194,11 @@ export class SubwayRouter {
     this.city.highlight_route(path);
     this.city.hide_stations_selection_dialog();
   }
+
+  reset() {
+    this.unselect_station(this.from);
+    this.unselect_station(this.to);
+  }
 }
 
 export class City {
@@ -261,6 +269,10 @@ export class City {
     }
 
     this.router = new SubwayRouter(this);
+  }
+
+  reset() {
+    this.router.reset();
   }
 
   get_station_by_id(station_id: string): Station {
@@ -344,7 +356,7 @@ export class City {
           }
         },
         'attr': {
-          'fill': settings.grid.overlay.color,
+          'fill': theme.settings.overlay_color,
           'html_class': 'Rect',
           'opacity': settings.grid.overlay.opacity,
           'style': 'pointer-events: none;', // <---- Makes Overlay Clickable & etc
@@ -530,7 +542,7 @@ export class City {
           'group': this.dialog_group,
           'draw_callback': (el: svgjs.Container) => {
             const self = this;
-            el.on('click', function() {
+            el.on('click', function () {
               const station = self.dialog_group.remember('station');
 
               self.router.select_station_from(station);
@@ -558,7 +570,7 @@ export class City {
           'group': this.dialog_group,
           'draw_callback': (el: svgjs.Container) => {
             const self = this;
-            el.on('click', function() {
+            el.on('click', function () {
               const station = self.dialog_group.remember('station');
 
               self.router.select_station_to(station);

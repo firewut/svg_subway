@@ -5,7 +5,8 @@ export const dark = {
     debug_grid_color: '#fff',
     dialog: {
       station_selection: {
-        background_color: '#333'
+        background_color: '#FFFFFF',
+        button_background_color: '#457AB2',
       }
     },
     line: {

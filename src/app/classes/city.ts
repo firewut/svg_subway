@@ -101,13 +101,16 @@ export class SubwayRouter {
   }
 
   unselect_station(station: Station) {
+    this.select_to = false;
     if (this.from === station) {
       this.from = undefined;
-      this.select_to = false;
     } else if (this.to === station) {
       this.to = undefined;
-      this.select_to = true;
+      if (this.from) {
+        this.select_to = true;
+      }
     }
+
     station.uncheck();
 
     this.city.hide_overlay();
@@ -115,6 +118,10 @@ export class SubwayRouter {
 
   select_station_from(station: Station) {
     const marker_text = settings.location_marker.from_marker;
+    if (this.to === station) {
+      this.unselect_station(station);
+      return;
+    }
     if (this.from !== undefined) {
       this.from.toggle(marker_text);
     }
@@ -126,27 +133,31 @@ export class SubwayRouter {
 
   select_station_to(station: Station) {
     const marker_text = settings.location_marker.to_marker;
-
+    if (this.from === station) {
+      this.unselect_station(station);
+      return;
+    }
     if (this.to !== undefined) {
       this.to.toggle(marker_text);
     }
     station.toggle(marker_text);
     this.to = station;
+    this.select_to = false;
   }
 
-  select_station(station: Station, to?: boolean) {
+  select_station(station: Station) {
     // If Both are selected - SHOW DIALOG
     if (this.from && this.to) {
-      if (![this.from, this.to].includes(station)) {
-        this.city.show_station_selection_dialog(station);
+      if ([this.from, this.to].includes(station)) {
+        this.unselect_station(station);
         return;
       } else {
-        this.unselect_station(station);
+        this.city.show_station_selection_dialog(station);
         return;
       }
     }
 
-    if (to === true || this.select_to) {
+    if (this.select_to === true) {
       this.select_station_to(station);
     } else {
       this.select_station_from(station);
@@ -450,7 +461,7 @@ export class City {
           'attr': {
             'fill': theme.settings.dialog.station_selection.background_color,
             'html_class': 'Rect',
-            'opacity': .5
+            'opacity': .8
           },
           'group': this.dialog_group,
           'draw_callback': (el: svgjs.Container) => {
@@ -470,7 +481,7 @@ export class City {
             'radius': dialog_settings.corner_radius,
           },
           'attr': {
-            'fill': theme.settings.dialog.station_selection.background_color,
+            'fill': theme.settings.dialog.station_selection.button_background_color,
             'html_class': 'Rect',
             'opacity': .9
           },
@@ -492,7 +503,7 @@ export class City {
             'radius': dialog_settings.corner_radius,
           },
           'attr': {
-            'fill': theme.settings.dialog.station_selection.background_color,
+            'fill': theme.settings.dialog.station_selection.button_background_color,
             'html_class': 'Rect',
             'opacity': .9
           },

@@ -417,27 +417,6 @@ export class Station {
   }
 
 
-  // set_links() {
-  //   for (const child of this.children) {
-  //     if (!this.has_link_to(child)) {
-  //       const link = new StationLink(this, child);
-
-  //       // console.log(
-  //       //   this.line.name,
-  //       //   this.name,
-  //       //   child.name,
-  //       //   child.links
-  //       // );
-
-  //       if (this.links.length > 0) {
-  //         link.direction = this.links[0].direction;
-  //         link.length = this.links[0].length || 1;
-  //       }
-  //       this.add_link(link);
-  //     }
-  //   }
-  // }
-
   set_params() {
     this.position = this.get_position_by_parents();
     this.text_position = this.get_text_position(settings.station.font_size);
@@ -498,6 +477,8 @@ export class Station {
       this.location_marker.remove();
       this.location_marker = undefined;
     }
+
+    this.click_toggle = false;
   }
 
   unhighlight() {

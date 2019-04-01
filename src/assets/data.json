@@ -1521,8 +1521,7 @@
                     },
                     {
                         "name": {
-                            "value": "",
-                            "location": "East"
+                            "value": ""
                         },
                         "links": [
                             {
@@ -2337,6 +2336,7 @@
                         "name": {
                             "value": "Tres Olivos"
                         },
+                        "description": "Train Switch",
                         "links": [
                             {
                                 "direction": "South",

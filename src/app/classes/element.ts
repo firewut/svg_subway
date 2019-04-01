@@ -550,6 +550,8 @@ export class LineDashedTwoColorsElement extends LineElement {
     const line = svg_element.line(this.x1, this.y1, this.x2, this.y2);
     const dashed_line = svg_element.line(this.x1, this.y1, this.x2, this.y2);
 
+    dashed_line.before(line);
+
     line.stroke({
       'color': this.attr.color,
       'width': this.attr.width,

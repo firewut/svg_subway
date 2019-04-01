@@ -29,7 +29,6 @@ export class StationLink {
     this.direction = Direction.North;
   }
 
-
   // get_opposite_link(): StationLink {
   //   const vector = new VectorDirection(this.direction);
 
@@ -52,6 +51,7 @@ export class Station {
   name: string;
   name_location: Direction = Direction.West;
   position?: Point2D;
+  description: string;
 
   links: StationLink[] = [];
   _links?: StationLinkInterface[] = [];
@@ -92,6 +92,11 @@ export class Station {
   constructor(line: Line, json: any) {
     this.id = makeid();
     this.line = line;
+
+    if ('description' in json) {
+      this.description = json.description;
+    }
+
     this._links = json.links || [];
 
     if ('line_name_plate' in json) {
@@ -596,65 +601,68 @@ export class Station {
       elements.push(label_element_params);
     }
 
+    let station_element_params: ElementParams[] = [];
     // Station Marker
-    const station_element_params: ElementParams[] = [
-      {
-        'type': ElementType.Circle,
-        'properties': {
-          'radius': settings.station.marker.outer_radius,
-          'position': {
-            'x': this.position.x,
-            'y': this.position.y,
-          }
-        },
-        'attr': {
-          'fill': inner_color,
-        },
-        'group': this.line.city.stations_group,
-        'draw_callback': (el: svgjs.Container) => {
+    if (this.name) {
+      station_element_params = [
+        {
+          'type': ElementType.Circle,
+          'properties': {
+            'radius': settings.station.marker.outer_radius,
+            'position': {
+              'x': this.position.x,
+              'y': this.position.y,
+            }
+          },
+          'attr': {
+            'fill': inner_color,
+          },
+          'group': this.line.city.stations_group,
+          'draw_callback': (el: svgjs.Container) => {
 
-          this.svg_elements_dict['outer_marker'] = el;
+            this.svg_elements_dict['outer_marker'] = el;
 
-          const self = this;
-          el.on('click', function() {
-            self.line.city.router.select_station(self);
-          });
+            const self = this;
+            el.on('click', function() {
+              self.line.city.router.select_station(self);
+            });
+          },
+          'classes': [
+            'Station',
+            'Marker',
+            this.id
+          ]
         },
-        'classes': [
-          'Station',
-          'Marker',
-          this.id
-        ]
-      },
-      {
-        'type': ElementType.Circle,
-        'properties': {
-          'radius': settings.station.marker.inner_radius,
-          'position': {
-            'x': this.position.x,
-            'y': this.position.y,
-          }
-        },
-        'attr': {
-          'fill': outer_color,
-        },
-        'group': this.line.city.stations_group,
-        'draw_callback': (el: svgjs.Container) => {
+        {
+          'type': ElementType.Circle,
+          'properties': {
+            'radius': settings.station.marker.inner_radius,
+            'position': {
+              'x': this.position.x,
+              'y': this.position.y,
+            }
+          },
+          'attr': {
+            'fill': outer_color,
+          },
+          'group': this.line.city.stations_group,
+          'draw_callback': (el: svgjs.Container) => {
 
-          this.svg_elements_dict['inner_marker'] = el;
+            this.svg_elements_dict['inner_marker'] = el;
 
-          const self = this;
-          el.on('click', function() {
-            self.line.city.router.select_station(self);
-          });
-        },
-        'classes': [
-          'Station',
-          'Marker',
-          this.id
-        ]
-      }
-    ];
+            const self = this;
+            el.on('click', function() {
+              self.line.city.router.select_station(self);
+            });
+          },
+          'classes': [
+            'Station',
+            'Marker',
+            this.id
+          ]
+        }
+      ];
+    }
 
     for (const station_element_param of station_element_params) {
       elements.push(station_element_param);

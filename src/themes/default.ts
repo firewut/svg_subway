@@ -1,12 +1,11 @@
 import { dark } from './dark';
-
+import { light } from './light';
 
 export const settings = {
   grid: {
     width: 20,
     height: 20,
     overlay: {
-      color: '#000',
       opacity: 0.66,
     },
   },
@@ -55,6 +54,7 @@ export const settings = {
     }
   },
   themes: [
+    light,
     dark,
   ],
 };

@@ -1,0 +1,5 @@
+.fixed {
+    display: inline-block;
+    position: fixed;
+    top: 0px;
+}

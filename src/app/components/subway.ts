@@ -42,15 +42,23 @@ export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.scene === undefined) {
       this.scene = new Scene('canvas', theme);
     }
+    localStorage.setItem('theme_name', theme.name);
     this.scene.set_theme(theme);
     this.background_color = theme.settings.background_color;
   }
 
   ngOnInit() {
+    // Theme 
     this.themes = settings.themes;
     this.selectedTheme = this.themes[0];
+    const saved_theme_name = localStorage.getItem('theme_name');
+    const local_theme = this.themes.filter(t => t.name === saved_theme_name);
+    if (local_theme.length > 0) {
+      this.selectedTheme = local_theme[0];
+    }
     this.initScene(this.selectedTheme)
 
+    // City
     for (const city of data as any[]) {
       this.cities.push(
         new City(city, this.scene.canvas)
@@ -68,6 +76,11 @@ export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
       return 0;
     });
     this.selectedCity = this.cities[0];
+    const last_city_name = localStorage.getItem('city_name');
+    const last_city = this.cities.filter(t => t.name === last_city_name);
+    if (last_city.length > 0) {
+      this.selectedCity = last_city[0];
+    }
 
     this.resizeSubscription = this.resizeService.onResize$
       .subscribe(event => {
@@ -86,6 +99,7 @@ export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   selectCity(city: City) {
+    localStorage.setItem('city_name', city.name);
     this.selectedCity = city;
     this.draw(city);
   }

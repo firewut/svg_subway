@@ -1,4 +1,9 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+} from '@angular/core';
 
 import { City } from '../classes/city';
 import { Scene } from '../classes/scene';
@@ -9,6 +14,7 @@ import data from '../../assets/data.json';
 import { settings } from '../../themes/default';
 import { Subscription } from 'rxjs';
 import { ResizeService } from '../services/resize_service';
+
 
 @Component({
   selector: 'app-subway',

@@ -1,7 +1,36 @@
-<select [(ngModel)]="selectedCity" (ngModelChange)="selectCity($event)">
-    <option *ngFor="let city of cities" [ngValue]="city.name">
-        {{ city.name }}
-    </option>
-</select>
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
+    <mat-icon>menu</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="cities_list">
+        <mat-icon>location_city</mat-icon>
+        <span>City</span>
+    </button>
+    <button mat-menu-item>
+        <mat-icon>color_lens</mat-icon>
+        <span>Theme</span>
+    </button>
+    <button mat-menu-item>
+        <mat-icon>help</mat-icon>
+        <span>About</span>
+    </button>
+    <button mat-menu-item>
+        <mat-icon>feedback</mat-icon>
+        <span>Feedback</span>
+    </button>
+</mat-menu>
+
+<!-- MAKE A DIALOG WITH SELECT INSIDE -->
+
+<mat-menu #cities_list="matMenu">
+    <mat-form-field>
+        <mat-label>Cities</mat-label>
+        <select matNativeControl [(ngModel)]="selectedCity" (ngModelChange)="selectCity($event)">
+            <option *ngFor="let city of cities" [ngValue]="city.name">
+                {{ city.name }}
+            </option>
+        </select>
+    </mat-form-field>
+</mat-menu>
 
 <div id="canvas"></div>

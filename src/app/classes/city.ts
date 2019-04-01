@@ -101,12 +101,14 @@ export class SubwayRouter {
   }
 
   unselect_station(station: Station) {
+    this.select_to = false;
     if (this.from === station) {
       this.from = undefined;
-      this.select_to = false;
     } else if (this.to === station) {
       this.to = undefined;
-      this.select_to = true;
+      if (this.from) {
+        this.select_to = true;
+      }
     }
 
     station.uncheck();
@@ -145,16 +147,16 @@ export class SubwayRouter {
   select_station(station: Station) {
     // If Both are selected - SHOW DIALOG
     if (this.from && this.to) {
-      if (![this.from, this.to].includes(station)) {
-        this.city.show_station_selection_dialog(station);
+      if ([this.from, this.to].includes(station)) {
+        this.unselect_station(station);
         return;
       } else {
-        this.unselect_station(station);
+        this.city.show_station_selection_dialog(station);
         return;
       }
     }
 
-    if (this.select_to) {
+    if (this.select_to === true) {
       this.select_station_to(station);
     } else {
       this.select_station_from(station);

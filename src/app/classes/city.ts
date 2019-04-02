@@ -148,6 +148,9 @@ export class SubwayRouter {
   }
 
   select_station(station: Station) {
+    if (station.under_construction) {
+      return;
+    }
     // If Both are selected - SHOW DIALOG
     if (this.from && this.to) {
       if ([this.from, this.to].includes(station)) {
@@ -431,6 +434,8 @@ export class City {
   }
 
   unhighlight_route() {
+    this.hide_stations_selection_dialog();
+
     for (const item of this.active_route_group) {
       item.unhighlight();
     }

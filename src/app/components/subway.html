@@ -1,4 +1,4 @@
-<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu" class="fixed">
+<button mat-mini-fab color="none" [matMenuTriggerFor]="menu" aria-label="Menu" class="menu">
     <mat-icon>menu</mat-icon>
 </button>
 <mat-menu #menu="matMenu">
@@ -14,10 +14,10 @@
         <mat-icon>help</mat-icon>
         <span>About</span>
     </button>
-    <button mat-menu-item>
+    <a mat-menu-item href="{{ feedback_email }}">
         <mat-icon>feedback</mat-icon>
-        <span>Feedback</span>
-    </button>
+        Feedback
+    </a>
 </mat-menu>
 <mat-menu #cities_list="matMenu">
     <button mat-menu-item *ngFor="let city of cities" (click)="selectCity(city)">

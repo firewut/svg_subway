@@ -123,18 +123,6 @@ export class Scene {
 
   draw() {
     this.drawElements();
-
-    // Background of a Canvas
-    const canvas_bbox = this.canvas.rbox();
-    const canvas_bg = this.canvas.group();
-    const rect = canvas_bg.rect(1, 1);
-    canvas_bg.back();
-    rect.fill({
-      color: this.theme.settings.background_color
-    }).size(
-      canvas_bbox.w,
-      canvas_bbox.h,
-    );
   }
 
   drawElements() {

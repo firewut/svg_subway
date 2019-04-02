@@ -110,6 +110,9 @@ export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   selectTheme(theme: Theme) {
+    if (this.selectedTheme === theme) {
+      return;
+    }
     this.selectedTheme = theme;
     this.initScene(theme);
     this.draw(this.selectedCity);

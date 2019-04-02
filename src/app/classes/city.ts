@@ -149,6 +149,9 @@ export class SubwayRouter {
   }
 
   select_station(station: Station) {
+    if (station.under_construction) {
+      return;
+    }
     // If Both are selected - SHOW DIALOG
     if (this.from && this.to) {
       if ([this.from, this.to].includes(station)) {
@@ -274,7 +277,7 @@ export class City {
 
   reset() {
     this.router.reset();
-    this.hide_stations_selection_dialog();
+    this.hide_overlay();
   }
 
   get_station_by_id(station_id: string): Station {
@@ -433,6 +436,8 @@ export class City {
   }
 
   unhighlight_route() {
+    this.hide_stations_selection_dialog();
+
     for (const item of this.active_route_group) {
       item.unhighlight();
     }
@@ -448,8 +453,11 @@ export class City {
   }
 
   hide_overlay() {
-    if (this.overlay.visible()) {
-      this.overlay.hide();
+    if (this.overlay) {
+      if (this.overlay.visible()) {
+        this.hide_stations_selection_dialog();
+        this.overlay.hide();
+      }
     }
   }
 

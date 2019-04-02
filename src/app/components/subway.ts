@@ -3,11 +3,13 @@ import {
   OnInit,
   AfterViewInit,
   OnDestroy,
+  ElementRef,
 } from '@angular/core';
 
 import { City } from '../classes/city';
 import { Scene } from '../classes/scene';
 import { Theme } from '../../themes/theme';
+import { environment } from '../../environments/environment';
 
 // Replace by API Call
 import data from '../../assets/data.json';
@@ -30,12 +32,15 @@ export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedCity: City;
   cities: City[] = [];
 
-  background_color: string;
+  feedback_email = '';
 
   constructor(
     private resizeService: ResizeService,
+    private elementRef: ElementRef,
   ) {
-
+    if (environment.feedback_email.length > 0) {
+      this.feedback_email = `mailto:${environment.feedback_email}`;
+    }
   }
 
   initScene(theme: Theme) {
@@ -44,11 +49,11 @@ export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     localStorage.setItem('theme_name', theme.name);
     this.scene.set_theme(theme);
-    this.background_color = theme.settings.background_color;
+    this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = theme.settings.background_color;
   }
 
   ngOnInit() {
-    // Theme 
+    // Theme
     this.themes = settings.themes;
     this.selectedTheme = this.themes[0];
     const saved_theme_name = localStorage.getItem('theme_name');
@@ -56,7 +61,7 @@ export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
     if (local_theme.length > 0) {
       this.selectedTheme = local_theme[0];
     }
-    this.initScene(this.selectedTheme)
+    this.initScene(this.selectedTheme);
 
     // City
     for (const city of data as any[]) {

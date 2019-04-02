@@ -32,7 +32,7 @@ export const light = {
       marker: {
         inner_color: '#FFFFFF',
         under_construction: {
-          outer_color: '#FFFFFF',
+          outer_color: '#000000',
           inner_color: '#FFEB3A',
         }
       },

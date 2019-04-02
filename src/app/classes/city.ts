@@ -103,7 +103,7 @@ export class SubwayRouter {
   unselect_station(station: Station) {
     this.select_to = false;
     if (!station) {
-      return
+      return;
     }
     if (this.from === station) {
       this.from = undefined;
@@ -274,6 +274,7 @@ export class City {
 
   reset() {
     this.router.reset();
+    this.hide_stations_selection_dialog();
   }
 
   get_station_by_id(station_id: string): Station {
@@ -538,12 +539,12 @@ export class City {
             'weight': settings.line.name.font_weight,
           },
           'attr': {
-            'fill': theme.settings.line.name.font_color,
+            'fill': theme.settings.dialog.station_selection.font_color,
           },
           'group': this.dialog_group,
           'draw_callback': (el: svgjs.Container) => {
             const self = this;
-            el.on('click', function () {
+            el.on('click', function() {
               const station = self.dialog_group.remember('station');
 
               self.router.select_station_from(station);
@@ -566,12 +567,12 @@ export class City {
             'weight': settings.line.name.font_weight,
           },
           'attr': {
-            'fill': theme.settings.line.name.font_color,
+            'fill': theme.settings.dialog.station_selection.font_color,
           },
           'group': this.dialog_group,
           'draw_callback': (el: svgjs.Container) => {
             const self = this;
-            el.on('click', function () {
+            el.on('click', function() {
               const station = self.dialog_group.remember('station');
 
               self.router.select_station_to(station);

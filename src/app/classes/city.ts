@@ -192,7 +192,6 @@ export class SubwayRouter {
   highlight_route(path: string[]) {
     // Draw Markers, Transfers and etc from `start` to `finish`
     this.city.highlight_route(path);
-    this.city.hide_stations_selection_dialog();
   }
 
   reset() {
@@ -273,7 +272,7 @@ export class City {
 
   reset() {
     this.router.reset();
-    this.hide_stations_selection_dialog();
+    this.hide_overlay();
   }
 
   get_station_by_id(station_id: string): Station {
@@ -447,8 +446,11 @@ export class City {
   }
 
   hide_overlay() {
-    if (this.overlay.visible()) {
-      this.overlay.hide();
+    if (this.overlay) {
+      if (this.overlay.visible()) {
+        this.hide_stations_selection_dialog();
+        this.overlay.hide();
+      }
     }
   }
 

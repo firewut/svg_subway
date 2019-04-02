@@ -589,9 +589,7 @@ export class Station {
 
           const self = this;
           el.on('click', function() {
-            if (!self.under_construction) {
-              self.line.city.router.select_station(self);
-            }
+            self.line.city.router.select_station(self);
           });
         },
         'classes': [

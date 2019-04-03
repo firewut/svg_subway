@@ -203,7 +203,7 @@ export class Station {
 
     let lines_count = 0;
     let max_length = 0;
-    for (const line of this.name.split('\n')) {
+    for (const line of this.display_name.split('\n')) {
       lines_count += 1;
       if (line.length > max_length) {
         max_length = line.length;
@@ -211,7 +211,7 @@ export class Station {
     }
 
     if (max_length === 0) {
-      max_length = this.name.length;
+      max_length = this.display_name.length;
     }
     const text_margin = font_size / 2;
     const magic_lines_multiplier = 1.3;

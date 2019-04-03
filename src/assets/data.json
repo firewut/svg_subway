@@ -312,7 +312,7 @@
                                 "direction": "East"
                             },
                             {
-                                "station": "S. Agnese/\nAnnibiliano",
+                                "station": "S. Agnese/Annibiliano",
                                 "direction": "North"
                             }
                         ]
@@ -770,12 +770,12 @@
                     },
                     {
                         "name": {
-                            "value": "Colonia de los Ángeles"
+                            "value": "Colonia\n de los Ángeles"
                         }
                     },
                     {
                         "name": {
-                            "value": "Prado del Vega",
+                            "value": "Prado\n del Vega",
                             "location": "West"
                         },
                         "links": [
@@ -2537,7 +2537,7 @@
                                 "gravity": "SouthEast"
                             },
                             {
-                                "station": "Ciudad\n Universitaria",
+                                "station": "Ciudad Universitaria",
                                 "direction": "North",
                                 "length": 1
                             }
@@ -2973,7 +2973,7 @@
                         },
                         "line_name_plate": false,
                         "parents": [
-                            "Vicente\n Aleixandre",
+                            "Vicente Aleixandre",
                             "Moncloa"
                         ]
                     }

@@ -530,7 +530,7 @@ export class Station {
         this.svg_elements_dict['location_marker'] = marker_el;
 
         const self = this;
-        marker_el.on('click', function() {
+        marker_el.on('click', function () {
           self.line.city.router.select_station(self);
         });
       },
@@ -580,7 +580,7 @@ export class Station {
           this.svg_elements_dict['name'] = el;
 
           const self = this;
-          el.on('click', function() {
+          el.on('click', function () {
             self.line.city.router.select_station(self);
           });
         },
@@ -614,7 +614,7 @@ export class Station {
             this.svg_elements_dict['outer_marker'] = el;
 
             const self = this;
-            el.on('click', function() {
+            el.on('click', function () {
               self.line.city.router.select_station(self);
             });
           },
@@ -641,7 +641,7 @@ export class Station {
             this.svg_elements_dict['inner_marker'] = el;
 
             const self = this;
-            el.on('click', function() {
+            el.on('click', function () {
               self.line.city.router.select_station(self);
             });
           },
@@ -652,6 +652,36 @@ export class Station {
           ]
         }
       ];
+    } else {
+      station_element_params = [
+        {
+          'type': ElementType.Circle,
+          'properties': {
+            'radius': settings.line.width,
+            'position': {
+              'x': this.position.x,
+              'y': this.position.y,
+            }
+          },
+          'attr': {
+            'fill': this.line.color,
+          },
+          'group': this.line.city.stations_group,
+          'draw_callback': (el: svgjs.Container) => {
+            this.svg_elements_dict['outer_marker'] = el;
+
+            const self = this;
+            el.on('click', function () {
+              self.line.city.router.select_station(self);
+            });
+          },
+          'classes': [
+            'Station',
+            'Marker',
+            this.id
+          ]
+        }
+      ]
     }
 
     for (const station_element_param of station_element_params) {

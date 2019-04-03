@@ -372,7 +372,7 @@ export class Line {
                 }
 
                 const self = this;
-                el.on('click', function() {
+                el.on('click', function () {
                   self.click(el);
                 });
               },

@@ -13,7 +13,7 @@ export const light = {
     },
     line: {
       name: {
-        font_color: '#000',
+        font_color: '#FFF',
       }
     },
     link: {

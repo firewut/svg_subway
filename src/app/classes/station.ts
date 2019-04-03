@@ -38,6 +38,7 @@ export class Station {
   name_location: Direction = Direction.West;
   position?: Point2D;
   description: string;
+  private display_name: string;
 
   links: StationLink[] = [];
   _links?: StationLinkInterface[] = [];
@@ -115,7 +116,8 @@ export class Station {
     this._parents = json.parents;
 
     if ('name' in json) {
-      this.name = json.name.value.trim();
+      this.display_name = json.name.value;
+      this.name = this.display_name.trim().replace(/(\r\n|\n|\r)/gm, '');
       if ('location' in json.name) {
         this.name_location = json.name.location;
       }
@@ -561,7 +563,7 @@ export class Station {
       const label_element_params: ElementParams = {
         'type': ElementType.Text,
         'properties': {
-          'text': this.name,
+          'text': this.display_name,
           'size': settings.station.font_size,
           'position': {
             'x': this.text_position.x,

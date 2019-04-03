@@ -674,13 +674,13 @@
                             {
                                 "line": "1",
                                 "stations": [
-                                    "Pinar de\n Chamartín"
+                                    "Pinar de Chamartín"
                                 ]
                             },
                             {
                                 "line": "4",
                                 "stations": [
-                                    "Pinar de\n Chamartín"
+                                    "Pinar de Chamartín"
                                 ]
                             }
                         ]
@@ -975,13 +975,13 @@
                             {
                                 "line": "ML 1",
                                 "stations": [
-                                    "Pinar de\n Chamartín"
+                                    "Pinar de Chamartín"
                                 ]
                             },
                             {
                                 "line": "4",
                                 "stations": [
-                                    "Pinar de\n Chamartín"
+                                    "Pinar de Chamartín"
                                 ]
                             }
                         ],
@@ -1086,13 +1086,13 @@
                             {
                                 "line": "2",
                                 "stations": [
-                                    "Cuatro\n Caminos"
+                                    "Cuatro Caminos"
                                 ]
                             },
                             {
                                 "line": "6",
                                 "stations": [
-                                    "Cuatro\n Caminos"
+                                    "Cuatro Caminos"
                                 ]
                             }
                         ],
@@ -1351,7 +1351,7 @@
                             {
                                 "line": "1",
                                 "stations": [
-                                    "Cuatro\n Caminos"
+                                    "Cuatro Caminos"
                                 ]
                             }
                         ]
@@ -1383,7 +1383,7 @@
                     {
                         "name": {
                             "value": "San Bernardo",
-                            "location": "SouthWest"
+                            "location": "South"
                         },
                         "transfers": [
                             {
@@ -1513,7 +1513,7 @@
                             {
                                 "line": "6",
                                 "stations": [
-                                    "Manuel\n Becerra"
+                                    "Manuel Becerra"
                                 ]
                             }
                         ]
@@ -1728,7 +1728,8 @@
                         },
                         "links": [
                             {
-                                "direction": "South"
+                                "direction": "South",
+                                "length": 2
                             }
                         ]
                     },
@@ -1740,7 +1741,7 @@
                         "links": [
                             {
                                 "direction": "South",
-                                "length": 3
+                                "length": 2
                             }
                         ]
                     },
@@ -1878,7 +1879,7 @@
                             {
                                 "line": "8",
                                 "stations": [
-                                    "Mar de\n Cristal"
+                                    "Mar de Cristal"
                                 ]
                             }
                         ],
@@ -2061,7 +2062,7 @@
                     {
                         "name": {
                             "value": "San Bernardo",
-                            "location": "SouthEast"
+                            "location": "South"
                         },
                         "links": [
                             {
@@ -2829,7 +2830,7 @@
                             {
                                 "line": "2",
                                 "stations": [
-                                    "Manuel\n Becerra"
+                                    "Manuel Becerra"
                                 ]
                             }
                         ]
@@ -2913,13 +2914,13 @@
                             {
                                 "line": "10",
                                 "stations": [
-                                    "Nuevos\n Ministerios"
+                                    "Nuevos Ministerios"
                                 ]
                             },
                             {
                                 "line": "8",
                                 "stations": [
-                                    "Nuevos\n Ministerios"
+                                    "Nuevos Ministerios"
                                 ]
                             }
                         ],
@@ -2944,7 +2945,8 @@
                     },
                     {
                         "name": {
-                            "value": "Guzmán el\n Bueno"
+                            "value": "Guzmán el\n Bueno",
+                            "location": "NorthWest"
                         },
                         "links": [
                             {
@@ -3043,13 +3045,14 @@
                     },
                     {
                         "name": {
-                            "value": "Guzmán el\n Bueno"
+                            "value": "Guzmán el\n Bueno",
+                            "location": "NorthWest"
                         },
                         "transfers": [
                             {
                                 "line": "6",
                                 "stations": [
-                                    "Guzmán el\n Bueno"
+                                    "Guzmán el Bueno"
                                 ]
                             }
                         ],
@@ -3375,7 +3378,7 @@
                             {
                                 "line": "4",
                                 "stations": [
-                                    "Mar de\n Cristal"
+                                    "Mar de Cristal"
                                 ]
                             }
                         ],
@@ -3623,7 +3626,7 @@
                             {
                                 "line": "2",
                                 "stations": [
-                                    "Príncipe de\n Vergara"
+                                    "Príncipe de Vergara"
                                 ]
                             }
                         ]
@@ -3928,7 +3931,7 @@
                             {
                                 "line": "8",
                                 "stations": [
-                                    "Nuevos\n Ministerios"
+                                    "Nuevos Ministerios"
                                 ]
                             }
                         ],

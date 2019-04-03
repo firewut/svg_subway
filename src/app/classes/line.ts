@@ -1,4 +1,4 @@
-import { Station } from './station';
+import { Station, StationLink } from './station';
 import { Direction, VectorDirection } from './direction';
 import { City } from './city';
 import { StationTransfer, StationTransferDirection } from './transfer';
@@ -45,6 +45,7 @@ export class Line {
   city: City;
   name: string;
   color: string;
+  links: StationLink[] = [];
   stations = {};
   stations_list: Station[] = [];
   transfers: StationTransfer[];
@@ -117,6 +118,19 @@ export class Line {
     for (const station of this.stations_list) {
       station.set_params();
     }
+
+    this.links = this.get_links();
+  }
+
+  get_links() {
+    const links: StationLink[] = [];
+    for (const station of this.stations_list) {
+      if (station.links.length > 0) {
+        links.push(...station.links);
+      }
+    }
+
+    return links;
   }
 
   set_transfers() {
@@ -241,6 +255,13 @@ export class Line {
           let dashed_connector_color = this.color;
           let dasharray = '0';
 
+          const position = {
+            'x1': station.position.x,
+            'y1': station.position.y,
+            'x2': child.position.x,
+            'y2': child.position.y,
+          };
+
           const link = station.has_link_to(child);
           if (!link) {
             continue;
@@ -254,19 +275,53 @@ export class Line {
             dasharray = settings.line.under_construction.dash_width.toString();
           }
 
+          const line_width = settings.line.width;
+          if (link.gravity) {
+            const line_shift = line_width / 2;
+            switch (link.gravity) {
+              case Direction.NorthWest:
+                position.x1 += line_shift;
+                position.x2 += line_shift;
+                break;
+              case Direction.North:
+                position.y1 -= line_shift;
+                position.y2 -= line_shift;
+                break;
+              case Direction.NorthEast:
+                position.x1 += line_shift;
+                position.x2 += line_shift;
+                break;
+              case Direction.West:
+                position.x1 += line_shift;
+                position.x2 += line_shift;
+                break;
+              case Direction.East:
+                position.x1 -= line_shift;
+                position.x2 -= line_shift;
+                break;
+              case Direction.SouthWest:
+                position.x1 += line_shift;
+                position.x2 += line_shift;
+                break;
+              case Direction.South:
+                position.y1 += line_shift;
+                position.y2 += line_shift;
+                break;
+              case Direction.SouthEast:
+                position.x1 -= line_shift;
+                position.x2 -= line_shift;
+                break;
+            }
+          }
+
           const child_connector: ElementParams = {
             'type': line_element_type,
             'properties': {
-              'position': {
-                'x1': station.position.x,
-                'y1': station.position.y,
-                'x2': child.position.x,
-                'y2': child.position.y,
-              }
+              'position': position
             },
             'attr': {
               'color': connector_color,
-              'width': settings.line.width,
+              'width': line_width,
               'html_class': 'Line',
               'opacity': connector_opacity,
               'dashed_line_color': dashed_connector_color,

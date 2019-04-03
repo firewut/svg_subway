@@ -126,6 +126,7 @@ export class Station {
 
   hide_name() {
     this.is_name_hidden = true;
+
   }
 
 
@@ -543,8 +544,6 @@ export class Station {
     };
   }
 
-
-
   generate_element_params(theme: Theme): ElementParams[] {
     this.theme = theme;
     const elements: ElementParams[] = [];
@@ -559,7 +558,7 @@ export class Station {
       font_color = theme.settings.station.under_construction.font_color;
     }
 
-    if (!this.is_name_hidden) {
+    if (this.name.length > 0 && !this.is_name_hidden) {
       const label_element_params: ElementParams = {
         'type': ElementType.Text,
         'properties': {
@@ -592,6 +591,7 @@ export class Station {
       };
       elements.push(label_element_params);
     }
+
 
     let station_element_params: ElementParams[] = [];
     // Station Marker

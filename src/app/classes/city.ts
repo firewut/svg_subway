@@ -318,9 +318,7 @@ export class City {
 
     for (const line of this.lines) {
       // Subway Lines
-      for (const line_element_param of line.generate_element_params(
-        theme
-      )) {
+      for (const line_element_param of line.generate_element_params(theme)) {
         element_params.push(line_element_param);
       }
 
@@ -328,9 +326,7 @@ export class City {
       for (const station_id in line.stations) {
         if (line.stations.hasOwnProperty(station_id)) {
           const station = line.stations[station_id];
-          for (const station_element_param of station.generate_element_params(
-            theme
-          )) {
+          for (const station_element_param of station.generate_element_params(theme)) {
             element_params.push(station_element_param);
           }
         }
@@ -338,9 +334,7 @@ export class City {
 
       // Subway Transfers
       for (const transfer of line.transfers) {
-        for (const transfer_element of transfer.generate_element_params(
-          theme
-        )) {
+        for (const transfer_element of transfer.generate_element_params(theme)) {
           element_params.push(transfer_element);
         }
       }
@@ -550,7 +544,7 @@ export class City {
           'group': this.dialog_group,
           'draw_callback': (el: svgjs.Container) => {
             const self = this;
-            el.on('click', function() {
+            el.on('click', function () {
               const station = self.dialog_group.remember('station');
 
               self.router.select_station_from(station);
@@ -578,7 +572,7 @@ export class City {
           'group': this.dialog_group,
           'draw_callback': (el: svgjs.Container) => {
             const self = this;
-            el.on('click', function() {
+            el.on('click', function () {
               const station = self.dialog_group.remember('station');
 
               self.router.select_station_to(station);

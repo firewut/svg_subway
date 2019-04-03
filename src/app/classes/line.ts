@@ -48,7 +48,7 @@ export class Line {
   links: StationLink[] = [];
   stations = {};
   stations_list: Station[] = [];
-  transfers: StationTransfer[];
+  transfers: StationTransfer[] = [];
 
   terminations: Station[] = [];
 
@@ -147,6 +147,12 @@ export class Line {
                   transfer_stations.push(line_station);
                 }
               }
+              if (transfer_stations.length === 0) {
+                console.log(
+                  "Warning. Station has Invalid Transfers. Check Unicode Symbols",
+                  station.line.name, station.name, _transfer.stations
+                )
+              }
 
               const transfer = new StationTransfer(
                 line,
@@ -180,9 +186,6 @@ export class Line {
   }
 
   add_transfer(transfer: StationTransfer) {
-    if (!this.transfers) {
-      this.transfers = [];
-    }
     if (!this.transfers.includes(transfer)) {
       this.transfers.push(transfer);
     }

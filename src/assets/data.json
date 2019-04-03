@@ -1409,7 +1409,7 @@
                             {
                                 "line": "10",
                                 "stations": [
-                                    "Noviciado"
+                                    "Plaza de España"
                                 ]
                             }
                         ],
@@ -1655,7 +1655,7 @@
                             {
                                 "line": "2",
                                 "stations": [
-                                    "Plaza de España"
+                                    "Noviciado"
                                 ]
                             }
                         ],
@@ -1706,14 +1706,6 @@
                             "value": "Embajadores",
                             "location": "East"
                         },
-                        "transfers": [
-                            {
-                                "line": "5",
-                                "stations": [
-                                    "Embajadores"
-                                ]
-                            }
-                        ],
                         "links": [
                             {
                                 "direction": "SouthEast",
@@ -1938,7 +1930,7 @@
                     },
                     {
                         "name": {
-                            "value": "Av. de América",
+                            "value": "Av. de América",
                             "location": "South"
                         },
                         "links": [
@@ -1950,7 +1942,7 @@
                     },
                     {
                         "name": {
-                            "value": "Diego de León",
+                            "value": "Diego de León",
                             "location": "North"
                         },
                         "links": [
@@ -2120,20 +2112,20 @@
                     },
                     {
                         "name": {
-                            "value": "Ópera"
+                            "value": "Ópera"
                         },
                         "line_name_plate": false,
                         "transfers": [
                             {
                                 "line": "2",
                                 "stations": [
-                                    "Ópera"
+                                    "Ópera"
                                 ]
                             },
                             {
                                 "line": "5",
                                 "stations": [
-                                    "Ópera"
+                                    "Ópera"
                                 ]
                             }
                         ]
@@ -2301,13 +2293,13 @@
                     },
                     {
                         "name": {
-                            "value": "Ópera"
+                            "value": "Ópera"
                         },
                         "transfers": [
                             {
                                 "line": "R",
                                 "stations": [
-                                    "Ópera"
+                                    "Ópera"
                                 ]
                             },
                             {
@@ -2414,13 +2406,13 @@
                             {
                                 "line": "4",
                                 "stations": [
-                                    "Diego de León"
+                                    "Diego de León"
                                 ]
                             },
                             {
                                 "line": "6",
                                 "stations": [
-                                    "Diego de León"
+                                    "Diego de León"
                                 ]
                             }
                         ],
@@ -3129,26 +3121,20 @@
                     },
                     {
                         "name": {
-                            "value": "Av. de América",
+                            "value": "Av. de América",
                             "location": "South"
                         },
                         "transfers": [
                             {
                                 "line": "4",
                                 "stations": [
-                                    "Av. de América"
+                                    "Av. de América"
                                 ]
                             },
                             {
                                 "line": "6",
                                 "stations": [
-                                    "Av. de América"
-                                ]
-                            },
-                            {
-                                "line": "10",
-                                "stations": [
-                                    "Av. de América"
+                                    "Av. de América"
                                 ]
                             }
                         ],
@@ -3561,26 +3547,26 @@
                     },
                     {
                         "name": {
-                            "value": "Av. de América",
+                            "value": "Av. de América",
                             "location": "South"
                         },
                         "transfers": [
                             {
                                 "line": "4",
                                 "stations": [
-                                    "Av. de América"
+                                    "Av. de América"
                                 ]
                             },
                             {
                                 "line": "6",
                                 "stations": [
-                                    "Av. de América"
+                                    "Av. de América"
                                 ]
                             },
                             {
                                 "line": "7",
                                 "stations": [
-                                    "Av. de América"
+                                    "Av. de América"
                                 ]
                             }
                         ],

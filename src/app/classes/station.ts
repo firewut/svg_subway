@@ -9,6 +9,7 @@ import { Direction, VectorDirection } from './direction';
 export interface StationLinkInterface {
   station?: string;
   direction: Direction;
+  gravity: Direction;
   length: number;
   under_construction: boolean;
 }
@@ -17,6 +18,7 @@ export class StationLink {
   source_id: string;
   destination_id: string;
   direction: Direction;
+  gravity: Direction;
   length: number;
   under_construction = false;
 
@@ -28,22 +30,6 @@ export class StationLink {
     this.length = 1;
     this.direction = Direction.North;
   }
-
-  // get_opposite_link(): StationLink {
-  //   const vector = new VectorDirection(this.direction);
-
-  //   const opposite_link: StationLink = Object.assign(
-  //     {},
-  //     this
-  //   );
-
-  //   opposite_link.destination_id = this.source_id;
-  //   opposite_link.source_id = this.destination_id;
-  //   opposite_link.direction = vector.get_opposite_direction();
-  //   opposite_link.length = this.length;
-
-  //   return opposite_link;
-  // }
 }
 
 export class Station {
@@ -256,6 +242,9 @@ export class Station {
         dy -= text_margin + (font_size * lines_count) * magic_lines_multiplier;
         break;
       case Direction.SouthEast:
+        this.text_anchor = 'start';
+        dx += text_margin * magic_lines_multiplier;
+        dy += text_margin;
         break;
       case Direction.NorthEast:
         this.text_anchor = 'start';
@@ -396,6 +385,7 @@ export class Station {
         link.direction = _link.direction;
         link.length = _link.length || 1;
         link.under_construction = _link.under_construction || false;
+        link.gravity = _link.gravity;
 
         links.push(link);
       }

@@ -1115,7 +1115,8 @@
                     },
                     {
                         "name": {
-                            "value": "Iglesia"
+                            "value": "Iglesia",
+                            "location": "East"
                         },
                         "links": [
                             {
@@ -1305,6 +1306,251 @@
                 ]
             },
             {
+                "name": "2",
+                "color": "#C64239",
+                "stations": [
+                    {
+                        "name": {
+                            "value": "Cuatro\n Caminos",
+                            "location": "North"
+                        },
+                        "line_name_plate": false,
+                        "x": 46,
+                        "y": 49,
+                        "links": [
+                            {
+                                "direction": "South",
+                                "length": 2
+                            }
+                        ],
+                        "transfers": [
+                            {
+                                "line": "1",
+                                "stations": [
+                                    "Cuatro\n Caminos"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Canal",
+                            "location": "South"
+                        },
+                        "transfers": [
+                            {
+                                "line": 7,
+                                "stations": [
+                                    "Canal"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "South"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Quevedo"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "San Bernardo",
+                            "location": "SouthWest"
+                        },
+                        "transfers": [
+                            {
+                                "line": "4",
+                                "stations": [
+                                    "San Bernardo"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "South",
+                                "length": 3
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Noviciado",
+                            "location": "East"
+                        },
+                        "transfers": [
+                            {
+                                "line": "10",
+                                "stations": [
+                                    "Noviciado"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "South",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Santo\n Domingo",
+                            "location": "West"
+                        },
+                        "links": [
+                            {
+                                "direction": "South"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Ópera",
+                            "location": "West"
+                        },
+                        "links": [
+                            {
+                                "direction": "East",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Sol",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Sevilla",
+                            "location": "North"
+                        },
+                        "under_construction": true,
+                        "skippable": true,
+                        "links": [
+                            {
+                                "direction": "East",
+                                "length": 3
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Banco de España",
+                            "location": "South"
+                        },
+                        "links": [
+                            {
+                                "direction": "NorthEast"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Retiro",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Príncipe de\n Vergara",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "NorthEast",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Goya",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "NorthEast",
+                                "length": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Manuel\n Becerra",
+                            "location": "East"
+                        },
+                        "transfers": [
+                            {
+                                "line": "6",
+                                "stations": [
+                                    "Manuel\n Becerra"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Ventas",
+                            "location": "North"
+                        },
+                        "transfers": [
+                            {
+                                "line": "5",
+                                "stations": [
+                                    "Ventas"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "SouthEast",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "La Elipa"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "La Almudena"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Alsacia",
+                            "location": "South"
+                        },
+                        "links": [
+                            {
+                                "direction": "East",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Av. de\n Guadalajara",
+                            "location": "North"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Las Rosas",
+                            "location": "South"
+                        }
+                    }
+                ]
+            },
+            {
                 "name": "3",
                 "color": "#F1C752",
                 "stations": [
@@ -1342,9 +1588,9 @@
                                 ]
                             },
                             {
-                                "line": "2",
+                                "line": "6",
                                 "stations": [
-                                    "Noviciado"
+                                    "Argüelles"
                                 ]
                             }
                         ],
@@ -1357,8 +1603,8 @@
                     },
                     {
                         "name": {
-                            "value": "Ventura Rodríguez",
-                            "location": "East"
+                            "value": "Ventura\n Rodríguez",
+                            "location": "West"
                         },
                         "links": [
                             {
@@ -1682,7 +1928,7 @@
                     {
                         "name": {
                             "value": "Lista",
-                            "location": "East"
+                            "location": "West"
                         }
                     },
                     {
@@ -1775,7 +2021,7 @@
                         "links": [
                             {
                                 "direction": "West",
-                                "length": 3
+                                "length": 2
                             }
                         ]
                     },
@@ -1787,7 +2033,7 @@
                         "links": [
                             {
                                 "direction": "West",
-                                "length": 3
+                                "length": 4
                             }
                         ]
                     },
@@ -2029,6 +2275,12 @@
                                 "stations": [
                                     "Ópera"
                                 ]
+                            },
+                            {
+                                "line": "2",
+                                "stations": [
+                                    "Ópera"
+                                ]
                             }
                         ],
                         "links": [
@@ -2141,7 +2393,7 @@
                         "links": [
                             {
                                 "direction": "East",
-                                "length": 3
+                                "length": 2
                             }
                         ]
                     },
@@ -2153,7 +2405,7 @@
                         "links": [
                             {
                                 "direction": "East",
-                                "length": 2
+                                "length": 3
                             }
                         ]
                     },
@@ -2161,7 +2413,13 @@
                         "name": {
                             "value": "El Carmen",
                             "location": "North"
-                        }
+                        },
+                        "links": [
+                            {
+                                "direction": "East",
+                                "length": 2
+                            }
+                        ]
                     },
                     {
                         "name": {
@@ -2318,20 +2576,30 @@
                     },
                     {
                         "name": {
+                            "value": ""
+                        },
+                        "links": [
+                            {
+                                "direction": "East"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
                             "value": "Canal",
                             "location": "South"
                         },
                         "links": [
                             {
                                 "direction": "East",
-                                "length": 3
+                                "length": 2
                             }
                         ]
                     },
                     {
                         "name": {
                             "value": "Alonso\n Cano",
-                            "location": "South"
+                            "location": "North"
                         },
                         "links": [
                             {
@@ -2521,6 +2789,124 @@
                 ]
             },
             {
+                "name": "8",
+                "color": "#C1729C",
+                "stations": [
+                    {
+                        "name": {
+                            "value": "Nuevos\n Ministerios"
+                        },
+                        "line_name_plate": false,
+                        "x": 54,
+                        "y": 47,
+                        "links": [
+                            {
+                                "direction": "NorthEast",
+                                "length": 4
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Colombia",
+                            "location": "East"
+                        },
+                        "transfers": [
+                            {
+                                "line": "9",
+                                "stations": [
+                                    "Colombia"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "NorthEast",
+                                "length": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": ""
+                        },
+                        "links": [
+                            {
+                                "direction": "East",
+                                "length": 2
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Pinar del Rey",
+                            "location": "South"
+                        },
+                        "links": [
+                            {
+                                "direction": "East",
+                                "length": 4
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Mar de\n Cristal",
+                            "location": "NorthWest"
+                        },
+                        "transfers": [
+                            {
+                                "line": "4",
+                                "stations": [
+                                    "Mar de\n Cristal"
+                                ]
+                            }
+                        ],
+                        "links": [
+                            {
+                                "direction": "East",
+                                "length": 8
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Feria de\n Madrid",
+                            "location": "NorthWest"
+                        },
+                        "links": [
+                            {
+                                "direction": "NorthEast",
+                                "length": 3
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Aeropuerto T1-T2-T3",
+                            "location": "East"
+                        },
+                        "links": [
+                            {
+                                "direction": "North"
+                            }
+                        ]
+                    },
+                    {
+                        "name": {
+                            "value": "Barajas",
+                            "location": "East"
+                        }
+                    },
+                    {
+                        "name": {
+                            "value": "Aeropuerto T4",
+                            "location": "East"
+                        }
+                    }
+                ]
+            },
+            {
                 "name": "9",
                 "color": "#7B4684",
                 "stations": [
@@ -2598,7 +2984,8 @@
                         },
                         "links": [
                             {
-                                "direction": "SouthEast"
+                                "direction": "SouthEast",
+                                "length": 2
                             }
                         ]
                     },
@@ -2606,7 +2993,13 @@
                         "name": {
                             "value": "Pío XII",
                             "location": "East"
-                        }
+                        },
+                        "links": [
+                            {
+                                "direction": "SouthEast",
+                                "length": 1
+                            }
+                        ]
                     },
                     {
                         "name": {
@@ -2624,7 +3017,7 @@
                         "links": [
                             {
                                 "direction": "SouthEast",
-                                "length": 2
+                                "length": 1
                             }
                         ]
                     },
@@ -2694,7 +3087,7 @@
                         "links": [
                             {
                                 "direction": "South",
-                                "length": 3
+                                "length": 4
                             }
                         ]
                     },
@@ -2707,6 +3100,14 @@
                             {
                                 "direction": "SouthEast",
                                 "length": 2
+                            }
+                        ],
+                        "transfers": [
+                            {
+                                "line": "2",
+                                "stations": [
+                                    "Príncipe de\n Vergara"
+                                ]
                             }
                         ]
                     },
@@ -2980,8 +3381,7 @@
                     },
                     {
                         "name": {
-                            "value": "Cuzco",
-                            "location": "East"
+                            "value": "Cuzco"
                         },
                         "links": [
                             {
@@ -2992,8 +3392,7 @@
                     },
                     {
                         "name": {
-                            "value": "Santiago\n Bernabéu",
-                            "location": "East"
+                            "value": "Santiago\n Bernabéu"
                         },
                         "links": [
                             {

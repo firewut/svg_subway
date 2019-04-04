@@ -621,10 +621,10 @@ export class Station {
           'draw_callback': (el: svgjs.Container) => {
             this.svg_elements_dict['outer_marker'] = el;
 
-            const self = this;
-            el.on('click', function() {
-              self.line.city.router.select_station(self);
-            });
+            // const self = this;
+            // el.on('click', function() {
+            //   self.line.city.router.select_station(self);
+            // });
           },
           'classes': [
             'Station',

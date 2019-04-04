@@ -49,6 +49,21 @@ export class StationTransfer {
     }
   }
 
+  hide_destinations_if_duplicate() {
+    if (!this.source.hidden()) {
+      for (const destination of this.destinations) {
+        if (destination.name === this.source.name) {
+          if (
+            (destination.position.x === this.source.position.x) &&
+            (destination.position.y === this.source.position.y)
+          ) {
+            destination.hide_duplicate();
+          }
+        }
+      }
+    }
+  }
+
   get_reversed(): StationTransfer[] {
     const reversed_transfers: StationTransfer[] = [];
 
@@ -128,17 +143,6 @@ export class StationTransfer {
           destination.position.y
         ]
       );
-    }
-
-    for (const destination of this.destinations) {
-      if (destination.name === this.source.name) {
-        if (
-          (destination.position.x === this.source.position.x) &&
-          (destination.position.y === this.source.position.y)
-        ) {
-          destination.hide_name();
-        }
-      }
     }
 
     elements.push(

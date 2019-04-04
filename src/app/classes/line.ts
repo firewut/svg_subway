@@ -48,7 +48,7 @@ export class Line {
   links: StationLink[] = [];
   stations = {};
   stations_list: Station[] = [];
-  transfers: StationTransfer[];
+  transfers: StationTransfer[] = [];
 
   terminations: Station[] = [];
 
@@ -135,7 +135,7 @@ export class Line {
 
   set_transfers() {
     for (const station of this.stations_list) {
-      if (station.has_transfers) {
+      if (station.has_transfers && station.raw_transfers) {
         for (const _transfer of station.raw_transfers) {
           for (const line of this.city.lines) {
             if (line.name === _transfer.line) {
@@ -146,6 +146,12 @@ export class Line {
                 if (line_station) {
                   transfer_stations.push(line_station);
                 }
+              }
+              if (transfer_stations.length === 0) {
+                console.log(
+                  'Warning. Station has Invalid Transfers. Check Unicode Symbols',
+                  station.line.name, station.name, _transfer.stations
+                );
               }
 
               const transfer = new StationTransfer(
@@ -180,9 +186,6 @@ export class Line {
   }
 
   add_transfer(transfer: StationTransfer) {
-    if (!this.transfers) {
-      this.transfers = [];
-    }
     if (!this.transfers.includes(transfer)) {
       this.transfers.push(transfer);
     }
@@ -280,8 +283,8 @@ export class Line {
             const line_shift = line_width / 2;
             switch (link.gravity) {
               case Direction.NorthWest:
-                position.x1 += line_shift;
-                position.x2 += line_shift;
+                position.x1 -= line_shift;
+                position.x2 -= line_shift;
                 break;
               case Direction.North:
                 position.y1 -= line_shift;
@@ -292,24 +295,24 @@ export class Line {
                 position.x2 += line_shift;
                 break;
               case Direction.West:
-                position.x1 += line_shift;
-                position.x2 += line_shift;
-                break;
-              case Direction.East:
                 position.x1 -= line_shift;
                 position.x2 -= line_shift;
                 break;
-              case Direction.SouthWest:
+              case Direction.East:
                 position.x1 += line_shift;
                 position.x2 += line_shift;
+                break;
+              case Direction.SouthWest:
+                position.x1 -= line_shift;
+                position.x2 -= line_shift;
                 break;
               case Direction.South:
                 position.y1 += line_shift;
                 position.y2 += line_shift;
                 break;
               case Direction.SouthEast:
-                position.x1 -= line_shift;
-                position.x2 -= line_shift;
+                position.x1 += line_shift;
+                position.x2 += line_shift;
                 break;
             }
           }

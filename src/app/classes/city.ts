@@ -209,7 +209,8 @@ export class City {
   name: string;
   logo: string;
   size: number[];
-  lines: Line[];
+  lines: Line[] = [];
+  transfers: StationTransfer[] = [];
   router: SubwayRouter;
 
   elements: Element[] = [];
@@ -270,9 +271,27 @@ export class City {
 
     for (const line of this.lines) {
       line.set_transfers();
+      this.add_transfers(line.transfers);
+    }
+
+    // Hide Transfer Source/Destination Names if Equal
+    for (const transfer of this.transfers) {
+      transfer.hide_destinations_if_duplicate();
     }
 
     this.router = new SubwayRouter(this);
+  }
+
+  add_transfers(transfers: StationTransfer[]) {
+    for (const transfer of transfers) {
+      this.add_transfer(transfer);
+    }
+  }
+
+  add_transfer(transfer: StationTransfer) {
+    if (!this.transfers.includes(transfer)) {
+      this.transfers.push(transfer);
+    }
   }
 
   reset() {
@@ -320,9 +339,7 @@ export class City {
 
     for (const line of this.lines) {
       // Subway Lines
-      for (const line_element_param of line.generate_element_params(
-        theme
-      )) {
+      for (const line_element_param of line.generate_element_params(theme)) {
         element_params.push(line_element_param);
       }
 
@@ -330,9 +347,7 @@ export class City {
       for (const station_id in line.stations) {
         if (line.stations.hasOwnProperty(station_id)) {
           const station = line.stations[station_id];
-          for (const station_element_param of station.generate_element_params(
-            theme
-          )) {
+          for (const station_element_param of station.generate_element_params(theme)) {
             element_params.push(station_element_param);
           }
         }
@@ -340,9 +355,7 @@ export class City {
 
       // Subway Transfers
       for (const transfer of line.transfers) {
-        for (const transfer_element of transfer.generate_element_params(
-          theme
-        )) {
+        for (const transfer_element of transfer.generate_element_params(theme)) {
           element_params.push(transfer_element);
         }
       }

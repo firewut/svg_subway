@@ -312,7 +312,7 @@
                                 "direction": "East"
                             },
                             {
-                                "station": "S. Agnese/\nAnnibiliano",
+                                "station": "S. Agnese/Annibiliano",
                                 "direction": "North"
                             }
                         ]
@@ -674,13 +674,13 @@
                             {
                                 "line": "1",
                                 "stations": [
-                                    "Pinar de\n Chamartín"
+                                    "Pinar de Chamartín"
                                 ]
                             },
                             {
                                 "line": "4",
                                 "stations": [
-                                    "Pinar de\n Chamartín"
+                                    "Pinar de Chamartín"
                                 ]
                             }
                         ]
@@ -770,12 +770,12 @@
                     },
                     {
                         "name": {
-                            "value": "Colonia de los Ángeles"
+                            "value": "Colonia\n de los Ángeles"
                         }
                     },
                     {
                         "name": {
-                            "value": "Prado del Vega",
+                            "value": "Prado\n del Vega",
                             "location": "West"
                         },
                         "links": [
@@ -975,13 +975,13 @@
                             {
                                 "line": "ML 1",
                                 "stations": [
-                                    "Pinar de\n Chamartín"
+                                    "Pinar de Chamartín"
                                 ]
                             },
                             {
                                 "line": "4",
                                 "stations": [
-                                    "Pinar de\n Chamartín"
+                                    "Pinar de Chamartín"
                                 ]
                             }
                         ],
@@ -1086,13 +1086,13 @@
                             {
                                 "line": "2",
                                 "stations": [
-                                    "Cuatro\n Caminos"
+                                    "Cuatro Caminos"
                                 ]
                             },
                             {
                                 "line": "6",
                                 "stations": [
-                                    "Cuatro\n Caminos"
+                                    "Cuatro Caminos"
                                 ]
                             }
                         ],
@@ -1351,7 +1351,7 @@
                             {
                                 "line": "1",
                                 "stations": [
-                                    "Cuatro\n Caminos"
+                                    "Cuatro Caminos"
                                 ]
                             }
                         ]
@@ -1383,7 +1383,7 @@
                     {
                         "name": {
                             "value": "San Bernardo",
-                            "location": "SouthWest"
+                            "location": "South"
                         },
                         "transfers": [
                             {
@@ -1409,7 +1409,7 @@
                             {
                                 "line": "10",
                                 "stations": [
-                                    "Noviciado"
+                                    "Plaza de España"
                                 ]
                             }
                         ],
@@ -1513,7 +1513,7 @@
                             {
                                 "line": "6",
                                 "stations": [
-                                    "Manuel\n Becerra"
+                                    "Manuel Becerra"
                                 ]
                             }
                         ]
@@ -1655,7 +1655,7 @@
                             {
                                 "line": "2",
                                 "stations": [
-                                    "Plaza de España"
+                                    "Noviciado"
                                 ]
                             }
                         ],
@@ -1706,14 +1706,6 @@
                             "value": "Embajadores",
                             "location": "East"
                         },
-                        "transfers": [
-                            {
-                                "line": "5",
-                                "stations": [
-                                    "Embajadores"
-                                ]
-                            }
-                        ],
                         "links": [
                             {
                                 "direction": "SouthEast",
@@ -1728,7 +1720,8 @@
                         },
                         "links": [
                             {
-                                "direction": "South"
+                                "direction": "South",
+                                "length": 2
                             }
                         ]
                     },
@@ -1740,7 +1733,7 @@
                         "links": [
                             {
                                 "direction": "South",
-                                "length": 3
+                                "length": 2
                             }
                         ]
                     },
@@ -1878,7 +1871,7 @@
                             {
                                 "line": "8",
                                 "stations": [
-                                    "Mar de\n Cristal"
+                                    "Mar de Cristal"
                                 ]
                             }
                         ],
@@ -1937,7 +1930,7 @@
                     },
                     {
                         "name": {
-                            "value": "Av. de América",
+                            "value": "Av. de América",
                             "location": "South"
                         },
                         "links": [
@@ -1949,7 +1942,7 @@
                     },
                     {
                         "name": {
-                            "value": "Diego de León",
+                            "value": "Diego de León",
                             "location": "North"
                         },
                         "links": [
@@ -2061,7 +2054,7 @@
                     {
                         "name": {
                             "value": "San Bernardo",
-                            "location": "SouthEast"
+                            "location": "South"
                         },
                         "links": [
                             {
@@ -2119,20 +2112,20 @@
                     },
                     {
                         "name": {
-                            "value": "Ópera"
+                            "value": "Ópera"
                         },
                         "line_name_plate": false,
                         "transfers": [
                             {
                                 "line": "2",
                                 "stations": [
-                                    "Ópera"
+                                    "Ópera"
                                 ]
                             },
                             {
                                 "line": "5",
                                 "stations": [
-                                    "Ópera"
+                                    "Ópera"
                                 ]
                             }
                         ]
@@ -2300,13 +2293,13 @@
                     },
                     {
                         "name": {
-                            "value": "Ópera"
+                            "value": "Ópera"
                         },
                         "transfers": [
                             {
                                 "line": "R",
                                 "stations": [
-                                    "Ópera"
+                                    "Ópera"
                                 ]
                             },
                             {
@@ -2413,13 +2406,13 @@
                             {
                                 "line": "4",
                                 "stations": [
-                                    "Diego de León"
+                                    "Diego de León"
                                 ]
                             },
                             {
                                 "line": "6",
                                 "stations": [
-                                    "Diego de León"
+                                    "Diego de León"
                                 ]
                             }
                         ],
@@ -2536,7 +2529,7 @@
                                 "gravity": "SouthEast"
                             },
                             {
-                                "station": "Ciudad\n Universitaria",
+                                "station": "Ciudad Universitaria",
                                 "direction": "North",
                                 "length": 1
                             }
@@ -2829,7 +2822,7 @@
                             {
                                 "line": "2",
                                 "stations": [
-                                    "Manuel\n Becerra"
+                                    "Manuel Becerra"
                                 ]
                             }
                         ]
@@ -2913,13 +2906,13 @@
                             {
                                 "line": "10",
                                 "stations": [
-                                    "Nuevos\n Ministerios"
+                                    "Nuevos Ministerios"
                                 ]
                             },
                             {
                                 "line": "8",
                                 "stations": [
-                                    "Nuevos\n Ministerios"
+                                    "Nuevos Ministerios"
                                 ]
                             }
                         ],
@@ -2944,7 +2937,8 @@
                     },
                     {
                         "name": {
-                            "value": "Guzmán el\n Bueno"
+                            "value": "Guzmán el\n Bueno",
+                            "location": "NorthWest"
                         },
                         "links": [
                             {
@@ -2971,7 +2965,7 @@
                         },
                         "line_name_plate": false,
                         "parents": [
-                            "Vicente\n Aleixandre",
+                            "Vicente Aleixandre",
                             "Moncloa"
                         ]
                     }
@@ -3043,13 +3037,14 @@
                     },
                     {
                         "name": {
-                            "value": "Guzmán el\n Bueno"
+                            "value": "Guzmán el\n Bueno",
+                            "location": "NorthWest"
                         },
                         "transfers": [
                             {
                                 "line": "6",
                                 "stations": [
-                                    "Guzmán el\n Bueno"
+                                    "Guzmán el Bueno"
                                 ]
                             }
                         ],
@@ -3126,26 +3121,20 @@
                     },
                     {
                         "name": {
-                            "value": "Av. de América",
+                            "value": "Av. de América",
                             "location": "South"
                         },
                         "transfers": [
                             {
                                 "line": "4",
                                 "stations": [
-                                    "Av. de América"
+                                    "Av. de América"
                                 ]
                             },
                             {
                                 "line": "6",
                                 "stations": [
-                                    "Av. de América"
-                                ]
-                            },
-                            {
-                                "line": "10",
-                                "stations": [
-                                    "Av. de América"
+                                    "Av. de América"
                                 ]
                             }
                         ],
@@ -3375,7 +3364,7 @@
                             {
                                 "line": "4",
                                 "stations": [
-                                    "Mar de\n Cristal"
+                                    "Mar de Cristal"
                                 ]
                             }
                         ],
@@ -3558,26 +3547,26 @@
                     },
                     {
                         "name": {
-                            "value": "Av. de América",
+                            "value": "Av. de América",
                             "location": "South"
                         },
                         "transfers": [
                             {
                                 "line": "4",
                                 "stations": [
-                                    "Av. de América"
+                                    "Av. de América"
                                 ]
                             },
                             {
                                 "line": "6",
                                 "stations": [
-                                    "Av. de América"
+                                    "Av. de América"
                                 ]
                             },
                             {
                                 "line": "7",
                                 "stations": [
-                                    "Av. de América"
+                                    "Av. de América"
                                 ]
                             }
                         ],
@@ -3623,7 +3612,7 @@
                             {
                                 "line": "2",
                                 "stations": [
-                                    "Príncipe de\n Vergara"
+                                    "Príncipe de Vergara"
                                 ]
                             }
                         ]
@@ -3928,7 +3917,7 @@
                             {
                                 "line": "8",
                                 "stations": [
-                                    "Nuevos\n Ministerios"
+                                    "Nuevos Ministerios"
                                 ]
                             }
                         ],
@@ -3942,7 +3931,7 @@
                     {
                         "name": {
                             "value": "Gregorio Marañón",
-                            "location": "East"
+                            "location": "North"
                         },
                         "links": [
                             {

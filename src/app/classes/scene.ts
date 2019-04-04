@@ -60,6 +60,10 @@ export class Scene {
     //   console.log(el);
     // });
 
+    // this.canvas.on('wheel', function(el) {
+    //   console.log(el);
+    // });
+
     if (callback) {
       this.prepare(callback);
     }

@@ -207,7 +207,8 @@ export class City {
   name: string;
   logo: string;
   size: number[];
-  lines: Line[];
+  lines: Line[] = [];
+  transfers: StationTransfer[] = [];
   router: SubwayRouter;
 
   elements: Element[] = [];
@@ -268,9 +269,27 @@ export class City {
 
     for (const line of this.lines) {
       line.set_transfers();
+      this.add_transfers(line.transfers);
+    }
+
+    // Hide Transfer Source/Destination Names if Equal
+    for (const transfer of this.transfers) {
+      transfer.hide_destinations_if_duplicate();
     }
 
     this.router = new SubwayRouter(this);
+  }
+
+  add_transfers(transfers: StationTransfer[]) {
+    for (const transfer of transfers) {
+      this.add_transfer(transfer);
+    }
+  }
+
+  add_transfer(transfer: StationTransfer) {
+    if (!this.transfers.includes(transfer)) {
+      this.transfers.push(transfer);
+    }
   }
 
   reset() {
@@ -544,7 +563,7 @@ export class City {
           'group': this.dialog_group,
           'draw_callback': (el: svgjs.Container) => {
             const self = this;
-            el.on('click', function () {
+            el.on('click', function() {
               const station = self.dialog_group.remember('station');
 
               self.router.select_station_from(station);
@@ -572,7 +591,7 @@ export class City {
           'group': this.dialog_group,
           'draw_callback': (el: svgjs.Container) => {
             const self = this;
-            el.on('click', function () {
+            el.on('click', function() {
               const station = self.dialog_group.remember('station');
 
               self.router.select_station_to(station);

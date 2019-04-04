@@ -135,7 +135,7 @@ export class Line {
 
   set_transfers() {
     for (const station of this.stations_list) {
-      if (station.has_transfers) {
+      if (station.has_transfers && station.raw_transfers) {
         for (const _transfer of station.raw_transfers) {
           for (const line of this.city.lines) {
             if (line.name === _transfer.line) {
@@ -149,9 +149,9 @@ export class Line {
               }
               if (transfer_stations.length === 0) {
                 console.log(
-                  "Warning. Station has Invalid Transfers. Check Unicode Symbols",
+                  'Warning. Station has Invalid Transfers. Check Unicode Symbols',
                   station.line.name, station.name, _transfer.stations
-                )
+                );
               }
 
               const transfer = new StationTransfer(
@@ -375,7 +375,7 @@ export class Line {
                 }
 
                 const self = this;
-                el.on('click', function () {
+                el.on('click', function() {
                   self.click(el);
                 });
               },

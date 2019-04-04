@@ -649,7 +649,7 @@ export class RectElement {
     this.draw_callback(svg_element);
 
     this.svg_element = svg_element;
-    return svg_element;
+    return this.svg_element;
   }
 
   highlight() {

@@ -47,15 +47,18 @@ export class StationTransfer {
     if (direction) {
       this.direction = direction;
     }
+  }
 
-
-    for (const destination of this.destinations) {
-      if (destination.name === this.source.name) {
-        if (
-          (destination.position.x === this.source.position.x) &&
-          (destination.position.y === this.source.position.y)
-        ) {
-          destination.hide_name();
+  hide_destinations_if_duplicate() {
+    if (!this.source.hidden()) {
+      for (const destination of this.destinations) {
+        if (destination.name === this.source.name) {
+          if (
+            (destination.position.x === this.source.position.x) &&
+            (destination.position.y === this.source.position.y)
+          ) {
+            destination.hide_duplicate();
+          }
         }
       }
     }

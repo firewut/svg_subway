@@ -586,6 +586,7 @@
             {
                 "name": "ML 1",
                 "color": "#5E7EA9",
+                "is_light": true,
                 "stations": [
                     {
                         "name": {
@@ -690,6 +691,7 @@
             {
                 "name": "ML 2",
                 "color": "#5E2F76",
+                "is_light": true,
                 "stations": [
                     {
                         "name": {
@@ -811,6 +813,7 @@
             {
                 "name": "ML 3",
                 "color": "#FF0000",
+                "is_light": true,
                 "stations": [
                     {
                         "name": {

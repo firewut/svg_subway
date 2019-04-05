@@ -45,6 +45,7 @@ export class Line {
   city: City;
   name: string;
   color: string;
+  is_light = false;
   links: StationLink[] = [];
   stations = {};
   stations_list: Station[] = [];
@@ -63,6 +64,10 @@ export class Line {
     this.name = json.name;
     this.color = json.color;
     this.transfers = [];
+
+    if ('is_light' in json) {
+      this.is_light = json['is_light'];
+    }
 
     // Init Stations
     for (const station_json of json.stations) {
@@ -270,6 +275,8 @@ export class Line {
             continue;
           }
 
+          const child_connector: ElementParams[] = [];
+
           let line_element_type = ElementType.Line;
           if (link.under_construction) {
             line_element_type = ElementType.LineDashedTwoColorsElement;
@@ -317,7 +324,8 @@ export class Line {
             }
           }
 
-          const child_connector: ElementParams = {
+          // Line itself
+          child_connector.push({
             'type': line_element_type,
             'properties': {
               'position': position
@@ -344,8 +352,39 @@ export class Line {
               'Connector',
               station.id
             ]
-          };
-          elements.push(child_connector);
+          });
+
+          if (this.is_light) {
+            const light_line_position = position;
+            child_connector.push({
+              'type': ElementType.Line,
+              'properties': {
+                'position': light_line_position
+              },
+              'attr': {
+                'color': theme.settings.background_color,
+                'width': line_width - line_width / 2,
+                'html_class': 'Line',
+              },
+              'group': this.city.lines_group,
+              'draw_callback': (el: svgjs.Container) => {
+                this.svg_elements_dict['connector_overlay'] = el;
+
+                // Very bad design. Possible Races
+                // Fix this later
+                const connector = this.get_connector(child, station);
+                connector.svg_elements_dict['connector-overlay'] = el;
+              },
+              'classes': [
+                'Line',
+                'Connector',
+                'Overlay',
+                station.id
+              ]
+            });
+          }
+
+          elements.push(...child_connector);
         }
       }
 

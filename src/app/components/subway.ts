@@ -49,6 +49,7 @@ export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     localStorage.setItem('theme_name', theme.name);
     this.scene.set_theme(theme);
+
     this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = theme.settings.background_color;
   }
 
@@ -99,6 +100,7 @@ export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
             )
           )
         );
+        this.selectedCity.scale_ui(delta);
       });
   }
 
@@ -130,6 +132,7 @@ export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
   draw(city: City) {
     this.scene.cleanup();
     city.reset();
+
     this.scene.prepare(
       (scene: Scene) => {
         this.scene.resize(city.size);

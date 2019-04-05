@@ -282,6 +282,10 @@ export class City {
     this.router = new SubwayRouter(this);
   }
 
+  scale_ui(delta: number) {
+    console.log(delta);
+  }
+
   add_transfers(transfers: StationTransfer[]) {
     for (const transfer of transfers) {
       this.add_transfer(transfer);

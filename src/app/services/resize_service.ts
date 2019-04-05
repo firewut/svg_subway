@@ -4,11 +4,11 @@ import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class ResizeService {
-  get onResize$(): Observable<Window> {
+  get onResize$(): Observable<WheelEvent> {
     return this.resizeSubject.asObservable();
   }
 
-  private resizeSubject: Subject<Window>;
+  private resizeSubject: Subject<WheelEvent>;
 
   constructor(private eventManager: EventManager) {
     this.resizeSubject = new Subject();
@@ -21,8 +21,7 @@ export class ResizeService {
 
   private onResize(event: WheelEvent) {
     if (event.ctrlKey) {
-      // console.log(event)
-      // this.resizeSubject.next(<Window>event.target);
+      this.resizeSubject.next(<WheelEvent>event);
     }
   }
 }

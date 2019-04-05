@@ -89,7 +89,16 @@ export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.resizeSubscription = this.resizeService.onResize$
       .subscribe(event => {
-        console.log(event);
+        // Check https://www.sitepoint.com/html5-javascript-mouse-wheel/
+        const delta = Math.max(
+          -1,
+          Math.min(
+            1,
+            (
+              event.deltaY || -event.detail
+            )
+          )
+        );
       });
   }
 
@@ -124,6 +133,7 @@ export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
     this.scene.prepare(
       (scene: Scene) => {
         this.scene.resize(city.size);
+        city.theme = scene.theme;
         scene.addElements(
           city.generate_element_params(scene.theme)
         );

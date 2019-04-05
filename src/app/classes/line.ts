@@ -258,7 +258,7 @@ export class Line {
       if (station.children.length > 0) {
         for (const child of station.children) {
 
-          const connector_opacity = 1;
+          let connector_opacity = 1;
           let connector_color = this.color;
           let dashed_connector_color = this.color;
           let dasharray = '0';
@@ -269,7 +269,6 @@ export class Line {
             'x2': child.position.x,
             'y2': child.position.y,
           };
-          const points = [];
 
           const link = station.has_link_to(child);
           if (!link) {
@@ -278,6 +277,7 @@ export class Line {
 
           const child_connector: ElementParams[] = [];
 
+          const line_width = settings.line.width;
           let line_element_type = ElementType.Line;
           if (link.under_construction) {
             line_element_type = ElementType.LineDashedTwoColorsElement;
@@ -286,7 +286,6 @@ export class Line {
             dasharray = settings.line.under_construction.dash_width.toString();
           }
 
-          const line_width = settings.line.width;
           if (link.gravity) {
             const line_shift = line_width / 2;
             switch (link.gravity) {
@@ -325,25 +324,15 @@ export class Line {
             }
           }
 
+          // Line itself
           if (this.is_light) {
-            line_element_type = ElementType.PolyLineElement;
-            const line_points = [
-              [position.x1, position.y1],
-              // [position.x1, position.y2],
-              [position.x2, position.y2],
-              // [position.x2, position.y1],
-            ];
-
-            points.push(...line_points);
-            console.log(this.name, points)
+            // connector_opacity = .25;
           }
 
-          // Line itself
           child_connector.push({
             'type': line_element_type,
             'properties': {
               'position': position,
-              'points': points,
             },
             'attr': {
               'color': connector_color,

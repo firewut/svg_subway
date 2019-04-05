@@ -211,6 +211,8 @@ export class City {
   transfers: StationTransfer[] = [];
   router: SubwayRouter;
 
+  theme: Theme;
+
   elements: Element[] = [];
   svg_elements_dict = {};
   active_route_group = [];

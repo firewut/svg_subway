@@ -269,6 +269,7 @@ export class Line {
             'x2': child.position.x,
             'y2': child.position.y,
           };
+          const points = [];
 
           const link = station.has_link_to(child);
           if (!link) {
@@ -324,11 +325,25 @@ export class Line {
             }
           }
 
+          if (this.is_light) {
+            line_element_type = ElementType.PolyLineElement;
+            const line_points = [
+              [position.x1, position.y1],
+              // [position.x1, position.y2],
+              [position.x2, position.y2],
+              // [position.x2, position.y1],
+            ];
+
+            points.push(...line_points);
+            console.log(this.name, points)
+          }
+
           // Line itself
           child_connector.push({
             'type': line_element_type,
             'properties': {
-              'position': position
+              'position': position,
+              'points': points,
             },
             'attr': {
               'color': connector_color,
@@ -353,36 +368,6 @@ export class Line {
               station.id
             ]
           });
-
-          if (this.is_light) {
-            const light_line_position = position;
-            child_connector.push({
-              'type': ElementType.Line,
-              'properties': {
-                'position': light_line_position
-              },
-              'attr': {
-                'color': theme.settings.background_color,
-                'width': line_width - line_width / 2,
-                'html_class': 'Line',
-              },
-              'group': this.city.lines_group,
-              'draw_callback': (el: svgjs.Container) => {
-                this.svg_elements_dict['connector_overlay'] = el;
-
-                // Very bad design. Possible Races
-                // Fix this later
-                const connector = this.get_connector(child, station);
-                connector.svg_elements_dict['connector-overlay'] = el;
-              },
-              'classes': [
-                'Line',
-                'Connector',
-                'Overlay',
-                station.id
-              ]
-            });
-          }
 
           elements.push(...child_connector);
         }

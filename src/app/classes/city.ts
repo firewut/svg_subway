@@ -1,3 +1,5 @@
+declare var $: any;
+
 import { Line, StationConnector } from './line';
 import { ElementParams, ElementType } from './element';
 import { environment } from '../../environments/environment';
@@ -6,7 +8,7 @@ import { Station } from './station';
 import { settings } from '../../themes/default';
 import { Dijkstra } from './dijkstra';
 import { StationTransferDirection, StationTransfer } from './transfer';
-
+import { Scene } from './scene';
 
 export class SubwayRouter {
   city: City;
@@ -213,10 +215,13 @@ export class City {
   transfers: StationTransfer[] = [];
   router: SubwayRouter;
 
+  theme: Theme;
+
   elements: Element[] = [];
   svg_elements_dict = {};
   active_route_group = [];
 
+  scene: Scene;
   canvas: svgjs.Container;
   overlay: svgjs.Container;
 
@@ -229,10 +234,13 @@ export class City {
   highlight_group: svgjs.G;
   dialog_group: svgjs.G;
 
-  constructor(json: any, canvas: svgjs.Container) {
+  constructor(json: any, scene: Scene) {
     this.name = json.name;
     this.lines = [];
     this.size = json.size;
+
+    const canvas = scene.canvas;
+    this.scene = scene;
 
     this.canvas = canvas;
     this.debug_group = canvas.group();
@@ -280,6 +288,11 @@ export class City {
     }
 
     this.router = new SubwayRouter(this);
+  }
+
+  scale_ui(delta: number) {
+    $.ready(function() {
+    });
   }
 
   add_transfers(transfers: StationTransfer[]) {
@@ -446,6 +459,38 @@ export class City {
     for (const item of this.active_route_group) {
       item.highlight();
     }
+
+    // Center Viewport to Route
+    const edges = this.path_edges(stations);
+    this.scene.moveViewport(
+      edges['y2'] - Math.abs(edges['y2'] - edges['y1']) / 2,
+      edges['x2'] - Math.abs(edges['x2'] - edges['x1']) / 2,
+    );
+  }
+
+  path_edges(path: Station[]) {
+    const edges = {
+      'x1': 0,
+      'y1': 0,
+      'x2': 0,
+      'y2': 0,
+    };
+
+    edges['x1'] = Math.min.apply(
+      Math, path.map(function(o) { return o.position.x; })
+    );
+    edges['y1'] = Math.min.apply(
+      Math, path.map(function(o) { return o.position.y; })
+    );
+
+    edges['x2'] = Math.max.apply(
+      Math, path.map(function(o) { return o.position.x; })
+    );
+    edges['y2'] = Math.max.apply(
+      Math, path.map(function(o) { return o.position.y; })
+    );
+
+    return edges;
   }
 
   unhighlight_route() {

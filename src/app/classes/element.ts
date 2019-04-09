@@ -392,9 +392,7 @@ export class PolyLineElement {
     const points_array: number[][] = [];
 
     for (const point of this.points) {
-      points_array.push(
-        point
-      );
+      points_array.push(point);
     }
 
     const svg_element: SVG.PolyLine = canvas.polyline(points_array);

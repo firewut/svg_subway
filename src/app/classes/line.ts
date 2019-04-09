@@ -45,6 +45,7 @@ export class Line {
   city: City;
   name: string;
   color: string;
+  is_light = false;
   links: StationLink[] = [];
   stations = {};
   stations_list: Station[] = [];
@@ -63,6 +64,10 @@ export class Line {
     this.name = json.name;
     this.color = json.color;
     this.transfers = [];
+
+    if ('is_light' in json) {
+      this.is_light = json['is_light'];
+    }
 
     // Init Stations
     for (const station_json of json.stations) {
@@ -253,7 +258,7 @@ export class Line {
       if (station.children.length > 0) {
         for (const child of station.children) {
 
-          const connector_opacity = 1;
+          let connector_opacity = 1;
           let connector_color = this.color;
           let dashed_connector_color = this.color;
           let dasharray = '0';
@@ -270,6 +275,9 @@ export class Line {
             continue;
           }
 
+          const child_connector: ElementParams[] = [];
+
+          const line_width = settings.line.width;
           let line_element_type = ElementType.Line;
           if (link.under_construction) {
             line_element_type = ElementType.LineDashedTwoColorsElement;
@@ -278,7 +286,6 @@ export class Line {
             dasharray = settings.line.under_construction.dash_width.toString();
           }
 
-          const line_width = settings.line.width;
           if (link.gravity) {
             const line_shift = line_width / 2;
             switch (link.gravity) {
@@ -317,10 +324,15 @@ export class Line {
             }
           }
 
-          const child_connector: ElementParams = {
+          // Line itself
+          if (this.is_light) {
+            // connector_opacity = .25;
+          }
+
+          child_connector.push({
             'type': line_element_type,
             'properties': {
-              'position': position
+              'position': position,
             },
             'attr': {
               'color': connector_color,
@@ -344,8 +356,9 @@ export class Line {
               'Connector',
               station.id
             ]
-          };
-          elements.push(child_connector);
+          });
+
+          elements.push(...child_connector);
         }
       }
 

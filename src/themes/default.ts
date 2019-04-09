@@ -9,6 +9,9 @@ export const settings = {
       opacity: 0.66,
     },
   },
+  viewport: {
+    animation_speed: 1200,
+  },
   dialog: {
     station_selection: {
       width: 150,

@@ -45,17 +45,21 @@ export class Scene {
     }
   }
 
-  moveViewport(top: number, left: number) {
-    console.log(top, left);
-    window.scrollTo({
-      top: top - window.outerHeight / 2,
-      left: left - window.outerWidth / 2,
-      behavior: 'smooth'
-    });
+  scaleViewport() {
+
   }
 
-  zoomViewport(delta: number) {
-    this.canvas.scale(delta, delta);
+  moveViewport(top: number, left: number) {
+    const x = left - window.innerWidth / 2;
+    const y = top - window.innerHeight / 2;
+
+    $('html, body').animate(
+      {
+        scrollTop: y,
+        scrollLeft: x,
+      },
+      settings.viewport.animation_speed,
+    );
   }
 
   centerViewport() {

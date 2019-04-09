@@ -45,7 +45,7 @@ export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
 
   initScene(theme: Theme) {
     if (this.scene === undefined) {
-      this.scene = new Scene('canvas', theme);
+      this.scene = new Scene('canvas', theme, this.elementRef);
     }
     localStorage.setItem('theme_name', theme.name);
     this.scene.set_theme(theme);
@@ -67,7 +67,7 @@ export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
     // City
     for (const city of data as any[]) {
       this.cities.push(
-        new City(city, this.scene.canvas)
+        new City(city, this.scene)
       );
     }
     this.cities.sort((a, b) => {
@@ -136,12 +136,15 @@ export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
     this.scene.prepare(
       (scene: Scene) => {
         this.scene.resize(city.size);
+
         city.theme = scene.theme;
         scene.addElements(
           city.generate_element_params(scene.theme)
         );
 
-        scene.draw();
+        scene.draw((_scene: Scene) => {
+          _scene.centerViewport();
+        });
       }
     );
   }

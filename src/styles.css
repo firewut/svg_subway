@@ -1,7 +1,17 @@
 @import '~material-design-icons/iconfont/material-icons.css';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
-body {
+
+@-ms-viewport{
+    width: device-width;
+}
+
+html { 
+    height: 100%; 
+    overflow:auto; 
+}
+body { 
+    height: 100%;
     margin: 0;
     padding: 0;
 }

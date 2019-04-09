@@ -1,5 +1,4 @@
-/// <reference path ="../../../node_modules/@types/jquery/index.d.ts"/>
-
+declare var $: any;
 import * as SVG from 'svg.js';
 
 import { PolyLineElement } from './element';
@@ -18,28 +17,54 @@ import {
   LineDashedElement,
   LineDashedTwoColorsElement,
 } from './element';
+import { ElementRef } from '@angular/core';
 
 export class Scene {
   container_id: string;
   canvas: svgjs.Container;
 
+  elementRef: ElementRef;
   theme: Theme;
   elements: Element[];
 
-  constructor(container_id: string, theme: Theme, callback?: (_: Scene) => any) {
+  constructor(
+    container_id: string,
+    theme: Theme,
+    elementRef: ElementRef,
+    callback?: (_: Scene) => any,
+  ) {
     this.elements = [];
+    this.elementRef = elementRef;
 
     this.container_id = container_id;
     this.theme = theme;
     this.canvas = SVG(this.container_id);
 
-    // this.canvas.on('wheel', function(el) {
-    //   console.log(el);
-    // });
-
     if (callback) {
       this.prepare(callback);
     }
+  }
+
+  moveViewport(top: number, left: number) {
+    console.log(top, left);
+    window.scrollTo({
+      top: top - window.outerHeight / 2,
+      left: left - window.outerWidth / 2,
+      behavior: 'smooth'
+    });
+  }
+
+  zoomViewport(delta: number) {
+    this.canvas.scale(delta, delta);
+  }
+
+  centerViewport() {
+    const canvas_viewbox = this.canvas.viewbox();
+
+    this.moveViewport(
+      canvas_viewbox.height / 2,
+      canvas_viewbox.width / 2,
+    );
   }
 
   set_theme(theme: Theme) {
@@ -48,14 +73,15 @@ export class Scene {
 
   resize(grid_size: number[]) {
     this.canvas.size(
-      (
-        settings.grid.width
-      ) *
-      grid_size[0],
-      (
-        settings.grid.height
-      ) *
-      grid_size[1],
+      settings.grid.width * grid_size[0],
+      settings.grid.height * grid_size[1],
+    );
+
+    const canvas_viewbox = this.canvas.viewbox();
+    $('body').width(
+      canvas_viewbox.width
+    ).height(
+      canvas_viewbox.height
     );
   }
 
@@ -121,13 +147,14 @@ export class Scene {
     this.elements = [];
   }
 
-  draw() {
-    this.drawElements();
+  draw(callback: (_: Scene) => any) {
+    this.drawElements(callback);
   }
 
-  drawElements() {
+  drawElements(callback: (_: Scene) => any) {
     for (const element of this.elements) {
       element.draw(this.canvas);
     }
+    callback(this);
   }
 }

@@ -17,24 +17,20 @@ import {
   LineDashedElement,
   LineDashedTwoColorsElement,
 } from './element';
-import { ElementRef } from '@angular/core';
 
 export class Scene {
   container_id: string;
   canvas: svgjs.Container;
 
-  elementRef: ElementRef;
   theme: Theme;
   elements: Element[];
 
   constructor(
     container_id: string,
     theme: Theme,
-    elementRef: ElementRef,
     callback?: (_: Scene) => any,
   ) {
     this.elements = [];
-    this.elementRef = elementRef;
 
     this.container_id = container_id;
     this.theme = theme;
@@ -45,8 +41,34 @@ export class Scene {
     }
   }
 
-  scaleViewport() {
+  scaleViewport(x1: number, y1: number, x2: number, y2: number) {
+    // Check if line's edges includes to viewport
+    const line_width = Math.abs(x1 - x2);
+    const line_height = Math.abs(y1 - y2);
 
+    if (
+      (
+        (
+          window.innerHeight - (
+            window.innerHeight * settings.viewport.scale_modifier
+          )
+        ) < line_height
+      ) ||
+      (
+        (
+          window.innerWidth - (
+            window.innerWidth * settings.viewport.scale_modifier
+          )
+        ) < line_width
+      )
+    ) {
+      console.log(window.innerWidth, line_width, line_height, window.innerHeight);
+
+    }
+    // $('#canvas').animate(
+    //   { width: line_width, height: line_height },
+    //   settings.viewport.animation_speed
+    // );
   }
 
   moveViewport(top: number, left: number) {
@@ -79,13 +101,6 @@ export class Scene {
     this.canvas.size(
       settings.grid.width * grid_size[0],
       settings.grid.height * grid_size[1],
-    );
-
-    const canvas_viewbox = this.canvas.viewbox();
-    $('body').width(
-      canvas_viewbox.width
-    ).height(
-      canvas_viewbox.height
     );
   }
 

@@ -458,11 +458,20 @@ export class City {
       item.highlight();
     }
 
-    // Center Viewport to Route
+    // Center & Scale Viewport to Route
+    //     detect rote Rectange
     const edges = this.path_edges(stations);
+    // Center Viewport
     this.scene.moveViewport(
       (edges['y2'] + edges['y1']) / 2,
       (edges['x2'] + edges['x1']) / 2,
+    );
+    // Scale Viewport
+    this.scene.scaleViewport(
+      edges['x1'],
+      edges['y1'],
+      edges['x2'],
+      edges['y2'],
     );
   }
 

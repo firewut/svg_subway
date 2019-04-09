@@ -45,7 +45,7 @@ export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
 
   initScene(theme: Theme) {
     if (this.scene === undefined) {
-      this.scene = new Scene('canvas', theme, this.elementRef);
+      this.scene = new Scene('canvas', theme);
     }
     localStorage.setItem('theme_name', theme.name);
     this.scene.set_theme(theme);

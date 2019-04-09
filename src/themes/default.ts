@@ -11,6 +11,7 @@ export const settings = {
   },
   viewport: {
     animation_speed: 1200,
+    scale_modifier: 0.1,
   },
   dialog: {
     station_selection: {

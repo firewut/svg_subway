@@ -258,7 +258,7 @@ export class Line {
       if (station.children.length > 0) {
         for (const child of station.children) {
 
-          let connector_opacity = 1;
+          const connector_opacity = 1;
           let connector_color = this.color;
           let dashed_connector_color = this.color;
           let dasharray = '0';
@@ -280,7 +280,7 @@ export class Line {
           const line_width = settings.line.width;
           let line_element_type = ElementType.Line;
           if (link.under_construction) {
-            line_element_type = ElementType.LineDashedTwoColorsElement;
+            line_element_type = ElementType.LineDashedTwoColors;
             connector_color = theme.settings.link.under_construction.connector_color;
             dashed_connector_color = theme.settings.link.under_construction.dashed_connector_color;
             dasharray = settings.line.under_construction.dash_width.toString();
@@ -357,6 +357,78 @@ export class Line {
               station.id
             ]
           });
+
+          if (link.line_name_plate) {
+            const link_center = new Point2D(
+              (station.position.x + child.position.x) / 2,
+              (station.position.y + child.position.y) / 2,
+            );
+            const line_text_position = link_center;
+            const bbox_coords = this.get_line_text_bbox_coordiantes(
+              link_center
+            );
+            child_connector.push(
+              ...[
+                {
+                  'type': ElementType.Rect,
+                  'properties': {
+                    'position': bbox_coords,
+                    'radius': settings.line.name.font_size / 5,
+                    'center': link_center,
+                  },
+                  'attr': {
+                    'fill': this.color,
+                  },
+                  'group': this.city.lines_group,
+                  'draw_callback': (el: svgjs.Container) => {
+                    if (this.svg_elements_dict.hasOwnProperty('rect')) {
+                      this.svg_elements_dict['rect'].push(el);
+                    } else {
+                      this.svg_elements_dict['rect'] = [el];
+                    }
+
+                    const self = this;
+                    el.on('click', function() {
+                      self.click(el);
+                    });
+                  },
+                  'classes': [
+                    'Line', 'BBox', this.name
+                  ]
+                },
+                {
+                  'type': ElementType.Text,
+                  'properties': {
+                    'text': this.name,
+                    'size': settings.line.name.font_size,
+                    'position': {
+                      'x': line_text_position.x,
+                      'y': line_text_position.y,
+                    },
+                    'center': link_center,
+                    'anchor': this.text_anchor,
+                    'weight': settings.line.name.font_weight,
+                  },
+                  'attr': {
+                    'fill': theme.settings.line.name.font_color,
+                  },
+                  'group': this.city.lines_group,
+                  'draw_callback': (el: svgjs.Container) => {
+                    if (this.svg_elements_dict.hasOwnProperty('name')) {
+                      this.svg_elements_dict['name'].push(el);
+                    } else {
+                      this.svg_elements_dict['name'] = [el];
+                    }
+                  },
+                  'classes': [
+                    'Line',
+                    'Name',
+                    this.name,
+                  ]
+                },
+              ]
+            );
+          }
 
           elements.push(...child_connector);
         }

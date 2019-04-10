@@ -10,12 +10,13 @@ import {
   ElementType,
   CircleElement,
   LineElement,
-  LocationMarker,
   RectElement,
   TextElement,
   ElementParams,
   LineDashedElement,
-  LineDashedTwoColorsElement,
+  // -----
+  LocationMarker,
+  LineDashedTwoColors,
 } from './element';
 
 export class Scene {
@@ -75,6 +76,7 @@ export class Scene {
     const x = left - window.innerWidth / 2;
     const y = top - window.innerHeight / 2;
 
+    console.log(x, y);
     $('html, body').animate(
       {
         scrollTop: y,
@@ -138,8 +140,8 @@ export class Scene {
       case ElementType.LineDashedElement:
         element = new LineDashedElement(params);
         break;
-      case ElementType.LineDashedTwoColorsElement:
-        element = new LineDashedTwoColorsElement(params);
+      case ElementType.LineDashedTwoColors:
+        element = new LineDashedTwoColors(params);
         break;
       case ElementType.Rect:
         element = new RectElement(params);

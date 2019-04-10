@@ -1171,7 +1171,7 @@
                     {
                         "name": {
                             "value": "Sol",
-                            "location": "East"
+                            "location": "NorthEast"
                         },
                         "links": [
                             {
@@ -1449,7 +1449,7 @@
                     {
                         "name": {
                             "value": "Sol",
-                            "location": "East"
+                            "location": "NorthEast"
                         }
                     },
                     {
@@ -1672,7 +1672,7 @@
                     {
                         "name": {
                             "value": "Callao",
-                            "location": "South"
+                            "location": "North"
                         },
                         "links": [
                             {
@@ -1684,7 +1684,7 @@
                     {
                         "name": {
                             "value": "Sol",
-                            "location": "East"
+                            "location": "NorthEast"
                         },
                         "links": [
                             {
@@ -2092,10 +2092,12 @@
                         },
                         "x": 40,
                         "y": 63,
+                        "line_name_plate": false,
                         "links": [
                             {
                                 "direction": "SouthEast",
-                                "length": 3
+                                "length": 3,
+                                "line_name_plate": true
                             }
                         ],
                         "transfers": [
@@ -2321,7 +2323,7 @@
                     {
                         "name": {
                             "value": "Callao",
-                            "location": "South"
+                            "location": "North"
                         },
                         "transfers": [
                             {
@@ -2334,7 +2336,8 @@
                     },
                     {
                         "name": {
-                            "value": "Gran Vía"
+                            "value": "Gran Vía",
+                            "location": "East"
                         },
                         "under_construction": true,
                         "skippable": true
@@ -4477,7 +4480,8 @@
                         },
                         "links": [
                             {
-                                "direction": "West"
+                                "direction": "West",
+                                "line_name_plate": true
                             }
                         ]
                     },
@@ -4486,6 +4490,7 @@
                             "value": "San Nicasio",
                             "location": "North"
                         },
+                        "line_name_plate": false,
                         "parents": [
                             "Puerta del Sur",
                             "Leganés Central"

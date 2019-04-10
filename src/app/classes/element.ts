@@ -10,9 +10,10 @@ export enum ElementType {
   Line,
   Rect,
   PolyLineElement,
-  LocationMarker,
   LineDashedElement,
-  LineDashedTwoColorsElement,
+  LineDashedTwoColors,
+  // Highlievel
+  LocationMarker,
 }
 
 export interface ElementParams {
@@ -166,6 +167,8 @@ export class TextElement {
   anchor = 'left';
   weight = '1em';
 
+  center: Point2D = null;
+
   constructor(params: ElementParams) {
     this.id = makeid();
     this.text = params.properties['text'];
@@ -181,6 +184,10 @@ export class TextElement {
 
     if (params.draw_callback) {
       this.draw_callback = params.draw_callback;
+    }
+
+    if ('center' in params.properties) {
+      this.center = params.properties['center'];
     }
 
     if ('weight' in params.properties) {
@@ -253,6 +260,11 @@ export class TextElement {
           b.y + min_text_size
         ).back();
       }
+    }
+
+    if (this.center) {
+      svg_element.center(this.center.x, this.center.y);
+      svg_element.font({ anchor: 'start' });
     }
 
     return this.svg_element;
@@ -541,7 +553,7 @@ export class LineDashedElement extends LineElement {
   }
 }
 
-export class LineDashedTwoColorsElement extends LineElement {
+export class LineDashedTwoColors extends LineElement {
   draw(canvas: svgjs.Container) {
     const svg_element: SVG.Container = canvas.group();
 
@@ -595,6 +607,7 @@ export class RectElement {
   y2: number;
 
   radius = 0;
+  center: Point2D = null;
 
   constructor(params: ElementParams) {
     this.id = makeid();
@@ -612,8 +625,12 @@ export class RectElement {
     this.x2 = params.properties['position']['x2'];
     this.y2 = params.properties['position']['y2'];
 
+    if ('center' in params.properties) {
+      this.center = params.properties['center'];
+    }
+
     if ('radius' in params.properties) {
-      this.radius = params['properties']['radius'];
+      this.radius = params.properties['radius'];
     }
 
     if (params.draw_callback) {
@@ -634,6 +651,10 @@ export class RectElement {
     svg_element.radius(this.radius);
     svg_element.move(this.position.x, this.position.y);
     svg_element.attr(this.attr);
+
+    if (this.center) {
+      svg_element.center(this.center.x, this.center.y);
+    }
 
     for (const _class of this.classes) {
       svg_element.addClass(_class);

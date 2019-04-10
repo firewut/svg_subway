@@ -12,6 +12,7 @@ export interface StationLinkInterface {
   gravity: Direction;
   length: number;
   under_construction: boolean;
+  line_name_plate: boolean;
 }
 
 export class StationLink {
@@ -21,6 +22,7 @@ export class StationLink {
   gravity: Direction;
   length: number;
   under_construction = false;
+  line_name_plate = false;
 
   constructor(source: Station, destination: Station) {
     this.source_id = source.id;
@@ -390,6 +392,7 @@ export class Station {
         link.length = _link.length || 1;
         link.under_construction = _link.under_construction || false;
         link.gravity = _link.gravity;
+        link.line_name_plate = _link.line_name_plate;
 
         links.push(link);
       }
@@ -538,7 +541,7 @@ export class Station {
         this.svg_elements_dict['location_marker'] = marker_el;
 
         const self = this;
-        marker_el.on('click', function () {
+        marker_el.on('click', function() {
           self.line.city.router.select_station(self);
         });
       },
@@ -589,7 +592,7 @@ export class Station {
           this.svg_elements_dict['name'] = el;
 
           const self = this;
-          el.on('click', function () {
+          el.on('click', function() {
             self.line.city.router.select_station(self);
           });
         },

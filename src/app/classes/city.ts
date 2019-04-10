@@ -291,7 +291,7 @@ export class City {
   }
 
   scale_ui(delta: number) {
-    $.ready(function() {
+    $.ready(function () {
     });
   }
 
@@ -460,11 +460,20 @@ export class City {
       item.highlight();
     }
 
-    // Center Viewport to Route
+    // Center & Scale Viewport to Route
+    //     detect rote Rectange
     const edges = this.path_edges(stations);
+    // Center Viewport
     this.scene.moveViewport(
-      edges['y2'] - Math.abs(edges['y2'] - edges['y1']) / 2,
-      edges['x2'] - Math.abs(edges['x2'] - edges['x1']) / 2,
+      (edges['y2'] + edges['y1']) / 2,
+      (edges['x2'] + edges['x1']) / 2,
+    );
+    // Scale Viewport
+    this.scene.scaleViewport(
+      edges['x1'],
+      edges['y1'],
+      edges['x2'],
+      edges['y2'],
     );
   }
 
@@ -477,17 +486,17 @@ export class City {
     };
 
     edges['x1'] = Math.min.apply(
-      Math, path.map(function(o) { return o.position.x; })
+      Math, path.map(function (o) { return o.position.x; })
     );
     edges['y1'] = Math.min.apply(
-      Math, path.map(function(o) { return o.position.y; })
+      Math, path.map(function (o) { return o.position.y; })
     );
 
     edges['x2'] = Math.max.apply(
-      Math, path.map(function(o) { return o.position.x; })
+      Math, path.map(function (o) { return o.position.x; })
     );
     edges['y2'] = Math.max.apply(
-      Math, path.map(function(o) { return o.position.y; })
+      Math, path.map(function (o) { return o.position.y; })
     );
 
     return edges;
@@ -610,7 +619,7 @@ export class City {
           'group': this.dialog_group,
           'draw_callback': (el: svgjs.Container) => {
             const self = this;
-            el.on('click', function() {
+            el.on('click', function () {
               const station = self.dialog_group.remember('station');
 
               self.router.select_station_from(station);
@@ -638,7 +647,7 @@ export class City {
           'group': this.dialog_group,
           'draw_callback': (el: svgjs.Container) => {
             const self = this;
-            el.on('click', function() {
+            el.on('click', function () {
               const station = self.dialog_group.remember('station');
 
               self.router.select_station_to(station);

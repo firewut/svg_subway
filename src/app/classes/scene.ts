@@ -23,66 +23,66 @@ export class Scene {
   container_id: string;
   canvas: svgjs.Container;
 
-  elementRef: ElementRef;
   theme: Theme;
   elements: Element[];
 
   constructor(
     container_id: string,
     theme: Theme,
-    elementRef: ElementRef,
     callback?: (_: Scene) => any,
   ) {
     this.elements = [];
-    this.elementRef = elementRef;
 
     this.container_id = container_id;
     this.theme = theme;
     this.canvas = SVG(this.container_id);
-    // this.canvas.on('wheel', function(el) {
-    //   console.log(el);
-    // });
-
-    // this.canvas.on('wheel', function(el) {
-    //   console.log(el);
-    // });
-
-    // this.canvas.on('wheel', function(el) {
-    //   console.log(el);
-    // });
-
-    // this.canvas.on('wheel', function(el) {
-    //   console.log(el);
-    // });
-
-    // this.canvas.on('wheel', function(el) {
-    //   console.log(el);
-    // });
-
-    // this.canvas.on('wheel', function(el) {
-    //   console.log(el);
-    // });
-
-    // this.canvas.on('wheel', function(el) {
-    //   console.log(el);
-    // });
 
     if (callback) {
       this.prepare(callback);
     }
   }
 
-  moveViewport(top: number, left: number) {
-    console.log(top, left);
-    window.scrollTo({
-      top: top - window.outerHeight / 2,
-      left: left - window.outerWidth / 2,
-      behavior: 'smooth'
-    });
+  scaleViewport(x1: number, y1: number, x2: number, y2: number) {
+    // Check if line's edges includes to viewport
+    const line_width = Math.abs(x1 - x2);
+    const line_height = Math.abs(y1 - y2);
+
+    if (
+      (
+        (
+          window.innerHeight - (
+            window.innerHeight * settings.viewport.scale_modifier
+          )
+        ) < line_height
+      ) ||
+      (
+        (
+          window.innerWidth - (
+            window.innerWidth * settings.viewport.scale_modifier
+          )
+        ) < line_width
+      )
+    ) {
+      console.log(window.innerWidth, line_width, line_height, window.innerHeight);
+
+    }
+    // $('#canvas').animate(
+    //   { width: line_width, height: line_height },
+    //   settings.viewport.animation_speed
+    // );
   }
 
-  zoomViewport(delta: number) {
-    this.canvas.scale(delta, delta);
+  moveViewport(top: number, left: number) {
+    const x = left - window.innerWidth / 2;
+    const y = top - window.innerHeight / 2;
+
+    $('html, body').animate(
+      {
+        scrollTop: y,
+        scrollLeft: x,
+      },
+      settings.viewport.animation_speed,
+    );
   }
 
   centerViewport() {
@@ -102,13 +102,6 @@ export class Scene {
     this.canvas.size(
       settings.grid.width * grid_size[0],
       settings.grid.height * grid_size[1],
-    );
-
-    const canvas_viewbox = this.canvas.viewbox();
-    $('body').width(
-      canvas_viewbox.width
-    ).height(
-      canvas_viewbox.height
     );
   }
 

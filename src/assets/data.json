@@ -991,7 +991,8 @@
                         "links": [
                             {
                                 "direction": "West",
-                                "length": 3
+                                "length": 3,
+				"line_name_plate": true
                             }
                         ]
                     },
@@ -1829,7 +1830,14 @@
                         "name": {
                             "value": "Manoteras",
                             "location": "North"
-                        }
+                        },
+			"links": [
+				{
+				"direction": "East",
+				"length": 2,
+				"line_name_plate": true
+				}
+			]
                     },
                     {
                         "name": {
@@ -2798,7 +2806,8 @@
                         "links": [
                             {
                                 "direction": "North",
-                                "length": 3
+                                "length": 3,
+				"line_name_plate": true
                             }
                         ]
                     },
@@ -2806,7 +2815,13 @@
                         "name": {
                             "value": "O’Donnell",
                             "location": "East"
-                        }
+                        },
+			"links": [
+				{
+					"direction": "North",
+					"length": 3
+				}
+			]
                     },
                     {
                         "name": {
@@ -3304,7 +3319,8 @@
                         },
                         "links": [
                             {
-                                "direction": "North"
+                                "direction": "North",
+				"line_name_plate": true
                             }
                         ]
                     },
@@ -3696,7 +3712,8 @@
                     },
                     {
                         "name": {
-                            "value": "Rivas Urbanizaciones"
+                            "value": "Rivas Urbanizaciones",
+			    "location": "East"
                         },
                         "links": [
                             {
@@ -4012,7 +4029,8 @@
                         "links": [
                             {
                                 "direction": "SouthWest",
-                                "length": 2
+                                "length": 2,
+				"line_name_plate": true
                             }
                         ],
                         "transfers": [

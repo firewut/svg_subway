@@ -26,6 +26,8 @@ export class Scene {
   theme: Theme;
   elements: Element[];
 
+  viewportPointsHistory: number[][] = [];
+
   constructor(
     container_id: string,
     theme: Theme,
@@ -72,11 +74,29 @@ export class Scene {
     // );
   }
 
-  moveViewport(top: number, left: number) {
+  addToMoveHistory(top: number, left: number) {
+    this.viewportPointsHistory.push(
+      [top, left]
+    );
+  }
+
+  backViewport() {
+    const last_coords = this.viewportPointsHistory[
+      this.viewportPointsHistory.length - 1
+    ];
+    if (last_coords) {
+      this.moveViewport(last_coords[0], last_coords[1], true);
+    }
+  }
+
+  moveViewport(top: number, left: number, skip_history?: boolean) {
     const x = left - window.innerWidth / 2;
     const y = top - window.innerHeight / 2;
 
-    console.log(x, y);
+    if (!skip_history) {
+      this.addToMoveHistory(top, left);
+    }
+
     $('html, body').animate(
       {
         scrollTop: y,
@@ -92,6 +112,7 @@ export class Scene {
     this.moveViewport(
       canvas_viewbox.height / 2,
       canvas_viewbox.width / 2,
+      true,
     );
   }
 

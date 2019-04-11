@@ -286,6 +286,17 @@ export class City {
     }
 
     this.router = new SubwayRouter(this);
+
+    this.canvas.click((event: MouseEvent) => {
+      if (event.target) {
+        const target_id = (event.target as Element).id;
+        if (this.canvas.id() === target_id) {
+          this.hide_stations_selection_dialog(true);
+        }
+      }
+
+      return false;
+    });
   }
 
   scale_ui(delta: number) {
@@ -321,8 +332,15 @@ export class City {
     return;
   }
 
-  hide_stations_selection_dialog() {
-    this.dialog_group.hide();
+  hide_stations_selection_dialog(viewport_back?: boolean) {
+    let dialog_hided = false;
+    if (this.dialog_group.visible()) {
+      this.dialog_group.hide();
+      dialog_hided = true;
+    }
+    if (viewport_back === true && dialog_hided === true) {
+      this.scene.backViewport();
+    }
   }
 
   show_station_selection_dialog(station: Station) {
@@ -339,6 +357,7 @@ export class City {
     this.scene.moveViewport(
       station.position.y + y_padding * 2,
       station.position.x,
+      true,
     );
   }
 

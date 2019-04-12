@@ -1,11 +1,11 @@
 declare var $: any;
 import * as SVGJS from '@svgdotjs/svg.js';
 
-import { Line, StationConnector } from './line';
+import { Line } from './line';
 import { ElementParams, ElementType } from './element';
 import { environment } from '../../environments/environment';
 import { Theme } from '../../themes/theme';
-import { Station } from './station';
+import { Station, StationConnector } from './station';
 import { settings } from '../../themes/default';
 import { Dijkstra } from './dijkstra';
 import { StationTransfer } from './transfer';

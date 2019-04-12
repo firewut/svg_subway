@@ -17,6 +17,41 @@ export interface StationLinkInterface {
   line_name_plate: boolean;
 }
 
+export class StationConnector {
+  line: Line;
+  from: Station;
+  to: Station;
+
+  svg_elements_dict = {};
+
+  constructor(line: Line, from: Station, to: Station, svg_elements_dict: {}) {
+    this.line = line;
+    this.from = from;
+    this.to = to;
+    this.svg_elements_dict = svg_elements_dict;
+  }
+
+  unhighlight() {
+    for (const key in this.svg_elements_dict) {
+      if (this.svg_elements_dict.hasOwnProperty(key)) {
+        const element = this.svg_elements_dict[key];
+        element.addTo(
+          element.remember('element').group
+        );
+      }
+    }
+  }
+
+  highlight(path: string[]) {
+    for (const key in this.svg_elements_dict) {
+      if (this.svg_elements_dict.hasOwnProperty(key)) {
+        const element = this.svg_elements_dict[key];
+        element.addTo(this.line.city.highlight_group);
+      }
+    }
+  }
+}
+
 export class StationLink {
   source_id: string;
   destination_id: string;

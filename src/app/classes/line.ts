@@ -1,6 +1,6 @@
 import * as SVGJS from '@svgdotjs/svg.js';
 
-import { Station, StationLink } from './station';
+import { Station, StationLink, StationConnector } from './station';
 import { Direction, VectorDirection } from './direction';
 import { City } from './city';
 import { StationTransfer } from './transfer';
@@ -8,40 +8,6 @@ import { ElementParams, ElementType, Point2D } from './element';
 import { Theme } from '../../themes/theme';
 import { settings } from '../../themes/default';
 
-export class StationConnector {
-  line: Line;
-  from: Station;
-  to: Station;
-
-  svg_elements_dict = {};
-
-  constructor(line: Line, from: Station, to: Station, svg_elements_dict: {}) {
-    this.line = line;
-    this.from = from;
-    this.to = to;
-    this.svg_elements_dict = svg_elements_dict;
-  }
-
-  unhighlight() {
-    for (const key in this.svg_elements_dict) {
-      if (this.svg_elements_dict.hasOwnProperty(key)) {
-        const element = this.svg_elements_dict[key];
-        element.addTo(
-          element.remember('element').group
-        );
-      }
-    }
-  }
-
-  highlight(path: string[]) {
-    for (const key in this.svg_elements_dict) {
-      if (this.svg_elements_dict.hasOwnProperty(key)) {
-        const element = this.svg_elements_dict[key];
-        element.addTo(this.line.city.highlight_group);
-      }
-    }
-  }
-}
 
 export class Line {
   city: City;
@@ -389,11 +355,7 @@ export class Line {
                     } else {
                       this.svg_elements_dict['rect'] = [el];
                     }
-
-                    const self = this;
-                    el.on('click', function () {
-                      self.click(el);
-                    });
+                    this.connectors_dict[`${station.id}-${child.id}`].svg_elements_dict['line_name_plate_rect'] = el;
                   },
                   'classes': [
                     'Line', 'BBox', this.name
@@ -422,6 +384,7 @@ export class Line {
                     } else {
                       this.svg_elements_dict['name'] = [el];
                     }
+                    this.connectors_dict[`${station.id}-${child.id}`].svg_elements_dict['line_name_plate_text'] = el;
                   },
                   'classes': [
                     'Line',

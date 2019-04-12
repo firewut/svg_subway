@@ -1,3 +1,5 @@
+import * as SVG from '@svgdotjs/svg.js';
+
 import { Line } from './line';
 import { Station } from './station';
 import { ElementParams, ElementType } from './element';
@@ -147,7 +149,7 @@ export class StationTransfer {
 
     elements.push(
       {
-        'type': ElementType.PolyLineElement,
+        'type': ElementType.PolylineElement,
         'properties': {
           'points': [
             [
@@ -166,7 +168,7 @@ export class StationTransfer {
           'opacity': 0.75,
         },
         'group': this.line.city.transfers_group,
-        'draw_callback': (el: svgjs.Container) => {
+        'draw_callback': (el: SVG.Container) => {
           this.svg_elements_dict['outer_line'] = el;
         },
         'classes': [
@@ -174,7 +176,7 @@ export class StationTransfer {
         ]
       },
       {
-        'type': ElementType.PolyLineElement,
+        'type': ElementType.PolylineElement,
         'properties': {
           'points': [
             [
@@ -193,7 +195,7 @@ export class StationTransfer {
           'opacity': 0.5,
         },
         'group': this.line.city.transfers_group,
-        'draw_callback': (el: svgjs.Container) => {
+        'draw_callback': (el: SVG.Container) => {
           this.svg_elements_dict['inner_line'] = el;
         },
         'classes': [

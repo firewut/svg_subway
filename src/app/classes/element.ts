@@ -1,4 +1,5 @@
-import * as SVG from 'svg.js';
+import * as SVGJS from '@svgdotjs/svg.js';
+import '@svgdotjs/svg.filter.js';
 
 import { makeid, shadeHexColor } from './helper';
 import { environment } from '../../environments/environment';
@@ -9,7 +10,7 @@ export enum ElementType {
   Circle,
   Line,
   Rect,
-  PolyLineElement,
+  PolylineElement,
   LineDashedElement,
   LineDashedTwoColors,
   // Highlievel
@@ -21,9 +22,9 @@ export interface ElementParams {
   classes: string[];
   properties: any;
   type: ElementType;
-  group: svgjs.G;
+  group: SVGJS.G;
 
-  draw_callback?: (_: svgjs.Shape) => any;
+  draw_callback?: (_: SVGJS.Shape) => any;
 }
 
 export interface Element {
@@ -32,8 +33,8 @@ export interface Element {
   classes: string[];
   position: Point2D;
   param: ElementParams;
-  svg_element: SVG.Shape;
-  group: SVG.G;
+  svg_element: SVGJS.Shape;
+  group: SVGJS.G;
   click_toggle: boolean;
 
   toggle: () => any;
@@ -43,8 +44,8 @@ export interface Element {
   highlight: () => any;
   unhighlight: () => any;
 
-  draw: (_: svgjs.Container) => any;
-  draw_callback: (_: svgjs.Shape) => any;
+  draw: (_: SVGJS.Container) => any;
+  draw_callback: (_: SVGJS.Shape) => any;
 }
 
 export class LocationMarker {
@@ -54,8 +55,8 @@ export class LocationMarker {
   position: Point2D;
 
   param: ElementParams;
-  svg_element: SVG.Shape;
-  group: SVG.G;
+  svg_element: SVGJS.Shape;
+  group: SVGJS.G;
   click_toggle = false;
 
   text: string;
@@ -80,19 +81,19 @@ export class LocationMarker {
     }
   }
 
-  draw_callback(element: svgjs.Shape) { }
+  draw_callback(element: SVGJS.Shape) { }
 
-  draw(canvas: svgjs.Container) {
-    const svg_element: SVG.Container = canvas.group();
+  draw(canvas: SVGJS.Container) {
+    const svg_element: SVGJS.Container = canvas.group();
 
-    const circle: SVG.Circle = svg_element.circle(
+    const circle: SVGJS.Circle = svg_element.circle(
       settings.location_marker.radius
     );
-    const text: SVG.Text = svg_element.text(
+    const text: SVGJS.Text = svg_element.text(
       this.text
     );
     const radius_part = settings.location_marker.radius / 3;
-    const v: SVG.PolyLine = svg_element.polyline(
+    const v: SVGJS.Polyline = svg_element.polyline(
       `${radius_part},${radius_part * 2} ${radius_part * 1.5},${radius_part * 3} 
       ${radius_part * 2},${radius_part * 2}`
     );
@@ -157,8 +158,8 @@ export class TextElement {
   classes: string[] = [];
   param: ElementParams;
   position: Point2D;
-  svg_element: SVG.Shape;
-  group: SVG.G;
+  svg_element: SVGJS.Shape;
+  group: SVGJS.G;
   click_toggle = false;
 
   text: string;
@@ -166,6 +167,7 @@ export class TextElement {
   size = 15;
   anchor = 'left';
   weight = '1em';
+  filters: string[] = [];
 
   center: Point2D = null;
 
@@ -197,25 +199,33 @@ export class TextElement {
     if ('anchor' in params.properties) {
       this.anchor = params.properties['anchor'];
     }
+
+    if ('filters' in params.properties) {
+      this.filters = params.properties['filters'];
+    }
   }
 
-  draw_callback(element: svgjs.Shape) { }
+  draw_callback(element: SVGJS.Shape) { }
 
-  draw(canvas: svgjs.Container) {
-    const svg_element: SVG.Text = canvas.text(this.text);
+  draw(canvas: SVGJS.Container) {
+    const svg_element: SVGJS.Text = canvas.text(this.text);
     svg_element.remember('element', this);
     svg_element.remember('param', this.param);
 
-    svg_element.font(
-      {
-        family: this.family,
-        size: this.size,
-        anchor: this.anchor,
-        weight: this.weight
-      }
-    );
     svg_element.attr(this.attr);
     svg_element.move(this.position.x, this.position.y);
+    svg_element.font({
+      family: this.family,
+      size: this.size,
+      anchor: this.anchor,
+      weight: this.weight,
+    });
+
+    if (this.filters.includes('gaussian_blur')) {
+      // svg_element.filterWith(function (add: any) {
+      //   add.gaussianBlur(0, 0);
+      // })
+    }
 
     for (const _class of this.classes) {
       svg_element.addClass(_class);
@@ -264,7 +274,6 @@ export class TextElement {
 
     if (this.center) {
       svg_element.center(this.center.x, this.center.y);
-      svg_element.font({ anchor: 'start' });
     }
 
     return this.svg_element;
@@ -298,8 +307,8 @@ export class CircleElement {
   attr: any;
   classes: string[] = [];
   param: ElementParams;
-  svg_element: SVG.Shape;
-  group: SVG.G;
+  svg_element: SVGJS.Shape;
+  group: SVGJS.G;
   click_toggle = false;
 
   center: Point2D;
@@ -324,10 +333,10 @@ export class CircleElement {
     }
   }
 
-  draw_callback(element: svgjs.Shape) { }
+  draw_callback(element: SVGJS.Shape) { }
 
-  draw(canvas: svgjs.Container) {
-    const svg_element: SVG.Circle = canvas.circle(this.radius);
+  draw(canvas: SVGJS.Container) {
+    const svg_element: SVGJS.Circle = canvas.circle(this.radius);
     svg_element.remember('element', this);
     svg_element.remember('param', this.param);
 
@@ -370,11 +379,11 @@ export class CircleElement {
   }
 }
 
-export class PolyLineElement {
+export class PolylineElement {
   id: string;
   attr: any;
-  svg_element: SVG.Shape;
-  group: SVG.G;
+  svg_element: SVGJS.Shape;
+  group: SVGJS.G;
   click_toggle = false;
   param: ElementParams;
   classes: string[] = [];
@@ -397,16 +406,16 @@ export class PolyLineElement {
     }
   }
 
-  draw_callback(element: svgjs.Shape) { }
+  draw_callback(element: SVGJS.Shape) { }
 
-  draw(canvas: svgjs.Container) {
-    const points_array: number[][] = [];
+  draw(canvas: SVGJS.Container) {
+    const points_array: number[] = [];
 
     for (const point of this.points) {
-      points_array.push(point);
+      points_array.push(...point);
     }
 
-    const svg_element: SVG.PolyLine = canvas.polyline(points_array);
+    const svg_element: SVGJS.Polyline = canvas.polyline(points_array);
     svg_element.remember('element', this);
     svg_element.remember('param', this.param);
 
@@ -451,8 +460,8 @@ export class PolyLineElement {
 export class LineElement {
   id: string;
   position: Point2D;
-  svg_element: SVG.Shape;
-  group: SVG.G;
+  svg_element: SVGJS.Shape;
+  group: SVGJS.G;
   click_toggle = false;
   attr: any;
   param: ElementParams;
@@ -484,10 +493,10 @@ export class LineElement {
     }
   }
 
-  draw_callback(element: svgjs.Shape) { }
+  draw_callback(element: SVGJS.Shape) { }
 
-  draw(canvas: svgjs.Container) {
-    const svg_element: SVG.Shape = canvas.line(this.x1, this.y1, this.x2, this.y2);
+  draw(canvas: SVGJS.Container) {
+    const svg_element: SVGJS.Shape = canvas.line(this.x1, this.y1, this.x2, this.y2);
     svg_element.remember('element', this);
     svg_element.remember('param', this.param);
 
@@ -530,8 +539,8 @@ export class LineElement {
 }
 
 export class LineDashedElement extends LineElement {
-  draw(canvas: svgjs.Container) {
-    const svg_element: SVG.Line = canvas.line(this.x1, this.y1, this.x2, this.y2);
+  draw(canvas: SVGJS.Container) {
+    const svg_element: SVGJS.Line = canvas.line(this.x1, this.y1, this.x2, this.y2);
     svg_element.remember('element', this);
     svg_element.remember('param', this.param);
 
@@ -554,8 +563,8 @@ export class LineDashedElement extends LineElement {
 }
 
 export class LineDashedTwoColors extends LineElement {
-  draw(canvas: svgjs.Container) {
-    const svg_element: SVG.Container = canvas.group();
+  draw(canvas: SVGJS.Container) {
+    const svg_element: SVGJS.Container = canvas.group();
 
     const line = svg_element.line(this.x1, this.y1, this.x2, this.y2);
     const dashed_line = svg_element.line(this.x1, this.y1, this.x2, this.y2);
@@ -594,8 +603,8 @@ export class LineDashedTwoColors extends LineElement {
 export class RectElement {
   id: string;
   position: Point2D;
-  svg_element: SVG.Shape;
-  group: SVG.G;
+  svg_element: SVGJS.Shape;
+  group: SVGJS.G;
   click_toggle = false;
   attr: any;
   param: ElementParams;
@@ -638,10 +647,10 @@ export class RectElement {
     }
   }
 
-  draw_callback(element: svgjs.Shape) { }
+  draw_callback(element: SVGJS.Shape) { }
 
-  draw(canvas: svgjs.Container) {
-    const svg_element: SVG.Rect = canvas.rect(
+  draw(canvas: SVGJS.Container) {
+    const svg_element: SVGJS.Rect = canvas.rect(
       Math.abs(this.x1 - this.x2),
       Math.abs(this.y1 - this.y2),
     );
@@ -705,15 +714,15 @@ export class Point2D {
     this.y = y || 0;
   }
 
-  length = function() {
+  length = function () {
     return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
   };
 
-  normalize = function() {
+  normalize = function () {
     this.divideScalar(this.length());
   };
 
-  degrees = function(another_point: Point2D) {
+  degrees = function (another_point: Point2D) {
     return Math.atan2(
       (another_point.y - this.y),
       (another_point.x - this.x)

@@ -1,5 +1,5 @@
 import * as SVGJS from '@svgdotjs/svg.js';
-import '@svgdotjs/svg.filter.js';
+// import '@svgdotjs/svg.filter.js';
 
 import { makeid, shadeHexColor } from './helper';
 import { environment } from '../../environments/environment';

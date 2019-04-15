@@ -212,24 +212,24 @@ export class TextElement {
       this.text
     );
 
-    // Filters
-    if (this.filters.includes('gaussian_blur')) {
-      const text_with_filter = canvas.text(
-        this.text
-      );
-      text_with_filter.attr(this.attr);
-      text_with_filter.move(this.position.x, this.position.y);
-      text_with_filter.font({
-        family: this.family,
-        size: this.size,
-        anchor: this.anchor,
-        weight: this.weight,
-      });
+    // // Filters
+    // if (this.filters.includes('gaussian_blur')) {
+    //   const text_with_filter = canvas.text(
+    //     this.text
+    //   );
+    //   text_with_filter.attr(this.attr);
+    //   text_with_filter.move(this.position.x, this.position.y);
+    //   text_with_filter.font({
+    //     family: this.family,
+    //     size: this.size,
+    //     anchor: this.anchor,
+    //     weight: this.weight,
+    //   });
 
-      text_with_filter.filterWith(function(add: any) {
-        add.gaussianBlur(5);
-      });
-    }
+    //   text_with_filter.filterWith(function(add: any) {
+    //     add.gaussianBlur(5);
+    //   });
+    // }
 
     svg_element.remember('element', this);
     svg_element.remember('param', this.param);

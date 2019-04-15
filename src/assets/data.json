@@ -992,7 +992,7 @@
                             {
                                 "direction": "West",
                                 "length": 3,
-				"line_name_plate": true
+                                "line_name_plate": true
                             }
                         ]
                     },
@@ -1831,13 +1831,13 @@
                             "value": "Manoteras",
                             "location": "North"
                         },
-			"links": [
-				{
-				"direction": "East",
-				"length": 2,
-				"line_name_plate": true
-				}
-			]
+                        "links": [
+                            {
+                                "direction": "East",
+                                "length": 2,
+                                "line_name_plate": true
+                            }
+                        ]
                     },
                     {
                         "name": {
@@ -2807,7 +2807,7 @@
                             {
                                 "direction": "North",
                                 "length": 3,
-				"line_name_plate": true
+                                "line_name_plate": true
                             }
                         ]
                     },
@@ -2816,12 +2816,12 @@
                             "value": "O’Donnell",
                             "location": "East"
                         },
-			"links": [
-				{
-					"direction": "North",
-					"length": 3
-				}
-			]
+                        "links": [
+                            {
+                                "direction": "North",
+                                "length": 3
+                            }
+                        ]
                     },
                     {
                         "name": {
@@ -3123,7 +3123,7 @@
                     {
                         "name": {
                             "value": "Gregorio Marañón",
-                            "location": "North"
+                            "location": "NorthEast"
                         },
                         "transfers": [
                             {
@@ -3320,7 +3320,7 @@
                         "links": [
                             {
                                 "direction": "North",
-				"line_name_plate": true
+                                "line_name_plate": true
                             }
                         ]
                     },
@@ -3713,7 +3713,7 @@
                     {
                         "name": {
                             "value": "Rivas Urbanizaciones",
-			    "location": "East"
+                            "location": "East"
                         },
                         "links": [
                             {
@@ -3954,7 +3954,7 @@
                     {
                         "name": {
                             "value": "Gregorio Marañón",
-                            "location": "North"
+                            "location": "NorthEast"
                         },
                         "links": [
                             {
@@ -4030,7 +4030,7 @@
                             {
                                 "direction": "SouthWest",
                                 "length": 2,
-				"line_name_plate": true
+                                "line_name_plate": true
                             }
                         ],
                         "transfers": [

@@ -1,45 +1,13 @@
-import { Station, StationLink } from './station';
+import * as SVGJS from '@svgdotjs/svg.js';
+
+import { Station, StationLink, StationConnector } from './station';
 import { Direction, VectorDirection } from './direction';
 import { City } from './city';
-import { StationTransfer, StationTransferDirection } from './transfer';
-import { ElementParams, ElementType, Point2D, LineElement } from './element';
+import { StationTransfer } from './transfer';
+import { ElementParams, ElementType, Point2D } from './element';
 import { Theme } from '../../themes/theme';
 import { settings } from '../../themes/default';
 
-export class StationConnector {
-  line: Line;
-  from: Station;
-  to: Station;
-
-  svg_elements_dict = {};
-
-  constructor(line: Line, from: Station, to: Station, svg_elements_dict: {}) {
-    this.line = line;
-    this.from = from;
-    this.to = to;
-    this.svg_elements_dict = svg_elements_dict;
-  }
-
-  unhighlight() {
-    for (const key in this.svg_elements_dict) {
-      if (this.svg_elements_dict.hasOwnProperty(key)) {
-        const element = this.svg_elements_dict[key];
-        element.addTo(
-          element.remember('element').group
-        );
-      }
-    }
-  }
-
-  highlight(path: string[]) {
-    for (const key in this.svg_elements_dict) {
-      if (this.svg_elements_dict.hasOwnProperty(key)) {
-        const element = this.svg_elements_dict[key];
-        element.addTo(this.line.city.highlight_group);
-      }
-    }
-  }
-}
 
 export class Line {
   city: City;
@@ -213,7 +181,7 @@ export class Line {
     return;
   }
 
-  click(el: svgjs.Container) { }
+  click(el: SVGJS.Container) { }
 
   unhighlight() {
     for (const key in this.svg_elements_dict) {
@@ -343,12 +311,13 @@ export class Line {
               'dashed_line_dasharray': dasharray,
             },
             'group': this.city.lines_group,
-            'draw_callback': (el: svgjs.Container) => {
+            'draw_callback': (el: SVGJS.Container) => {
               this.svg_elements_dict['connector'] = el;
 
               const connector = new StationConnector(
                 this, station, child, { 'connector': el }
               );
+
               this.connectors_dict[`${station.id}-${child.id}`] = connector;
             },
             'classes': [
@@ -379,18 +348,14 @@ export class Line {
                   'attr': {
                     'fill': this.color,
                   },
-                  'group': this.city.lines_group,
-                  'draw_callback': (el: svgjs.Container) => {
+                  'group': this.city.stations_group,
+                  'draw_callback': (el: SVGJS.Container) => {
                     if (this.svg_elements_dict.hasOwnProperty('rect')) {
                       this.svg_elements_dict['rect'].push(el);
                     } else {
                       this.svg_elements_dict['rect'] = [el];
                     }
-
-                    const self = this;
-                    el.on('click', function() {
-                      self.click(el);
-                    });
+                    this.connectors_dict[`${station.id}-${child.id}`].svg_elements_dict['line_name_plate_rect'] = el;
                   },
                   'classes': [
                     'Line', 'BBox', this.name
@@ -412,13 +377,14 @@ export class Line {
                   'attr': {
                     'fill': theme.settings.line.name.font_color,
                   },
-                  'group': this.city.lines_group,
-                  'draw_callback': (el: svgjs.Container) => {
+                  'group': this.city.stations_group,
+                  'draw_callback': (el: SVGJS.Container) => {
                     if (this.svg_elements_dict.hasOwnProperty('name')) {
                       this.svg_elements_dict['name'].push(el);
                     } else {
                       this.svg_elements_dict['name'] = [el];
                     }
+                    this.connectors_dict[`${station.id}-${child.id}`].svg_elements_dict['line_name_plate_text'] = el;
                   },
                   'classes': [
                     'Line',
@@ -452,7 +418,7 @@ export class Line {
                 'fill': this.color,
               },
               'group': this.city.lines_group,
-              'draw_callback': (el: svgjs.Container) => {
+              'draw_callback': (el: SVGJS.Container) => {
                 if (this.svg_elements_dict.hasOwnProperty('rect')) {
                   this.svg_elements_dict['rect'].push(el);
                 } else {
@@ -460,7 +426,7 @@ export class Line {
                 }
 
                 const self = this;
-                el.on('click', function() {
+                el.on('click', function () {
                   self.click(el);
                 });
               },
@@ -484,7 +450,7 @@ export class Line {
                 'fill': theme.settings.line.name.font_color,
               },
               'group': this.city.lines_group,
-              'draw_callback': (el: svgjs.Container) => {
+              'draw_callback': (el: SVGJS.Container) => {
                 if (this.svg_elements_dict.hasOwnProperty('name')) {
                   this.svg_elements_dict['name'].push(el);
                 } else {

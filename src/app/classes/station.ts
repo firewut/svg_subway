@@ -1,3 +1,5 @@
+import * as SVGJS from '@svgdotjs/svg.js';
+
 import { ElementType, ElementParams, Point2D, TextElement, LocationMarker } from './element';
 import { Line } from './line';
 import { StationTransfer } from './transfer';
@@ -13,6 +15,41 @@ export interface StationLinkInterface {
   length: number;
   under_construction: boolean;
   line_name_plate: boolean;
+}
+
+export class StationConnector {
+  line: Line;
+  from: Station;
+  to: Station;
+
+  svg_elements_dict = {};
+
+  constructor(line: Line, from: Station, to: Station, svg_elements_dict: {}) {
+    this.line = line;
+    this.from = from;
+    this.to = to;
+    this.svg_elements_dict = svg_elements_dict;
+  }
+
+  unhighlight() {
+    for (const key in this.svg_elements_dict) {
+      if (this.svg_elements_dict.hasOwnProperty(key)) {
+        const element = this.svg_elements_dict[key];
+        element.addTo(
+          element.remember('element').group
+        );
+      }
+    }
+  }
+
+  highlight(path: string[]) {
+    for (const key in this.svg_elements_dict) {
+      if (this.svg_elements_dict.hasOwnProperty(key)) {
+        const element = this.svg_elements_dict[key];
+        element.addTo(this.line.city.highlight_group);
+      }
+    }
+  }
 }
 
 export class StationLink {
@@ -75,7 +112,7 @@ export class Station {
   svg_elements_dict = {};
 
   private click_toggle = false;
-  private location_marker: svgjs.Shape;
+  private location_marker: SVGJS.Shape;
   private theme: Theme;
 
   constructor(line: Line, json: any) {
@@ -247,7 +284,7 @@ export class Station {
       case Direction.NorthWest:
         this.text_anchor = 'end';
         dx -= text_margin * magic_lines_multiplier;
-        dy -= text_margin + (font_size * lines_count) * magic_lines_multiplier;
+        dy -= text_margin + (font_size * lines_count); // * magic_lines_multiplier;
         break;
       case Direction.SouthEast:
         this.text_anchor = 'start';
@@ -257,7 +294,7 @@ export class Station {
       case Direction.NorthEast:
         this.text_anchor = 'start';
         dx += text_margin * magic_lines_multiplier;
-        dy -= text_margin + (font_size * lines_count) * magic_lines_multiplier;
+        dy -= text_margin + (font_size * lines_count); // * magic_lines_multiplier;
         break;
       case Direction.SouthWest:
         break;
@@ -425,7 +462,7 @@ export class Station {
   }
 
   toggle(caption?: string) {
-    let el: svgjs.Container;
+    let el: SVGJS.Container;
     if (this.svg_elements_dict.hasOwnProperty('outer_marker')) {
       el = this.svg_elements_dict['outer_marker'];
     }
@@ -435,7 +472,7 @@ export class Station {
     this.toggle_with_element(el, caption);
   }
 
-  toggle_with_element(el: svgjs.Container, caption?: string) {
+  toggle_with_element(el: SVGJS.Container, caption?: string) {
     if (this.under_construction === true) {
       return;
     }
@@ -448,7 +485,7 @@ export class Station {
     }
   }
 
-  check(el: svgjs.Container, caption?: string) {
+  check(el: SVGJS.Container, caption?: string) {
     for (const key in this.svg_elements_dict) {
       if (this.svg_elements_dict.hasOwnProperty(key)) {
         const element = this.svg_elements_dict[key];
@@ -518,7 +555,7 @@ export class Station {
     }
   }
 
-  get_location_marker(el: svgjs.Container, caption: string): ElementParams {
+  get_location_marker(el: SVGJS.Container, caption: string): ElementParams {
     const marker_color = this.line.color;
 
     const marker_position = new Point2D(
@@ -537,7 +574,7 @@ export class Station {
         'text-fill': this.theme.settings.location_marker.text_color,
       },
       'group': this.line.city.markers_group,
-      'draw_callback': (marker_el: svgjs.Container) => {
+      'draw_callback': (marker_el: SVGJS.Container) => {
         this.svg_elements_dict['location_marker'] = marker_el;
 
         const self = this;
@@ -583,12 +620,15 @@ export class Station {
           },
           'anchor': this.text_anchor,
           'weight': settings.station.font_weight,
+          'filters': [
+            'gaussian_blur',
+          ]
         },
         'attr': {
           'fill': font_color,
         },
         'group': this.line.city.stations_group,
-        'draw_callback': (el: svgjs.Container) => {
+        'draw_callback': (el: SVGJS.Container) => {
           this.svg_elements_dict['name'] = el;
 
           const self = this;
@@ -621,7 +661,7 @@ export class Station {
             'fill': this.line.color,
           },
           'group': this.line.city.stations_group,
-          'draw_callback': (el: svgjs.Container) => {
+          'draw_callback': (el: SVGJS.Container) => {
             this.svg_elements_dict['outer_marker'] = el;
 
             // const self = this;
@@ -652,7 +692,7 @@ export class Station {
               'fill': outer_color,
             },
             'group': this.line.city.stations_group,
-            'draw_callback': (el: svgjs.Container) => {
+            'draw_callback': (el: SVGJS.Container) => {
               this.svg_elements_dict['outer_marker'] = el;
 
               // const self = this;
@@ -679,7 +719,7 @@ export class Station {
               'fill': inner_color,
             },
             'group': this.line.city.stations_group,
-            'draw_callback': (el: svgjs.Container) => {
+            'draw_callback': (el: SVGJS.Container) => {
               this.svg_elements_dict['inner_marker'] = el;
 
               // const self = this;

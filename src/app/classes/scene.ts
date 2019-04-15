@@ -1,7 +1,10 @@
 declare var $: any;
-import * as SVG from 'svg.js';
+// import SVGJS from '@svgdotjs/svg.js/src/svg.js';
+import * as SVGJS from '@svgdotjs/svg.js';
+import '@svgdotjs/svg.filter.js';
+// import '@svgdotjs/svg.panzoom.js';
 
-import { PolyLineElement } from './element';
+import { PolylineElement } from './element';
 import { Theme } from '../../themes/theme';
 import { settings } from '../../themes/default';
 
@@ -22,27 +25,18 @@ import { ElementRef } from '@angular/core';
 
 export class Scene {
   container_id: string;
-  canvas: svgjs.Container;
+  canvas: SVGJS.Container;
 
   theme: Theme;
   elements: Element[];
 
   viewportPointsHistory: number[][] = [];
 
-  constructor(
-    container_id: string,
-    theme: Theme,
-    callback?: (_: Scene) => any,
-  ) {
+  constructor(container_id: string, theme: Theme) {
     this.elements = [];
 
     this.container_id = container_id;
     this.theme = theme;
-    this.canvas = SVG(this.container_id);
-
-    if (callback) {
-      this.prepare(callback);
-    }
   }
 
   scaleViewport(x1: number, y1: number, x2: number, y2: number) {
@@ -132,11 +126,8 @@ export class Scene {
     if (this.canvas) {
       callback(this);
     } else {
-      $(() => {
-        const canvas = SVG(this.container_id);
-        this.canvas = canvas;
-        callback(this);
-      });
+      this.canvas = SVGJS.SVG().addTo('#' + this.container_id);
+      callback(this);
     }
   }
 
@@ -168,8 +159,8 @@ export class Scene {
       case ElementType.Rect:
         element = new RectElement(params);
         break;
-      case ElementType.PolyLineElement:
-        element = new PolyLineElement(params);
+      case ElementType.PolylineElement:
+        element = new PolylineElement(params);
         break;
       case ElementType.LocationMarker:
         element = new LocationMarker(params);
@@ -184,10 +175,12 @@ export class Scene {
   }
 
   cleanup() {
-    this.canvas.children().forEach((el: SVG.Container) => {
-      el.clear();
-    });
-    this.elements = [];
+    if (this.canvas) {
+      this.canvas.children().forEach((el: SVGJS.Container) => {
+        el.remove();
+      });
+      this.elements = [];
+    }
   }
 
   draw(callback: (_: Scene) => any) {

@@ -1,3 +1,5 @@
+declare var $: any;
+
 import {
   Component,
   OnInit,
@@ -23,7 +25,11 @@ import { ResizeService } from '../services/resize_service';
   templateUrl: './subway.html',
   styleUrls: ['./subway.css'],
 })
-export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
+export class SubwayComponent implements
+  OnInit,
+  AfterViewInit,
+  OnDestroy {
+
   private resizeSubscription: Subscription;
   scene: Scene;
 
@@ -62,13 +68,20 @@ export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
     if (local_theme.length > 0) {
       this.selectedTheme = local_theme[0];
     }
+  }
+
+  ngOnDestroy() {
+    if (this.resizeSubscription) {
+      this.resizeSubscription.unsubscribe();
+    }
+  }
+
+  ngAfterViewInit() {
     this.initScene(this.selectedTheme);
 
     // City
     for (const city of data as any[]) {
-      this.cities.push(
-        new City(city, this.scene)
-      );
+      this.cities.push(new City(city));
     }
     this.cities.sort((a, b) => {
       if (a.name > b.name) {
@@ -88,8 +101,8 @@ export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
       this.selectedCity = last_city[0];
     }
 
-    this.resizeSubscription = this.resizeService.onResize$
-      .subscribe(event => {
+    this.resizeSubscription = this.resizeService.onResize$.subscribe(
+      event => {
         // Check https://www.sitepoint.com/html5-javascript-mouse-wheel/
         const delta = Math.max(
           -1,
@@ -101,16 +114,9 @@ export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
           )
         );
         this.selectedCity.scale_ui(delta);
-      });
-  }
+      }
+    );
 
-  ngOnDestroy() {
-    if (this.resizeSubscription) {
-      this.resizeSubscription.unsubscribe();
-    }
-  }
-
-  ngAfterViewInit() {
     this.selectCity(this.selectedCity);
   }
 
@@ -136,8 +142,8 @@ export class SubwayComponent implements OnInit, AfterViewInit, OnDestroy {
     this.scene.prepare(
       (scene: Scene) => {
         this.scene.resize(city.size);
+        city.set_scene(scene);
 
-        city.theme = scene.theme;
         scene.addElements(
           city.generate_element_params(scene.theme)
         );

@@ -1,13 +1,14 @@
 declare var $: any;
+import * as SVGJS from '@svgdotjs/svg.js';
 
-import { Line, StationConnector } from './line';
+import { Line } from './line';
 import { ElementParams, ElementType } from './element';
 import { environment } from '../../environments/environment';
 import { Theme } from '../../themes/theme';
-import { Station } from './station';
+import { Station, StationConnector } from './station';
 import { settings } from '../../themes/default';
 import { Dijkstra } from './dijkstra';
-import { StationTransferDirection, StationTransfer } from './transfer';
+import { StationTransfer } from './transfer';
 import { Scene } from './scene';
 
 export class SubwayRouter {
@@ -222,27 +223,47 @@ export class City {
   active_route_group = [];
 
   scene: Scene;
-  canvas: svgjs.Container;
-  overlay: svgjs.Container;
+  canvas: SVGJS.Container;
+  overlay: SVGJS.Container;
 
-  debug_group: svgjs.G;
-  lines_group: svgjs.G;
-  stations_group: svgjs.G;
-  transfers_group: svgjs.G;
-  markers_group: svgjs.G;
-  overlay_group: svgjs.G;
-  highlight_group: svgjs.G;
-  dialog_group: svgjs.G;
+  debug_group: SVGJS.G;
+  lines_group: SVGJS.G;
+  stations_group: SVGJS.G;
+  transfers_group: SVGJS.G;
+  markers_group: SVGJS.G;
+  overlay_group: SVGJS.G;
+  highlight_group: SVGJS.G;
+  dialog_group: SVGJS.G;
 
-  constructor(json: any, scene: Scene) {
+  constructor(json: any) {
     this.name = json.name;
     this.lines = [];
     this.size = json.size;
 
-    const canvas = scene.canvas;
-    this.scene = scene;
+    for (const line_json of json.lines) {
+      const line = new Line(this, line_json);
+      this.lines.push(line);
+    }
 
-    this.canvas = canvas;
+    for (const line of this.lines) {
+      line.set_transfers();
+      this.add_transfers(line.transfers);
+    }
+
+    // Hide Transfer Source/Destination Names if Equal
+    for (const transfer of this.transfers) {
+      transfer.hide_destinations_if_duplicate();
+    }
+
+    this.router = new SubwayRouter(this);
+  }
+
+  set_scene(scene: Scene) {
+    this.theme = scene.theme;
+    this.scene = scene;
+    this.canvas = scene.canvas;
+    const canvas = scene.canvas;
+
     this.debug_group = canvas.group();
     this.lines_group = canvas.group();
     this.transfers_group = canvas.group();
@@ -272,23 +293,6 @@ export class City {
     this.highlight_group.before(this.overlay_group);
     this.dialog_group.before(this.highlight_group);
 
-    for (const line_json of json.lines) {
-      const line = new Line(this, line_json);
-      this.lines.push(line);
-    }
-
-    for (const line of this.lines) {
-      line.set_transfers();
-      this.add_transfers(line.transfers);
-    }
-
-    // Hide Transfer Source/Destination Names if Equal
-    for (const transfer of this.transfers) {
-      transfer.hide_destinations_if_duplicate();
-    }
-
-    this.router = new SubwayRouter(this);
-
     this.canvas.click((event: MouseEvent) => {
       if (event.target) {
         const target_id = (event.target as Element).id;
@@ -302,7 +306,7 @@ export class City {
   }
 
   scale_ui(delta: number) {
-    $.ready(function() {
+    $.ready(function () {
     });
   }
 
@@ -418,7 +422,7 @@ export class City {
           'style': 'pointer-events: none;', // <---- Makes Overlay Clickable & etc
         },
         'group': this.overlay_group,
-        'draw_callback': (el: svgjs.Container) => {
+        'draw_callback': (el: SVGJS.Container) => {
           this.overlay = el;
           this.svg_elements_dict['overlay'] = el;
 
@@ -511,17 +515,17 @@ export class City {
     };
 
     edges['x1'] = Math.min.apply(
-      Math, path.map(function(o) { return o.position.x; })
+      Math, path.map(function (o) { return o.position.x; })
     );
     edges['y1'] = Math.min.apply(
-      Math, path.map(function(o) { return o.position.y; })
+      Math, path.map(function (o) { return o.position.y; })
     );
 
     edges['x2'] = Math.max.apply(
-      Math, path.map(function(o) { return o.position.x; })
+      Math, path.map(function (o) { return o.position.x; })
     );
     edges['y2'] = Math.max.apply(
-      Math, path.map(function(o) { return o.position.y; })
+      Math, path.map(function (o) { return o.position.y; })
     );
 
     return edges;
@@ -577,7 +581,7 @@ export class City {
             'opacity': .8
           },
           'group': this.dialog_group,
-          'draw_callback': (el: svgjs.Container) => {
+          'draw_callback': (el: SVGJS.Container) => {
 
           },
           'classes': []
@@ -599,7 +603,7 @@ export class City {
             'opacity': .9
           },
           'group': this.dialog_group,
-          'draw_callback': (el: svgjs.Container) => {
+          'draw_callback': (el: SVGJS.Container) => {
 
           },
           'classes': []
@@ -621,7 +625,7 @@ export class City {
             'opacity': .9
           },
           'group': this.dialog_group,
-          'draw_callback': (el: svgjs.Container) => {
+          'draw_callback': (el: SVGJS.Container) => {
 
           },
           'classes': []
@@ -642,9 +646,9 @@ export class City {
             'fill': theme.settings.dialog.station_selection.font_color,
           },
           'group': this.dialog_group,
-          'draw_callback': (el: svgjs.Container) => {
+          'draw_callback': (el: SVGJS.Container) => {
             const self = this;
-            el.on('click', function() {
+            el.on('click', function () {
               const station = self.dialog_group.remember('station');
 
               self.router.select_station_from(station);
@@ -670,9 +674,9 @@ export class City {
             'fill': theme.settings.dialog.station_selection.font_color,
           },
           'group': this.dialog_group,
-          'draw_callback': (el: svgjs.Container) => {
+          'draw_callback': (el: SVGJS.Container) => {
             const self = this;
-            el.on('click', function() {
+            el.on('click', function () {
               const station = self.dialog_group.remember('station');
 
               self.router.select_station_to(station);
@@ -718,7 +722,7 @@ export class City {
                   'opacity': 0.05
                 },
                 'group': this.debug_group,
-                'draw_callback': (el: svgjs.Container) => {
+                'draw_callback': (el: SVGJS.Container) => {
                   this.svg_elements_dict['debug_rect'] = el;
                 },
                 'classes': [

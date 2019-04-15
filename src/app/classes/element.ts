@@ -208,7 +208,29 @@ export class TextElement {
   draw_callback(element: SVGJS.Shape) { }
 
   draw(canvas: SVGJS.Container) {
-    const svg_element: SVGJS.Text = canvas.text(this.text);
+    const svg_element = canvas.text(
+      this.text
+    );
+
+    // Filters
+    if (this.filters.includes('gaussian_blur')) {
+      const text_with_filter = canvas.text(
+        this.text
+      );
+      text_with_filter.attr(this.attr);
+      text_with_filter.move(this.position.x, this.position.y);
+      text_with_filter.font({
+        family: this.family,
+        size: this.size,
+        anchor: this.anchor,
+        weight: this.weight,
+      });
+
+      text_with_filter.filterWith(function(add: any) {
+        add.gaussianBlur(5);
+      });
+    }
+
     svg_element.remember('element', this);
     svg_element.remember('param', this.param);
 
@@ -220,12 +242,6 @@ export class TextElement {
       anchor: this.anchor,
       weight: this.weight,
     });
-
-    if (this.filters.includes('gaussian_blur')) {
-      // svg_element.filterWith(function (add: any) {
-      //   add.gaussianBlur(0, 0);
-      // })
-    }
 
     for (const _class of this.classes) {
       svg_element.addClass(_class);
@@ -714,15 +730,15 @@ export class Point2D {
     this.y = y || 0;
   }
 
-  length = function () {
+  length = function() {
     return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
   };
 
-  normalize = function () {
+  normalize = function() {
     this.divideScalar(this.length());
   };
 
-  degrees = function (another_point: Point2D) {
+  degrees = function(another_point: Point2D) {
     return Math.atan2(
       (another_point.y - this.y),
       (another_point.x - this.x)

@@ -1,7 +1,8 @@
 declare var $: any;
 // import SVGJS from '@svgdotjs/svg.js/src/svg.js';
-import * as SVGJS from '@svgdotjs/svg.js'
+import * as SVGJS from '@svgdotjs/svg.js';
 import '@svgdotjs/svg.filter.js';
+// import '@svgdotjs/svg.panzoom.js';
 
 import { PolylineElement } from './element';
 import { Theme } from '../../themes/theme';

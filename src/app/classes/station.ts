@@ -578,7 +578,7 @@ export class Station {
         this.svg_elements_dict['location_marker'] = marker_el;
 
         const self = this;
-        marker_el.on('click', function () {
+        marker_el.on('click', function() {
           self.line.city.router.select_station(self);
         });
       },
@@ -621,7 +621,7 @@ export class Station {
           'anchor': this.text_anchor,
           'weight': settings.station.font_weight,
           'filters': [
-            // 'gaussian_blur',
+            'gaussian_blur',
           ]
         },
         'attr': {
@@ -632,7 +632,7 @@ export class Station {
           this.svg_elements_dict['name'] = el;
 
           const self = this;
-          el.on('click', function () {
+          el.on('click', function() {
             self.line.city.router.select_station(self);
           });
         },

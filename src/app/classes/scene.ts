@@ -102,11 +102,11 @@ export class Scene {
   }
 
   centerViewport() {
-    const canvas_viewbox = this.canvas.viewbox();
+    const canvas_bbox = this.canvas.bbox();
 
     this.moveViewport(
-      canvas_viewbox.height / 2,
-      canvas_viewbox.width / 2,
+      canvas_bbox.height / 2,
+      canvas_bbox.width / 2,
       true,
     );
   }

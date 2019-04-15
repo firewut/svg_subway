@@ -217,9 +217,7 @@ export class TextElement {
     //   const text_with_filter = canvas.text(
     //     this.text
     //   );
-    //   text_with_filter.back();
     //   text_with_filter.attr(this.attr);
-    //   text_with_filter.attr('font-weight', 'bold');
     //   text_with_filter.move(this.position.x, this.position.y);
     //   text_with_filter.font({
     //     family: this.family,

@@ -13,7 +13,7 @@ export enum ElementType {
   PolylineElement,
   LineDashedElement,
   LineDashedTwoColors,
-  // Highlievel
+  // Highlevel
   LocationMarker,
 }
 

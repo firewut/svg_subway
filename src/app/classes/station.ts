@@ -88,6 +88,7 @@ export class Station {
   _children?: string[] = [];
   children: Station[] = [];
 
+  train_switch = false;
   has_transfers = false;
   raw_transfers?: any;
   transfers: StationTransfer[] = [];
@@ -121,6 +122,10 @@ export class Station {
 
     if ('description' in json) {
       this.description = json.description;
+    }
+
+    if ('train_switch' in json) {
+      this.train_switch = json.train_switch;
     }
 
     this._links = json.links || [];
@@ -171,11 +176,14 @@ export class Station {
     return this.is_name_hidden;
   }
 
-  is_compatible() {
+  valid_for_overview() {
     return this.display_name.length > 0;
   }
 
   icon() {
+    if (this.train_switch) {
+      return 'transfer_within_a_station';
+    }
     return '';
   }
 
@@ -585,7 +593,7 @@ export class Station {
         this.svg_elements_dict['location_marker'] = marker_el;
 
         const self = this;
-        marker_el.on('click', function() {
+        marker_el.on('click', function () {
           self.line.city.router.select_station(self);
         });
       },
@@ -639,7 +647,7 @@ export class Station {
           this.svg_elements_dict['name'] = el;
 
           const self = this;
-          el.on('click', function() {
+          el.on('click', function () {
             self.line.city.router.select_station(self);
           });
         },

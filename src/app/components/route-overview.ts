@@ -1,14 +1,18 @@
 import { Component, Inject } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material';
 
-import { City, OverviewItem } from '../classes/city';
+import { City } from '../classes/city';
+import { Station } from '../classes/station';
+import { StationTransfer } from '../classes/transfer';
 
 @Component({
   selector: 'app-subway-route-overview-sheet',
   templateUrl: './route-overview-sheet.html',
 })
 export class RouteOverviewSheetComponent {
-  active_route: OverviewItem[] = [];
+  active_route: any[] = [];
+  start?: Station;
+  finish?: Station;
 
   constructor(
     private bottomSheetRef: MatBottomSheetRef<RouteOverviewSheetComponent>,
@@ -18,11 +22,18 @@ export class RouteOverviewSheetComponent {
     if (city) {
       if (city.active_route_group_for_overview.length > 0) {
         for (const item of city.active_route_group_for_overview) {
-          if (item.is_compatible()) {
+          if (item instanceof Station) {
+            if (item.valid_for_overview()) {
+              this.active_route.push(item);
+            }
+          }
+          if (item instanceof StationTransfer) {
             this.active_route.push(item);
           }
         }
       }
+      this.start = city.router.from;
+      this.finish = city.router.to;
     }
   }
 

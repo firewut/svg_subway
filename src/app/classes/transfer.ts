@@ -66,12 +66,12 @@ export class StationTransfer {
     }
   }
 
-  is_compatible() {
-    return true;
-  }
-
   icon() {
-    return 'transfer_within_a_station';
+    if (this.type === StationTransferType.Underground) {
+      return 'swap_vert';
+    }
+
+    return '';
   }
 
   get_reversed(): StationTransfer[] {

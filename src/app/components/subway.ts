@@ -127,6 +127,7 @@ export class SubwayComponent implements
       }
     );
 
+
     this.selectCity(this.selectedCity);
   }
 

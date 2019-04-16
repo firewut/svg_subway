@@ -11,12 +11,6 @@ import { Dijkstra } from './dijkstra';
 import { StationTransfer } from './transfer';
 import { Scene } from './scene';
 
-export interface OverviewItem {
-  is_compatible: () => boolean;
-  icon: () => string;
-  line: Line;
-}
-
 export class SubwayRouter {
   city: City;
   from: Station;
@@ -311,7 +305,7 @@ export class City {
   }
 
   scale_ui(delta: number) {
-    $.ready(function() {
+    $.ready(function () {
     });
   }
 
@@ -477,6 +471,8 @@ export class City {
       const current_item = stations[i];
       const next_item = stations[i + 1];
 
+      this.active_route_group_for_overview.push(current_item);
+
       // Line Connectors
       if (
         current_item.children.includes(next_item) ||
@@ -492,15 +488,20 @@ export class City {
       const _transfers = current_item.get_transfers_to(next_item);
       if (_transfers) {
         transfers.push(..._transfers);
+
+        // TODO: Think about multiple sequential transfers
+        const first_transfer = _transfers[0];
+        this.active_route_group_for_overview.push(first_transfer);
+      }
+
+      if (i === stations.length - 2) {
+        this.active_route_group_for_overview.push(next_item);
       }
     }
 
     this.active_route_group.push(...connectors);
     this.active_route_group.push(...transfers);
     this.active_route_group.push(...stations);
-
-    this.active_route_group_for_overview.push(...stations);
-    this.active_route_group_for_overview.push(...transfers);
 
     for (const item of this.active_route_group) {
       item.highlight();
@@ -532,17 +533,17 @@ export class City {
     };
 
     edges['x1'] = Math.min.apply(
-      Math, path.map(function(o) { return o.position.x; })
+      Math, path.map(function (o) { return o.position.x; })
     );
     edges['y1'] = Math.min.apply(
-      Math, path.map(function(o) { return o.position.y; })
+      Math, path.map(function (o) { return o.position.y; })
     );
 
     edges['x2'] = Math.max.apply(
-      Math, path.map(function(o) { return o.position.x; })
+      Math, path.map(function (o) { return o.position.x; })
     );
     edges['y2'] = Math.max.apply(
-      Math, path.map(function(o) { return o.position.y; })
+      Math, path.map(function (o) { return o.position.y; })
     );
 
     return edges;
@@ -666,7 +667,7 @@ export class City {
           'group': this.dialog_group,
           'draw_callback': (el: SVGJS.Container) => {
             const self = this;
-            el.on('click', function() {
+            el.on('click', function () {
               const station = self.dialog_group.remember('station');
 
               self.router.select_station_from(station);
@@ -694,7 +695,7 @@ export class City {
           'group': this.dialog_group,
           'draw_callback': (el: SVGJS.Container) => {
             const self = this;
-            el.on('click', function() {
+            el.on('click', function () {
               const station = self.dialog_group.remember('station');
 
               self.router.select_station_to(station);

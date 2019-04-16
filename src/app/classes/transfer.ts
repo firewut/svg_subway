@@ -66,6 +66,10 @@ export class StationTransfer {
     }
   }
 
+  is_compatible() {
+    return true;
+  }
+
   get_reversed(): StationTransfer[] {
     const reversed_transfers: StationTransfer[] = [];
 

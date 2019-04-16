@@ -1,0 +1,10 @@
+<mat-nav-list>
+    <a mat-list-item *ngFor="let item of active_route">
+        <span mat-line>{{ item.line.name }}</span>
+        <span mat-line>{{ item.type }}{{ item.name }}</span>
+    </a>
+    <!-- <a href="https://keep.google.com/" mat-list-item (click)="openLink($event)">
+        <span mat-line>Google Keep</span>
+        <span mat-line>Add to a note</span>
+    </a> -->
+</mat-nav-list>

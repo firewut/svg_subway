@@ -86,8 +86,9 @@ import {
 })
 export class MaterialModule { }
 
+import { RouteOverviewSheetComponent } from './components/route-overview';
 import { SubwayComponent } from './components/subway';
-import { ResizeService } from './services/resize_service';
+import { ResizeService } from './services/resize-service';
 
 
 
@@ -95,6 +96,7 @@ import { ResizeService } from './services/resize_service';
   declarations: [
     AppComponent,
     SubwayComponent,
+    RouteOverviewSheetComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -107,6 +109,11 @@ import { ResizeService } from './services/resize_service';
   providers: [
     ResizeService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ],
+  entryComponents: [
+    RouteOverviewSheetComponent
+  ]
 })
 export class AppModule { }

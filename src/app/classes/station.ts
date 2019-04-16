@@ -171,6 +171,9 @@ export class Station {
     return this.is_name_hidden;
   }
 
+  is_compatible() {
+    return !this.is_name_hidden;
+  }
 
   add_links(links: StationLink[]) {
     for (const link of links) {

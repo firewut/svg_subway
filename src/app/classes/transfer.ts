@@ -70,6 +70,10 @@ export class StationTransfer {
     return true;
   }
 
+  icon() {
+    return 'transfer_within_a_station';
+  }
+
   get_reversed(): StationTransfer[] {
     const reversed_transfers: StationTransfer[] = [];
 

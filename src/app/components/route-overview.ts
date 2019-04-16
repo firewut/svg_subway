@@ -2,8 +2,6 @@ import { Component, Inject } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material';
 
 import { City, OverviewItem } from '../classes/city';
-import { Station } from '../classes/station';
-import { StationTransfer } from '../classes/transfer';
 
 @Component({
   selector: 'app-subway-route-overview-sheet',
@@ -20,12 +18,9 @@ export class RouteOverviewSheetComponent {
     if (city) {
       if (city.active_route_group_for_overview.length > 0) {
         for (const item of city.active_route_group_for_overview) {
-
           if (item.is_compatible()) {
             this.active_route.push(item);
           }
-          console.log(item)
-
         }
       }
     }

@@ -13,6 +13,8 @@ import { Scene } from './scene';
 
 export interface OverviewItem {
   is_compatible: () => boolean;
+  icon: () => string;
+  line: Line;
 }
 
 export class SubwayRouter {

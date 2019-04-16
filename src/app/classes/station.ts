@@ -172,7 +172,11 @@ export class Station {
   }
 
   is_compatible() {
-    return !this.is_name_hidden;
+    return this.display_name.length > 0;
+  }
+
+  icon() {
+    return '';
   }
 
   add_links(links: StationLink[]) {

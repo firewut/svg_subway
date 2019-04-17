@@ -1,5 +1,5 @@
 import * as SVGJS from '@svgdotjs/svg.js';
-// import '@svgdotjs/svg.filter.js';
+import '@svgdotjs/svg.filter.js';
 
 import { makeid, shadeHexColor } from './helper';
 import { environment } from '../../environments/environment';
@@ -208,40 +208,30 @@ export class TextElement {
   draw_callback(element: SVGJS.Shape) { }
 
   draw(canvas: SVGJS.Container) {
-    const svg_element = canvas.text(
+    const svg_element = canvas.group();
+    const text = svg_element.text(
       this.text
     );
-
-    // // Filters
-    // if (this.filters.includes('gaussian_blur')) {
-    //   const text_with_filter = canvas.text(
-    //     this.text
-    //   );
-    //   text_with_filter.attr(this.attr);
-    //   text_with_filter.move(this.position.x, this.position.y);
-    //   text_with_filter.font({
-    //     family: this.family,
-    //     size: this.size,
-    //     anchor: this.anchor,
-    //     weight: this.weight,
-    //   });
-
-    //   text_with_filter.filterWith(function(add: any) {
-    //     add.gaussianBlur(5);
-    //   });
-    // }
 
     svg_element.remember('element', this);
     svg_element.remember('param', this.param);
 
-    svg_element.attr(this.attr);
-    svg_element.move(this.position.x, this.position.y);
-    svg_element.font({
+    text.attr(this.attr);
+    text.move(this.position.x, this.position.y);
+    text.font({
       family: this.family,
       size: this.size,
       anchor: this.anchor,
       weight: this.weight,
     });
+
+    if ('bbox_color' in this.param.properties) {
+      // const b = svg_element.bbox();
+      // const bbox_rect = svg_element.rect(b.width + 10, b.height);
+      // bbox_rect.move(b.x - 5, b.y).fill(this.param.properties.bbox_color).opacity(.85);
+      // svg_element.add(bbox_rect);
+      // bbox_rect.after(text)
+    }
 
     for (const _class of this.classes) {
       svg_element.addClass(_class);
@@ -730,15 +720,15 @@ export class Point2D {
     this.y = y || 0;
   }
 
-  length = function() {
+  length = function () {
     return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
   };
 
-  normalize = function() {
+  normalize = function () {
     this.divideScalar(this.length());
   };
 
-  degrees = function(another_point: Point2D) {
+  degrees = function (another_point: Point2D) {
     return Math.atan2(
       (another_point.y - this.y),
       (another_point.x - this.x)

@@ -182,7 +182,7 @@ export class Station {
 
   icon() {
     if (this.train_switch) {
-      return 'transfer_within_a_station';
+      return 'swap_vert';
     }
     return '';
   }
@@ -635,9 +635,7 @@ export class Station {
           },
           'anchor': this.text_anchor,
           'weight': settings.station.font_weight,
-          'filters': [
-            'gaussian_blur',
-          ]
+          'bbox_color': theme.settings.background_color,
         },
         'attr': {
           'fill': font_color,

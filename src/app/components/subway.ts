@@ -52,11 +52,15 @@ export class SubwayComponent implements
   }
 
   openBottomSlider() {
-    this.bottomSheet.open(
-      RouteOverviewSheetComponent, {
-        data: this.selectedCity
+    if (this.selectedCity) {
+      if (this.selectedCity.active_route_group_for_overview.length > 0) {
+        this.bottomSheet.open(
+          RouteOverviewSheetComponent, {
+            data: this.selectedCity
+          }
+        );
       }
-    );
+    }
   }
 
   initScene(theme: Theme) {

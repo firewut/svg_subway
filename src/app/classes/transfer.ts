@@ -68,7 +68,7 @@ export class StationTransfer {
 
   icon() {
     if (this.type === StationTransferType.Underground) {
-      return 'swap_vert';
+      return 'transfer_within_a_station';
     }
 
     return '';

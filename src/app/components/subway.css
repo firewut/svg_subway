@@ -1,5 +1,11 @@
 .menu {
-    position: fixed;
-    top: 5px;
-    left: 5px;
+  position: fixed;
+  top: 5px;
+  left: 5px;
+}
+
+.route_overview_button {
+  position: fixed;
+  left: 47%;
+  bottom: 5px;
 }

@@ -1,34 +1,38 @@
 <button mat-mini-fab color="none" [matMenuTriggerFor]="menu" aria-label="Menu" class="menu">
-    <mat-icon>menu</mat-icon>
+  <mat-icon>menu</mat-icon>
 </button>
 <mat-menu #menu="matMenu">
-    <button mat-menu-item [matMenuTriggerFor]="cities_list">
-        <mat-icon>location_city</mat-icon>
-        <span>City</span>
-    </button>
-    <button mat-menu-item [matMenuTriggerFor]="themes_list">
-        <mat-icon>color_lens</mat-icon>
-        <span>Theme</span>
-    </button>
-    <!-- <button mat-menu-item>
+  <button mat-menu-item [matMenuTriggerFor]="cities_list">
+    <mat-icon>location_city</mat-icon>
+    <span>City</span>
+  </button>
+  <button mat-menu-item [matMenuTriggerFor]="themes_list">
+    <mat-icon>color_lens</mat-icon>
+    <span>Theme</span>
+  </button>
+  <!-- <button mat-menu-item>
         <mat-icon>help</mat-icon>
         <span>About</span>
     </button> -->
-    <a mat-menu-item href="{{ feedback_email }}">
-        <mat-icon>feedback</mat-icon>
-        Feedback
-    </a>
+  <a mat-menu-item href="{{ feedback_email }}">
+    <mat-icon>feedback</mat-icon>
+    Feedback
+  </a>
 </mat-menu>
 <mat-menu #cities_list="matMenu">
-    <button mat-menu-item *ngFor="let city of cities" (click)="selectCity(city)">
-        <span>{{city.name}}</span>
-    </button>
+  <button mat-menu-item *ngFor="let city of cities" (click)="selectCity(city)">
+    <span>{{city.name}}</span>
+  </button>
 </mat-menu>
 <mat-menu #themes_list="matMenu">
-    <button mat-menu-item *ngFor="let theme of themes" (click)="selectTheme(theme)">
-        <span>{{theme.name}}</span>
-    </button>
+  <button mat-menu-item *ngFor="let theme of themes" (click)="selectTheme(theme)">
+    <span>{{theme.name}}</span>
+  </button>
 </mat-menu>
 
+
+<button mat-mini-fab color="none" (click)="openBottomSlider()" class="route_overview_button">
+  <mat-icon>keyboard_arrow_up</mat-icon>
+</button>
 
 <div id="canvas"></div>

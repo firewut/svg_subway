@@ -1,0 +1,39 @@
+<mat-grid-list cols="2" rowHeight="60px" *ngIf="start || finish">
+  <mat-grid-tile *ngIf="start">
+    <button mat-mini-fab [ngStyle]="{'background':start.line.color}">
+      <b>{{ start.line.name }}</b>
+    </button>
+    <h3>{{ start.name }}</h3>
+  </mat-grid-tile>
+  <mat-grid-tile *ngIf="finish">
+    <button mat-mini-fab [ngStyle]="{'background':finish.line.color}">
+      <b>{{ finish.line.name }}</b>
+    </button>
+    <h3>{{ finish.name }}</h3>
+  </mat-grid-tile>
+</mat-grid-list>
+<mat-nav-list dense>
+  <mat-list-item *ngFor="let item of active_route; let i = index">
+    <mat-icon matListIcon *ngIf="item.icon">{{ item.icon() }}</mat-icon>
+    <!-- Transfer -->
+    <ng-container *ngIf="item.type">
+      <mat-progress-bar mode="buffer"></mat-progress-bar>
+
+      <!-- <button mat-mini-fab [ngStyle]="{'background':item.source.line.color}">
+        <b>{{ item.source.line.name }}</b>
+      </button>
+      <button mat-mini-fab [ngStyle]="{'background':active_route[i+1].line.color}">
+        <b>{{ active_route[i+1].line.name }}</b>
+      </button> -->
+
+    </ng-container>
+
+    <!-- Station -->
+    <ng-container *ngIf="item.name">
+      <mat-icon matListIcon [ngStyle]="{'color':item.line.color}">fiber_manual_record</mat-icon>
+      <p mat-line>
+        <span>{{ item.name }}</span>
+      </p>
+    </ng-container>
+  </mat-list-item>
+</mat-nav-list>

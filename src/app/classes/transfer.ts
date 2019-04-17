@@ -66,6 +66,14 @@ export class StationTransfer {
     }
   }
 
+  icon() {
+    if (this.type === StationTransferType.Underground) {
+      return 'transfer_within_a_station';
+    }
+
+    return '';
+  }
+
   get_reversed(): StationTransfer[] {
     const reversed_transfers: StationTransfer[] = [];
 

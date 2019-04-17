@@ -3843,6 +3843,7 @@
                         "name": {
                             "value": "Tres Olivos"
                         },
+                        "train_switch": true,
                         "description": "Train Switch",
                         "links": [
                             {

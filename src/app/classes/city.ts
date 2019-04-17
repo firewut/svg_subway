@@ -221,6 +221,7 @@ export class City {
   elements: Element[] = [];
   svg_elements_dict = {};
   active_route_group = [];
+  active_route_group_for_overview = [];
 
   scene: Scene;
   canvas: SVGJS.Container;
@@ -338,6 +339,16 @@ export class City {
     return;
   }
 
+  viewportCenterStation(station_id: string) {
+    const station = this.get_station_by_id(station_id);
+    if (station) {
+      this.scene.moveViewport(
+        station.position.y,
+        station.position.x,
+      );
+    }
+  }
+
   hide_stations_selection_dialog(viewport_back?: boolean) {
     let dialog_hided = false;
     if (this.dialog_group.visible()) {
@@ -451,7 +462,6 @@ export class City {
       for (const line of this.lines) {
         const station = line.get_station_by_id(station_id);
         if (station !== undefined) {
-          // this.active_route_group.push(station);
           stations.push(station);
           break;
         }
@@ -462,6 +472,8 @@ export class City {
     for (let i = 0; i < stations.length - 1; i++) {
       const current_item = stations[i];
       const next_item = stations[i + 1];
+
+      this.active_route_group_for_overview.push(current_item);
 
       // Line Connectors
       if (
@@ -478,6 +490,14 @@ export class City {
       const _transfers = current_item.get_transfers_to(next_item);
       if (_transfers) {
         transfers.push(..._transfers);
+
+        // TODO: Think about multiple sequential transfers
+        const first_transfer = _transfers[0];
+        this.active_route_group_for_overview.push(first_transfer);
+      }
+
+      if (i === stations.length - 2) {
+        this.active_route_group_for_overview.push(next_item);
       }
     }
 
@@ -539,6 +559,7 @@ export class City {
     }
 
     this.active_route_group = [];
+    this.active_route_group_for_overview = [];
   }
 
   show_overlay() {

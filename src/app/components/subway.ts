@@ -7,6 +7,7 @@ import {
   OnDestroy,
   ElementRef,
 } from '@angular/core';
+import { MatBottomSheet } from '@angular/material';
 
 import { City } from '../classes/city';
 import { Scene } from '../classes/scene';
@@ -17,8 +18,8 @@ import { environment } from '../../environments/environment';
 import data from '../../assets/data.json';
 import { settings } from '../../themes/default';
 import { Subscription } from 'rxjs';
-import { ResizeService } from '../services/resize_service';
-
+import { ResizeService } from '../services/resize-service';
+import { RouteOverviewSheetComponent } from './route-overview';
 
 @Component({
   selector: 'app-subway',
@@ -43,9 +44,22 @@ export class SubwayComponent implements
   constructor(
     private resizeService: ResizeService,
     private elementRef: ElementRef,
+    private bottomSheet: MatBottomSheet,
   ) {
     if (environment.feedback_email.length > 0) {
       this.feedback_email = `mailto:${environment.feedback_email}`;
+    }
+  }
+
+  openBottomSlider() {
+    if (this.selectedCity) {
+      if (this.selectedCity.active_route_group_for_overview.length > 0) {
+        this.bottomSheet.open(
+          RouteOverviewSheetComponent, {
+            data: this.selectedCity
+          }
+        );
+      }
     }
   }
 
@@ -116,6 +130,7 @@ export class SubwayComponent implements
         this.selectedCity.scale_ui(delta);
       }
     );
+
 
     this.selectCity(this.selectedCity);
   }

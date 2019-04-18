@@ -115,6 +115,8 @@ export class Station {
   private click_toggle = false;
   private location_marker: SVGJS.Shape;
   private theme: Theme;
+  private duplicates?: Station;
+  private is_duplicate = false;
 
   constructor(line: Line, json: any) {
     this.id = makeid();
@@ -168,8 +170,11 @@ export class Station {
     }
   }
 
-  hide_duplicate() {
+  hide_as_duplicate(original: Station) {
     this.is_name_hidden = true;
+
+    this.duplicates = original;
+    this.is_duplicate = true;
   }
 
   hidden() {
@@ -557,6 +562,13 @@ export class Station {
     if (this.skippable) {
       return;
     }
+
+    if (this.is_duplicate) {
+      // Warning
+      // This will affect unhighlight too.
+      this.svg_elements_dict['name'] = this.duplicates.svg_elements_dict['name'];
+    }
+
     for (const key in this.svg_elements_dict) {
       if (this.svg_elements_dict.hasOwnProperty(key)) {
         const element = this.svg_elements_dict[key];
@@ -593,7 +605,7 @@ export class Station {
         this.svg_elements_dict['location_marker'] = marker_el;
 
         const self = this;
-        marker_el.on('click', function () {
+        marker_el.on('click', function() {
           self.line.city.router.select_station(self);
         });
       },
@@ -645,7 +657,7 @@ export class Station {
           this.svg_elements_dict['name'] = el;
 
           const self = this;
-          el.on('click', function () {
+          el.on('click', function() {
             self.line.city.router.select_station(self);
           });
         },

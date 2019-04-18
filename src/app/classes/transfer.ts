@@ -59,7 +59,7 @@ export class StationTransfer {
             (destination.position.x === this.source.position.x) &&
             (destination.position.y === this.source.position.y)
           ) {
-            destination.hide_duplicate();
+            destination.hide_as_duplicate(this.source);
           }
         }
       }

@@ -305,8 +305,7 @@ export class City {
   }
 
   scale_ui(delta: number) {
-    $.ready(function() {
-    });
+
   }
 
   add_transfers(transfers: StationTransfer[]) {

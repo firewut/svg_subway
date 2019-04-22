@@ -6,6 +6,7 @@ import {
   AfterViewInit,
   OnDestroy,
   ElementRef,
+  HostListener,
 } from '@angular/core';
 import { MatBottomSheet } from '@angular/material';
 
@@ -18,7 +19,6 @@ import { environment } from '../../environments/environment';
 import data from '../../assets/data.json';
 import { settings } from '../../themes/default';
 import { Subscription } from 'rxjs';
-import { ResizeService } from '../services/resize-service';
 import { RouteOverviewSheetComponent } from './route-overview';
 
 @Component({
@@ -42,13 +42,37 @@ export class SubwayComponent implements
   feedback_email = '';
 
   constructor(
-    private resizeService: ResizeService,
     private elementRef: ElementRef,
     private bottomSheet: MatBottomSheet,
   ) {
     if (environment.feedback_email.length > 0) {
       this.feedback_email = `mailto:${environment.feedback_email}`;
     }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?: Event) {
+    // Resize UI
+    const min_edge = Math.min(
+      Math.abs(window.innerWidth),
+      Math.abs(window.innerHeight),
+    );
+
+    // TODO: Fix this :)
+    const button_size = min_edge / 14;
+    $('.scale_size_preserve')
+      .css('width', button_size)
+      .css('height', button_size)
+      .css('line-height', 0);
+    $('.scale_size_preserve .mat-button-wrapper')
+      .css('width', button_size / 2)
+      .css('height', button_size / 2)
+      .css('padding', button_size / 4)
+      .css('line-height', 0);
+    $('.scale_size_preserve .mat-button-wrapper .mat-icon')
+      .css('width', button_size / 2)
+      .css('height', button_size / 2)
+      .css('font-size', button_size / 2);
   }
 
   openBottomSlider() {
@@ -91,6 +115,7 @@ export class SubwayComponent implements
   }
 
   ngAfterViewInit() {
+    this.onResize();
     this.initScene(this.selectedTheme);
 
     // City
@@ -114,23 +139,6 @@ export class SubwayComponent implements
     if (last_city.length > 0) {
       this.selectedCity = last_city[0];
     }
-
-    this.resizeSubscription = this.resizeService.onResize$.subscribe(
-      event => {
-        // Check https://www.sitepoint.com/html5-javascript-mouse-wheel/
-        const delta = Math.max(
-          -1,
-          Math.min(
-            1,
-            (
-              event.deltaY || -event.detail
-            )
-          )
-        );
-        this.selectedCity.scale_ui(delta);
-      }
-    );
-
 
     this.selectCity(this.selectedCity);
   }

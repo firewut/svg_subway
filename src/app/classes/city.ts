@@ -304,10 +304,6 @@ export class City {
     });
   }
 
-  scale_ui(delta: number) {
-
-  }
-
   add_transfers(transfers: StationTransfer[]) {
     for (const transfer of transfers) {
       this.add_transfer(transfer);
@@ -532,17 +528,17 @@ export class City {
     };
 
     edges['x1'] = Math.min.apply(
-      Math, path.map(function(o) { return o.position.x; })
+      Math, path.map(function (o) { return o.position.x; })
     );
     edges['y1'] = Math.min.apply(
-      Math, path.map(function(o) { return o.position.y; })
+      Math, path.map(function (o) { return o.position.y; })
     );
 
     edges['x2'] = Math.max.apply(
-      Math, path.map(function(o) { return o.position.x; })
+      Math, path.map(function (o) { return o.position.x; })
     );
     edges['y2'] = Math.max.apply(
-      Math, path.map(function(o) { return o.position.y; })
+      Math, path.map(function (o) { return o.position.y; })
     );
 
     return edges;
@@ -666,7 +662,7 @@ export class City {
           'group': this.dialog_group,
           'draw_callback': (el: SVGJS.Container) => {
             const self = this;
-            el.on('click', function() {
+            el.on('click', function () {
               const station = self.dialog_group.remember('station');
 
               self.router.select_station_from(station);
@@ -694,7 +690,7 @@ export class City {
           'group': this.dialog_group,
           'draw_callback': (el: SVGJS.Container) => {
             const self = this;
-            el.on('click', function() {
+            el.on('click', function () {
               const station = self.dialog_group.remember('station');
 
               self.router.select_station_to(station);

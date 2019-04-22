@@ -88,8 +88,6 @@ export class MaterialModule { }
 
 import { RouteOverviewSheetComponent } from './components/route-overview';
 import { SubwayComponent } from './components/subway';
-import { ResizeService } from './services/resize-service';
-
 
 
 @NgModule({
@@ -107,7 +105,6 @@ import { ResizeService } from './services/resize-service';
     AppRoutingModule,
   ],
   providers: [
-    ResizeService
   ],
   bootstrap: [
     AppComponent

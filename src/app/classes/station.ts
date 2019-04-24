@@ -114,6 +114,9 @@ export class Station {
 
   private click_toggle = false;
   private location_marker: SVGJS.Shape;
+  private location_marker_el: SVGJS.Container;
+  private location_marker_caption: string;
+
   private theme: Theme;
   private duplicates?: Station;
   private is_duplicate = false;
@@ -582,19 +585,51 @@ export class Station {
     }
   }
 
+  resize_ui() {
+
+    // If it has a Marker - remove and add it again
+    if (this.location_marker) {
+      this.location_marker.remove();
+
+      const marker = new LocationMarker(
+        this.get_location_marker(this.location_marker_el, this.location_marker_caption)
+      );
+      this.location_marker = marker.draw(
+        this.line.city.canvas
+      );
+      this.location_marker.addTo(this.line.city.highlight_group);
+    }
+  }
+
   get_location_marker(el: SVGJS.Container, caption: string): ElementParams {
     const marker_color = this.line.color;
+
+    const min_edge = this.line.city.scene.get_min_edge();
+    let radius = min_edge / 25;
+    if (radius <= settings.location_marker.text_size + 5) {
+      radius = settings.location_marker.radius;
+    }
+
+    let text_size = min_edge / 25 - 5;
+    if (text_size <= settings.location_marker.text_size) {
+      text_size = settings.location_marker.text_size;
+    }
 
     const marker_position = new Point2D(
       this.position.x,
       this.position.y - settings.location_marker.radius
     );
 
+    this.location_marker_el = el;
+    this.location_marker_caption = caption;
+
     return {
       'type': ElementType.LocationMarker,
       'properties': {
         'text': caption,
-        'position': marker_position
+        'position': marker_position,
+        'radius': radius,
+        'size': text_size,
       },
       'attr': {
         'marker-fill': marker_color,
@@ -605,7 +640,7 @@ export class Station {
         this.svg_elements_dict['location_marker'] = marker_el;
 
         const self = this;
-        marker_el.on('click', function() {
+        marker_el.on('click', function () {
           self.line.city.router.select_station(self);
         });
       },
@@ -657,7 +692,7 @@ export class Station {
           this.svg_elements_dict['name'] = el;
 
           const self = this;
-          el.on('click', function() {
+          el.on('click', function () {
             self.line.city.router.select_station(self);
           });
         },

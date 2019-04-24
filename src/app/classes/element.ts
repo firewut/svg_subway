@@ -87,7 +87,7 @@ export class LocationMarker {
     const svg_element: SVGJS.Container = canvas.group();
 
     const circle: SVGJS.Circle = svg_element.circle(
-      settings.location_marker.radius
+      this.param.properties.radius
     );
     const text: SVGJS.Text = svg_element.text(
       this.text
@@ -103,7 +103,7 @@ export class LocationMarker {
     });
     text.font({
       family: 'Inconsolata',
-      size: settings.location_marker.text_size,
+      size: this.param.properties.size
     }).attr({
       fill: this.attr['text-fill'],
     });
@@ -150,6 +150,7 @@ export class LocationMarker {
   check() { }
 
   uncheck() { }
+
 }
 
 export class TextElement {

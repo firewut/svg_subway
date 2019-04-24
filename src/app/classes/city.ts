@@ -505,17 +505,19 @@ export class City {
     // Center & Scale Viewport to Route
     //     detect rote Rectange
     const edges = this.path_edges(stations);
-    // Center Viewport
-    this.scene.moveViewport(
-      (edges['y2'] + edges['y1']) / 2,
-      (edges['x2'] + edges['x1']) / 2,
-    );
+
     // Scale Viewport
     this.scene.scaleViewport(
       edges['x1'],
       edges['y1'],
       edges['x2'],
       edges['y2'],
+    );
+
+    // Center Viewport
+    this.scene.moveViewport(
+      (edges['y2'] + edges['y1']) / 2,
+      (edges['x2'] + edges['x1']) / 2,
     );
   }
 
@@ -567,6 +569,17 @@ export class City {
       if (this.overlay.visible()) {
         this.hide_stations_selection_dialog();
         this.overlay.hide();
+      }
+    }
+  }
+
+  resize_ui() {
+    const selected_stations: Station[] = [];
+    selected_stations.push(...[this.router.from, this.router.to]);
+
+    for (const station of selected_stations) {
+      if (station) {
+        station.resize_ui();
       }
     }
   }

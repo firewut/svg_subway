@@ -58,8 +58,14 @@ export class SubwayComponent implements
       Math.abs(window.innerHeight),
     );
 
-    // TODO: Fix this :)
-    const button_size = min_edge / 14;
+    const button_scale = 6;
+    const button_size = min_edge / button_scale;
+
+    // let button_size = min_edge / button_scale;
+    // if (button_size < 64) {
+    //   button_size = 64;
+    // }
+
     $('.scale_size_preserve')
       .css('width', button_size)
       .css('height', button_size)
@@ -73,6 +79,11 @@ export class SubwayComponent implements
       .css('width', button_size / 2)
       .css('height', button_size / 2)
       .css('font-size', button_size / 2);
+
+    // Resize rest UI
+    if (this.selectedCity) {
+      this.selectedCity.resize_ui();
+    }
   }
 
   openBottomSlider() {

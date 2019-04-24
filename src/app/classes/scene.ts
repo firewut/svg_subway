@@ -37,8 +37,16 @@ export class Scene {
     this.theme = theme;
   }
 
+  get_min_edge() {
+    return Math.min(
+      Math.abs(window.innerWidth),
+      Math.abs(window.innerHeight),
+    );
+  }
+
   scaleViewport(x1: number, y1: number, x2: number, y2: number) {
     // This should Fit Route to Viewport
+    let scaled = false;
 
     // Check if line's edges includes to viewport
     const line_width = Math.abs(x1 - x2);
@@ -60,13 +68,12 @@ export class Scene {
         ) < line_width
       )
     ) {
-      console.log(window.innerWidth, line_width, line_height, window.innerHeight);
+      // Scaling should engage
+      const zoom_level_height = line_height / window.innerHeight;
+      const zoom_level_width = line_width / window.innerWidth;
 
+      const zoom_level = Math.max(zoom_level_width, zoom_level_height);
     }
-    // $('#canvas').animate(
-    //   { width: line_width, height: line_height },
-    //   settings.viewport.animation_speed
-    // );
   }
 
   addToMoveHistory(top: number, left: number) {

@@ -577,6 +577,12 @@ export class City {
     const selected_stations: Station[] = [];
     selected_stations.push(...[this.router.from, this.router.to]);
 
+    const min_edge = this.scene.get_min_edge();
+    const width = min_edge / 5;
+    const height = width / 3;
+    this.dialog_group.width(width).height(height);
+
+
     for (const station of selected_stations) {
       if (station) {
         station.resize_ui();

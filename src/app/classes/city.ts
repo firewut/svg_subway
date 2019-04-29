@@ -582,7 +582,6 @@ export class City {
     const height = width / 3;
     this.dialog_group.width(width).height(height);
 
-
     for (const station of selected_stations) {
       if (station) {
         station.resize_ui();
@@ -603,8 +602,8 @@ export class City {
             'position': {
               'x1': 0,
               'y1': 0,
-              'x2': dialog_settings.width,
-              'y2': dialog_settings.height,
+              'x2': 100,
+              'y2': 100,
             },
             'radius': dialog_settings.corner_radius,
           },

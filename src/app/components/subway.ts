@@ -179,6 +179,7 @@ export class SubwayComponent implements
 
         scene.draw((_scene: Scene) => {
           _scene.centerViewport();
+          city.resize_ui();
         });
       }
     );

@@ -58,13 +58,8 @@ export class SubwayComponent implements
       Math.abs(window.innerHeight),
     );
 
-    const button_scale = 6;
+    const button_scale = 10;
     const button_size = min_edge / button_scale;
-
-    // let button_size = min_edge / button_scale;
-    // if (button_size < 64) {
-    //   button_size = 64;
-    // }
 
     $('.scale_size_preserve')
       .css('width', button_size)
@@ -184,6 +179,7 @@ export class SubwayComponent implements
 
         scene.draw((_scene: Scene) => {
           _scene.centerViewport();
+          city.resize_ui();
         });
       }
     );

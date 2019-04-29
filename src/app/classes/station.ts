@@ -586,13 +586,15 @@ export class Station {
   }
 
   resize_ui() {
-
     // If it has a Marker - remove and add it again
     if (this.location_marker) {
       this.location_marker.remove();
 
       const marker = new LocationMarker(
-        this.get_location_marker(this.location_marker_el, this.location_marker_caption)
+        this.get_location_marker(
+          this.location_marker_el,
+          this.location_marker_caption
+        )
       );
       this.location_marker = marker.draw(
         this.line.city.canvas
@@ -610,14 +612,14 @@ export class Station {
       radius = settings.location_marker.radius;
     }
 
-    let text_size = min_edge / 25 - 5;
+    let text_size = radius - radius / 3;
     if (text_size <= settings.location_marker.text_size) {
       text_size = settings.location_marker.text_size;
     }
 
     const marker_position = new Point2D(
       this.position.x,
-      this.position.y - settings.location_marker.radius
+      this.position.y
     );
 
     this.location_marker_el = el;

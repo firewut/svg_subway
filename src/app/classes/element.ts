@@ -92,10 +92,11 @@ export class LocationMarker {
     const text: SVGJS.Text = svg_element.text(
       this.text
     );
-    const radius_part = settings.location_marker.radius / 3;
+    const radius_part = this.param.properties.radius / 3;
     const v: SVGJS.Polyline = svg_element.polyline(
-      `${radius_part},${radius_part * 2} ${radius_part * 1.5},${radius_part * 3} 
-      ${radius_part * 2},${radius_part * 2}`
+      `${radius_part},${radius_part * 2}
+       ${radius_part * 1.5},${radius_part * 3}
+       ${radius_part * 2},${radius_part * 2}`
     );
 
     circle.attr({
@@ -114,9 +115,12 @@ export class LocationMarker {
     svg_element.remember('element', this);
     svg_element.remember('param', this.param);
 
-    circle.center(this.position.x, this.position.y);
-    text.center(this.position.x, this.position.y);
-    v.center(this.position.x, this.position.y + radius_part * 1.7);
+    const x = this.position.x;
+    const y = this.position.y - radius_part * 3;
+
+    circle.center(x, y);
+    text.center(x, y);
+    v.center(x, y + radius_part * 1.5);
 
     for (const _class of this.classes) {
       svg_element.addClass(_class);
